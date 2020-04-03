@@ -10,7 +10,7 @@
 # dependencies
 /node_modules
 
-# compiled server version with babel
+# compiled JS server version with babel
 /src/node-api/dist
 
 # profiling files
