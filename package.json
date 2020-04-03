@@ -11,7 +11,8 @@
     "server-clean": "rimraf dist",
     "server-build": "npm run server-clean && cd src/node-api && babel src -d dist",
     "server-dev": "cd src/node-api/src && nodemon --exec babel-node index.js",
-    "server-pro": "npm run server-build && cd src/node-api/dist && node index.js"
+    "server-pro": "npm run server-build && cd src/node-api/dist && node index.js",
+    "server-test": "cd src/node-api && mocha --require @babel/register --recursive test"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +26,9 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "chai": "^4.2.0",
     "express": "^4.17.1",
+    "mocha": "^7.1.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -39,6 +42,7 @@
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
