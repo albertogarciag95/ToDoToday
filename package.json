@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test -- --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e --port 4201 --protractor-config=e2e/protractor.conf.js",
+    "e2e": "ng e2e --port 4201",
     "server-clean": "rimraf dist",
     "server-build": "npm run server-clean && cd src/node-api && babel src -d dist",
     "server-dev": "cd src/node-api/src && nodemon --exec babel-node index.js",
