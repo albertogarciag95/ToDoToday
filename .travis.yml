@@ -6,15 +6,18 @@ addons:
 branches:
   - develop
   - /^release-[0-999].[0-999]$/
-  - /^issue#[0-999]$/
+  - /^issue#([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|1000)$/
   - master
 notifications:
   email:
     recipients:
       - alberto95.rm@gmail.com
+install:
+  - npm install
 script:
-  - npm run test
-  - npm run e2e
+  - npm run lint
+  - ng e2e --port 4201 --protractor-config=e2e/protractor-travis.conf.js
+  - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
   - npm run server-test
 
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
