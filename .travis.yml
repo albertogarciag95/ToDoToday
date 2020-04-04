@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - '12'
+addons:
+  chrome: stable
+branches:
+  - develop
+  - /^release-[0-999].[0-999]$/
+  - /^issue#[0-999]$/
+  - master
+notifications:
+  email:
+    recipients:
+      - alberto95.rm@gmail.com
+script:
+  - npm run test
+  - npm run e2e
+  - npm run server-test
+
+# Deploy https://betca-tpv-angular.herokuapp.com #TODO
+#deploy:
+  #provider: heroku
+  #api_key:
+    #secure: $HEROKU
+  #on:
+    #branch: master
