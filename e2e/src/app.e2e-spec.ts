@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display ToDoToday in sidebar', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('todo-today app is running!');
+    expect(page.getSidebarText()).toEqual('ToDoToday');
   });
 
   afterEach(async () => {
