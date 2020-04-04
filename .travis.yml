@@ -5,6 +5,8 @@ addons:
   chrome: stable
   sonarcloud:
     organization: "albertogarciag95-github"
+    token:
+      secure: "SONAR"
 branches:
   - develop
   - /^release-[0-999].[0-999]$/
