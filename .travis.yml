@@ -3,6 +3,8 @@ node_js:
   - '12'
 addons:
   chrome: stable
+  sonarcloud:
+    organization: "albertogarciag95-github"
 branches:
   - develop
   - /^release-[0-999].[0-999]$/
@@ -19,6 +21,7 @@ script:
   - ng e2e --port 4201 --protractor-config=e2e/protractor-travis.conf.js
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
   - npm run server-test
+  - sonar-scanner -Dsonar.projectKey=ToDoToday -Dsonar.sources=src1
 
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
 #deploy:
