@@ -23,6 +23,7 @@ script:
   - npm run server-test
   - sonar-scanner -Dsonar.projectKey=ToDoToday -Dsonar.sources=src
 
+
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
 #deploy:
   #provider: heroku
