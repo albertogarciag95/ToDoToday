@@ -1,14 +1,8 @@
-sudo: required
-dist: trusty
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
 language: node_js
 node_js:
   - '12'
+addons:
+  chrome: stable
 branches:
   - develop
   - /^release-[0-999].[0-999]$/
@@ -22,7 +16,7 @@ install:
   - npm install
 script:
   - npm run lint
-  - npm run e2e
+  - ng e2e --port 4201 --protractor-config=e2e/protractor-travis.conf.js
   - npm run test
   - npm run server-test
 
