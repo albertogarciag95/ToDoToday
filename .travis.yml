@@ -13,8 +13,8 @@ notifications:
     recipients:
       - alberto95.rm@gmail.com
 script:
+  - ng e2e --protractor-config=e2e/protractor-travis.conf.js
   - npm run test
-  - npm run e2e
   - npm run server-test
 
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
