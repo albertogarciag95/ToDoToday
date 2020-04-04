@@ -6,7 +6,7 @@ addons:
 branches:
   - develop
   - /^release-[0-999].[0-999]$/
-  - /^issue#-[0-999]$/
+  - /^issue#[0-999]$/
   - master
 notifications:
   email:
