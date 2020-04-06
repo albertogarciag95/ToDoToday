@@ -1,13 +1,15 @@
 const PORT = 3000;
 
 import express from 'express';
-// const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 import makeCallback from './express-callback';
 
 const app = express();
 
-// app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyparser.urlencoded({ extended: false}))
+app.use(cors());
 
 // app.post(`${apiRoot}/comments`, makeCallback(postComment))
 // app.delete(`${apiRoot}/comments/:id`, makeCallback(deleteComment))
