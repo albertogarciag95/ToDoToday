@@ -1,0 +1,12 @@
+<div class="main-container">
+  <h1>Crea tu propio itinerario</h1>
+  <h3>¿Qué te apetece hacer hoy?</h3>
+
+  <mat-form-field>
+    <mat-label>Elige categoría</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of foods" value="food">{{food}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary">Crear itinerario</button>
+</div>
