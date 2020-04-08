@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class CreateItineraryComponent implements OnInit {
 
-  foods: string[] = ["hola", "hola2", "hola3"];
+  foods: string[] = [ 'hola', 'hola2', 'hola3' ];
 
   constructor() { }
 
