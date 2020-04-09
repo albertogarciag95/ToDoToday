@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CreateItineraryService } from './create-itinerary.service';
+import { Category } from '../shared/models/category';
 
 @Component({
   selector: 'app-create-itinerary',
@@ -8,11 +10,16 @@ import { Component, OnInit } from '@angular/core';
 
 export class CreateItineraryComponent implements OnInit {
 
-  foods: string[] = [ 'hola', 'hola2', 'hola3' ];
+  categories: Category[];
 
-  constructor() { }
+  constructor(private createItineraryService: CreateItineraryService) { }
 
   ngOnInit(): void {
+    this.createItineraryService.getCategories().subscribe(
+      (response: Category[]) => {
+        console.log(response);
+        this.categories = response
+      });
   }
 
 }

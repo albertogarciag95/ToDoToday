@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { CreateItineraryComponent } from './create-itinerary.component';
+import { CreateItineraryService } from "./create-itinerary.service";
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +22,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatButtonModule
   ],
+  providers: [ CreateItineraryService ],
   exports: [ RouterModule ]
 })
 
