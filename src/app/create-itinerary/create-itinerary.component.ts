@@ -17,8 +17,7 @@ export class CreateItineraryComponent implements OnInit {
   ngOnInit(): void {
     this.createItineraryService.getCategories().subscribe(
       (response: Category[]) => {
-        console.log(response);
-        this.categories = response
+        this.categories = response;
       });
   }
 
