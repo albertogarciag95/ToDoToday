@@ -9,9 +9,10 @@ export default function categoriesCollection ({ makeDb }) {
     getAllCategories
   })
 
-  function getAllCategories () {
-    makeDb();
-    return CategoriesModel.find();
+  async function getAllCategories () {
+    if(await makeDb()) {
+      return await CategoriesModel.find({}).select('name -_id').sort('name');
+    };
   }
 }
 
