@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,12 +17,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    SharedModule
   ],
   exports: [
     MatToolbarModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }
