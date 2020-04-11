@@ -10,20 +10,20 @@ import { of } from 'rxjs';
 describe('CreateItineraryComponent', () => {
   let component: CreateItineraryComponent;
 
-  const categories:Category[] = [
-    { name: "Cultura y arte" },
-    { name: "Deporte" },
-    { name: "Gastronomía" },
-    { name: "Música" },
-    { name: "Naturaleza" },
-    { name: "Ocio y entretenimiento" }
+  const categories: Category[] = [
+    { name: 'Cultura y arte' },
+    { name: 'Deporte' },
+    { name: 'Gastronomía' },
+    { name: 'Música' },
+    { name: 'Naturaleza' },
+    { name: 'Ocio y entretenimiento' }
   ];
 
   let fixture: ComponentFixture<CreateItineraryComponent>;
 
   beforeEach(async(() => {
-    let spy = jasmine.createSpyObj('CreateItineraryService', ['getCategories']);
-    let httpServiceSpy = jasmine.createSpyObj('HttpService', ['get']);
+    const spy = jasmine.createSpyObj('CreateItineraryService', ['getCategories']);
+    const httpServiceSpy = jasmine.createSpyObj('HttpService', ['get']);
 
     spy.getCategories.and.returnValue( of(categories) );
     httpServiceSpy.get.and.returnValue( of(categories) );

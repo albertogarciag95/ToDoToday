@@ -1,36 +1,48 @@
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpService } from './http.service';
-import { defer } from 'rxjs';
 import { Category } from '../models/category';
 
 describe('HttpService', () => {
-  let httpClientSpy: { get: jasmine.Spy };
-  let httpService: HttpService;
-
-  let categories: Category[] = [
-    { name: "Cultura y arte" },
-    { name: "Deporte" },
-    { name: "Gastronomía" },
-    { name: "Música" },
-    { name: "Naturaleza" },
-    { name: "Ocio y entretenimiento" }
-  ];
+  let service: HttpService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    httpService = new HttpService(<any> httpClientSpy);
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
+      providers: [ HttpService ]
+    });
+
+    service = TestBed.inject(HttpService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should return expected heroes (HttpClient called once)', () => {
-    httpClientSpy.get.and.returnValue(asyncData(categories));
+  it('should retrieve get from de API', () => {
+    const categories: Category[] = [
+      { name: 'Cultura y arte' },
+      { name: 'Deporte' },
+      { name: 'Gastronomía' },
+      { name: 'Música' },
+      { name: 'Naturaleza' },
+      { name: 'Ocio y entretenimiento' }
+    ];
 
-    httpService.get(HttpService.API_END_POINT + '/categories').subscribe(
-      response => expect(response.body).toEqual(categories, 'expected categories'),
-      fail
+    service.get('/categories').subscribe(
+      response => {
+        expect(response.length).toBe(6);
+        expect(response).toEqual(categories);
+      },
+      error => error
     );
-    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+
+    const request = httpMock.expectOne(`${HttpService.API_END_POINT}/categories`);
+    expect(request.request.method).toBe('GET');
+
+    request.flush(categories);
   });
 
-  function asyncData<T>(data: T) {
-    return defer(() => Promise.resolve(data));
-  }
+  afterEach(() => {
+    httpMock.verify();
+  });
 });
+

@@ -6,7 +6,7 @@
     "start": "ng serve",
     "debug": "babel-node --nolazy --inspect-brk=9229 src/node-api/src/index.js",
     "build": "ng build",
-    "test": "ng test --source-map=true --watch --code-coverage && npm run e2e && npm run lint",
+    "test": "ng test --watch --code-coverage && npm run e2e && npm run lint",
     "lint": "ng lint",
     "e2e": "ng e2e --port 4201",
     "server-clean": "rimraf dist",
