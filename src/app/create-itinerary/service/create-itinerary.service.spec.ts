@@ -1,10 +1,7 @@
-import { async, TestBed } from '@angular/core/testing';
+import { async } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CreateItineraryService } from './create-itinerary.service';
-import { HttpService } from '../../shared/services/http.service';
-import { HttpClientModule } from '@angular/common/http';
-
 import { Category } from '../../shared/models/category';
 
 describe('CreateItineraryService', () => {

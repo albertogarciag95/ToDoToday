@@ -20,17 +20,9 @@ export class HttpService {
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
       .pipe(
-        map(response => this.extractData(response)),
-        catchError(error => this.handleError(error))
+        map((response: any) => response.body),
+        catchError((error: any) => error)
       );
-  }
-
-  private handleError(response): any {
-    console.error(response);
-  }
-
-  private extractData(response): any {
-    return response.body;
   }
 
   private createOptions(): any {
@@ -46,7 +38,7 @@ export class HttpService {
   }
 
   private resetOptions(): void {
-    this.headers = new HttpHeaders();
+    this.headers = new HttpHeaders( { 'Content-Type': 'application/json' });
     this.params = new HttpParams();
     this.responseType = 'json';
   }

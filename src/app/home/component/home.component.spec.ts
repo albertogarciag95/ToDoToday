@@ -1,28 +1,36 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let routerSpy: Router;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ HomeComponent ]
-    })
-    .compileComponents();
-  }));
+    routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
-  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ HomeComponent ],
+      providers: [
+        { provide: Router, useValue: routerSpy }
+      ]
+    });
+
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
+
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    component.navigateToCreateItinerary();
+
+    const spy = routerSpy.navigateByUrl as jasmine.Spy;
+    const navArgs = spy.calls.first().args[0];
+
+    expect(navArgs).toBe('/create-itinerary', 'should nav to HeroDetail for first hero');
   });
 
 });
