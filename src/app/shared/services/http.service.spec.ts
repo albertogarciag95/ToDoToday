@@ -24,7 +24,7 @@ describe('HttpService', () => {
     httpClientSpy.get.and.returnValue(asyncData(categories));
 
     httpService.get(HttpService.API_END_POINT + '/categories').subscribe(
-      response => expect(response).toEqual(categories, 'expected heroes'),
+      response => expect(response.body).toEqual(categories, 'expected categories'),
       fail
     );
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');

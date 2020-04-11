@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import categoriesCollection from './categories-collection';
+import makeCategoriesCollection from './categories-collection';
 
 const mongoURI = "mongodb://localhost:27017/todotoday";
 const options = {
@@ -33,6 +33,11 @@ process.on('SIGINT', () => {
     });
 });
 
-const db = categoriesCollection({ makeDb });
+const categoriesDb = makeCategoriesCollection({ makeDb });
+
+const db = Object.freeze({
+  categoriesDb
+});
 
 export default db;
+export { categoriesDb };

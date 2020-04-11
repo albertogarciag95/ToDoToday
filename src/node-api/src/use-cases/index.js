@@ -1,7 +1,8 @@
 import makeListCategoriesUseCase from './list-categories';
-import db from '../data-access';
+import { categoriesDb } from '../data-access';
 
-const listCategoriesUseCase = makeListCategoriesUseCase({ db });
+
+const listCategoriesUseCase = makeListCategoriesUseCase({ categoriesDb });
 
 const useCases = Object.freeze({
   listCategoriesUseCase

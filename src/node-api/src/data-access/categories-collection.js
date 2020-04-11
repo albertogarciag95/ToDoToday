@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default function categoriesCollection ({ makeDb }) {
+export default function makeCategoriesCollection({ makeDb }) {
 
   const CategoriesSchema = new mongoose.Schema({ name: String });
   const CategoriesModel = mongoose.model('Category', CategoriesSchema);
