@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './component/home.component';
 
 import { MatButtonModule } from '@angular/material/button';
 
