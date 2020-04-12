@@ -10,11 +10,11 @@ describe('List categories controller test', function() {
   chai.use(spies);
   const useCaseSpy = chai.spy(listCategoriesUseCase);
 
-  it('listCategoriesUseCase goes fine', async function() {
-    const result = await listCategoriesController();
-
-    expect(useCaseSpy).to.have.been.called;
-    expect(result).to.have.property('body');
+  it('listCategoriesUseCase goes fine', function() {
+    listCategoriesController().then(response => {
+      expect(useCaseSpy).to.have.been.called;
+      expect(response).to.have.property('body');
+    });
   });
 
 });

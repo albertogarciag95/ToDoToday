@@ -6,8 +6,9 @@ const expect = chai.expect;
 describe('categories collection operations', () => {
   const { getAllCategories } = categoriesDb;
 
-  it('lists categories', async () => {
-    const categories = await getAllCategories();
-    expect(categories).to.have.lengthOf(6);
+  it('lists categories', () => {
+    getAllCategories().then(categories => {
+      expect(categories).to.have.lengthOf(6);
+    });
   })
 })
