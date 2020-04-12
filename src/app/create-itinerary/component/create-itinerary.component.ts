@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateItineraryService } from './create-itinerary.service';
-import { Category } from '../shared/models/category';
+import { CreateItineraryService } from '../service/create-itinerary.service';
+import { Category } from '../../shared/models/category';
 
 @Component({
   selector: 'app-create-itinerary',

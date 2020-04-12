@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
-import { CreateItineraryComponent } from './create-itinerary.component';
-import { CreateItineraryService } from './create-itinerary.service';
+import { CreateItineraryComponent } from './component/create-itinerary.component';
+import { CreateItineraryService } from './service/create-itinerary.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
