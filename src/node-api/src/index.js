@@ -4,7 +4,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import { listCategoriesController } from './controllers'
+import {
+  listCategoriesController,
+  postItineraryController
+} from './controllers'
 
 import { makeExpressCallback } from './express-callback';
 
@@ -16,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cors());
 
 app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
+app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
 
 app.listen(PORT, () => {
   console.log('Server Node.js + Express is listening on port 3000');

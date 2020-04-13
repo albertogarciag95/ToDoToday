@@ -1,12 +1,16 @@
 import makeListCategoriesUseCase from './list-categories';
-import { categoriesDb } from '../data-access';
+import makePostItineraryUseCase from './post-itinerary';
+
+import db from '../data-access';
 
 
-const listCategoriesUseCase = makeListCategoriesUseCase({ categoriesDb });
+const listCategoriesUseCase = makeListCategoriesUseCase({ db });
+const postItineraryUseCase = makePostItineraryUseCase({ db });
 
 const useCases = Object.freeze({
-  listCategoriesUseCase
+  listCategoriesUseCase,
+  postItineraryUseCase
 });
 
 export default useCases;
-export { listCategoriesUseCase };
+export { listCategoriesUseCase, postItineraryUseCase };

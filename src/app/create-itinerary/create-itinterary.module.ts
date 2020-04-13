@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 import { CreateItineraryComponent } from './component/create-itinerary.component';
 import { CreateItineraryService } from './service/create-itinerary.service';
 
@@ -18,6 +20,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
+    FormsModule,
     MatSelectModule,
     MatFormFieldModule,
     MatButtonModule

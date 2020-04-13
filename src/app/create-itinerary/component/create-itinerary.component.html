@@ -3,12 +3,29 @@
   <h3>¿Qué te apetece hacer hoy?</h3>
 
   <mat-form-field>
-    <mat-label>Elige categoría</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let category of categories" value="food">
+    <mat-label>Tú eliges </mat-label>
+    <mat-select (selectionChange)="onFirstCategoryChanges($event.value)" required>
+      <mat-option *ngFor="let category of firstOptionCategories" value="{{category.name}}">
         {{category.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="primary">Crear itinerario</button>
+
+  <h3>¿Te gustaría hacer alguna otra cosa?</h3>
+  <mat-form-field>
+    <mat-label>Tú eliges </mat-label>
+    <mat-select (selectionChange)="onSecondCategoryChanges($event.value)">
+      <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createItinerary()">Crear itinerario</button>
+
+  <div class="results-container">
+    <h1>Esto es lo que te proponemos: </h1>
+    <div *ngFor="let place of places" value="place">
+      {{place.name}}
+    </div>
+  </div>
 </div>
