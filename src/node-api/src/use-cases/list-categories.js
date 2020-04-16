@@ -1,7 +1,7 @@
-export default function makeListCategoriesUseCase({ categoriesDb }) {
+export default function makeListCategoriesUseCase({ db }) {
 
   return async function listCategoriesUseCase () {
 
-    return await categoriesDb.getAllCategories();
+    return await db.getAllCategories();
   }
 }

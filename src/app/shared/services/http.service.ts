@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -21,9 +21,18 @@ export class HttpService {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
       .pipe(
         map((response: any) => response.body),
-        catchError((error: any) => error)
+        catchError((error: any) => of('ERROR: ', error))
       );
   }
+
+  post(endpoint: string, body?: Object) {
+    return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
+      .pipe(
+        map((response: any) => response.body),
+        catchError((error: any) => of('ERROR: ', error))
+      )
+  }
+
 
   private createOptions(): any {
     const options: any = {
@@ -41,6 +50,10 @@ export class HttpService {
     this.headers = new HttpHeaders( { 'Content-Type': 'application/json' });
     this.params = new HttpParams();
     this.responseType = 'json';
+  }
+
+  private handleError(error): void {
+    console.error(error);
   }
 
 }
