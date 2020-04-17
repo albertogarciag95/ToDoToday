@@ -1,13 +1,22 @@
-.main-container {
-  width: 100%;
+.container-fluid {
+  background-color: #5874D9;
+  background-image: linear-gradient(to right, #5874D9, rgb(145, 161, 219));
+  color: white;
   height: 100%;
-  text-align: center;
-  position: relative;
+  padding-top: 100px;
 }
 
-.start-itinerary-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.big-title {
+  font-size: 80px;
+  line-height: 80px;
+}
+
+.create-itinerary-button {
+  background-color: rgb(255, 202, 57);
+  color: #5874D9;
+  padding: 10px 20px;
+}
+
+h1 {
+  font-family: "Raleway Bold";
 }

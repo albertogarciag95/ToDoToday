@@ -1,9 +1,14 @@
-<mat-toolbar color="primary" class="toolbar">
-  <span>ToDoToday</span>
+<mat-toolbar class="toolbar">
 
+  <span class="title"><a [routerLink]="['/home']">ToDoToday</a></span>
   <span class="example-fill-remaining-space"></span>
 
-  <span>Trabajo de fin de master</span>
+  <div class="toolbar-links">
+    <span class="about-button">Sobre nosotros</span>
+    <span class="login-button">Iniciar sesión</span>
+    <span class="register-button">Regístrate</span>
+  </div>
+
 </mat-toolbar>
 
 <router-outlet></router-outlet>
