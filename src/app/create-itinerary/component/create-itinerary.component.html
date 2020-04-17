@@ -35,9 +35,16 @@
       </div>
       <hr>
       <div class="results-container">
-        <h1>Esto es lo que te proponemos: </h1>
-        <div *ngFor="let place of places" value="place">
-          {{place.name}}
+        <h1>Esto es lo que te proponemos</h1>
+        <div *ngFor="let place of places" value="place" class="row col-lg-10">
+          <div class="col-lg-4">
+            <img class="place-img" src="../../../assets/images/default.png">
+          </div>
+          <div class="place-card col-lg-8">
+            <h2>{{place.name}}</h2>
+            <p>{{place.description}}</p>
+            <p>Precio por persona: {{place.price_per_person}}</p>
+          </div>
         </div>
       </div>
     </div>

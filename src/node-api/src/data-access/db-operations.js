@@ -6,23 +6,28 @@ export default function makeDbOperations({ makeDb }) {
 
   return Object.freeze({
     getAllCategories,
+    getCategoryByName,
     queryPlaces
   })
 
   async function getAllCategories() {
     if(await makeDb()) {
       var query = { isFoodType: false };
-      return await categoriesModel.find(query).select('name').sort('name');
-    };
+      return await categoriesModel.find(query).select('name -_id').sort('name');
+    }
+  }
+
+  async function getCategoryByName({ name }) {
+    if(await makeDb()) {
+      return await categoriesModel.find({ name });
+    }
   }
 
   async function queryPlaces({ category }) {
     if(await makeDb()) {
-      var query = { category: category._id };
-      const places = await placesModel.find(query).sort('name');
-
+      const places = await placesModel.find({ category }).select('-_id').sort('name');
       return places;
-    };
+    }
   }
 }
 
