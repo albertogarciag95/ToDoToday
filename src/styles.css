@@ -1,4 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; }
+
+@font-face {
+  font-family: "Raleway Medium";
+  src: url("assets/fonts/Raleway-Medium.ttf");
+  src: url('assets/fonts/Raleway-Medium.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: "Raleway Extra Bold";
+  src: url("assets/fonts/Raleway-ExtraBold.ttf");
+  src: url('assets/fonts/Raleway-ExtraBold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: "Raleway Bold";
+  src: url("assets/fonts/Raleway-Bold.ttf");
+  src: url('assets/fonts/Raleway-Bold.ttf')  format('truetype');
+}
+

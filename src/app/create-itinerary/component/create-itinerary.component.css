@@ -1,4 +1,26 @@
-.main-container {
-  padding: 30px;
-  text-align: center;
+h1 {
+  font-family: "Raleway Bold";
+}
+
+h3, mat-label {
+  font-family: "Raleway Medium";
+}
+
+.form-container {
+  padding: 20px;
+  height: 100vh;
+}
+
+.big-title {
+  padding: 20px 0 20px 0;
+  font-size: 3em;
+}
+
+.button-create {
+  width: 100%;
+  padding: 30px 0px 10px 0px;
+}
+
+.button-create button {
+  margin-left: 30%;
 }
