@@ -6,6 +6,17 @@ h3, mat-label {
   font-family: "Raleway Medium";
 }
 
+.place-card {
+  font-family: "Raleway Medium";
+}
+
+.place-img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+
 .form-container {
   padding: 20px;
   height: 100vh;

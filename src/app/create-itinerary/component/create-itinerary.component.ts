@@ -21,7 +21,6 @@ export class CreateItineraryComponent implements OnInit {
   secondCategorySelected: Category;
   places: Place[];
 
-
   constructor(private createItineraryService: CreateItineraryService) { }
 
   createItinerary() {
@@ -32,6 +31,7 @@ export class CreateItineraryComponent implements OnInit {
     this.createItineraryService.createItinerary(body).subscribe(
       (response: Place[]) => {
         this.places = response;
+        console.log(response);
       }, (error: any) => {
         console.error('ERROR: ', error);
       })
@@ -50,6 +50,7 @@ export class CreateItineraryComponent implements OnInit {
   ngOnInit(): void {
     this.createItineraryService.getCategories().subscribe(
       (response: Category[]) => {
+        console.log(response);
         this.categories = response;
         this.firstOptionCategories = [...this.categories];
         this.secondOptionCategories = [...this.categories];
