@@ -14,10 +14,11 @@
 .title {
   font-family: "Raleway Bold";
   font-size: 20px;
+  color: #7862DA;
 }
 
 .toolbar span {
-  color: #5874D9;
+  color: #7862DA;
 }
 
 .about-button {
@@ -36,5 +37,5 @@
   padding: 10px;
   margin-right: 25px;
   border-radius: 2px;
-  border: 2px solid rgb(37, 72, 199);
+  border: 2px solid  #7862DA;
 }

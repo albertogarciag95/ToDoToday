@@ -1,6 +1,6 @@
 .container-fluid {
-  background-color: #5874D9;
-  background-image: linear-gradient(to right, #5874D9, rgb(145, 161, 219));
+  background-color: #7862DA;
+  background-image: linear-gradient(to right, #7862DA, rgb(145, 161, 219));
   color: white;
   height: 100%;
   padding-top: 100px;
@@ -13,7 +13,7 @@
 
 .create-itinerary-button {
   background-color: rgb(255, 202, 57);
-  color: #5874D9;
+  color: #7862DA;
   padding: 10px 20px;
 }
 
