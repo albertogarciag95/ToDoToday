@@ -3,7 +3,6 @@ import makePostItineraryUseCase from './post-itinerary';
 
 import db from '../data-access';
 
-
 const listCategoriesUseCase = makeListCategoriesUseCase({ db });
 const postItineraryUseCase = makePostItineraryUseCase({ db });
 

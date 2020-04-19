@@ -1,22 +1,23 @@
 
 import {
   listCategoriesUseCase,
-  postItineraryUseCase
+  postItineraryUseCase,
+  postPlaceUseCase
 } from '../use-cases';
 
 import makeListCategoriesController from './list-categories';
 import makePostItineraryController from './post-itinerary';
-import makeListRealPlacesController from './list-real-places';
+import makeAddRealPlacesController from './add-real-places';
 
 const listCategoriesController = makeListCategoriesController({ listCategoriesUseCase });
-const listRealPlacesController = makeListRealPlacesController();
+const addRealPlacesController = makeAddRealPlacesController({ postPlaceUseCase });
 const postItineraryController = makePostItineraryController({ postItineraryUseCase });
 
 const controllers = Object.freeze({
   listCategoriesController,
   postItineraryController,
-  listRealPlacesController
+  addRealPlacesController
 });
 
 export default controllers;
-export { listCategoriesController, postItineraryController, listRealPlacesController };
+export { listCategoriesController, postItineraryController, addRealPlacesController };

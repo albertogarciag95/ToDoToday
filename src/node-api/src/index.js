@@ -6,21 +6,22 @@ import cors from 'cors';
 
 import {
   listCategoriesController,
-  listRealPlacesController,
   postItineraryController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
+import { addBatches } from './batches';
 
 const app = express();
 const apiRoot = '/api/v0';
 
+addBatches();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cors());
 
 app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
-app.post(`${apiRoot}/places/real`, makeExpressCallback(listRealPlacesController));
+// app.post(`${apiRoot}/places/real`, makeExpressCallback(addRealPlacesController));
 app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
 
 app.listen(PORT, () => {
