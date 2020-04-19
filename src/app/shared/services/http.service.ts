@@ -33,7 +33,6 @@ export class HttpService {
       )
   }
 
-
   private createOptions(): any {
     const options: any = {
       headers: this.headers,

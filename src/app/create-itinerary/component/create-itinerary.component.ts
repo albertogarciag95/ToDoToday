@@ -47,7 +47,7 @@ export class CreateItineraryComponent implements OnInit {
     this.secondCategorySelected = this.categories.find(category => category.name === value);
   }
 
-  ngOnInit(): void {
+  getCategories(): void {
     this.createItineraryService.getCategories().subscribe(
       (response: Category[]) => {
         console.log(response);
@@ -57,6 +57,21 @@ export class CreateItineraryComponent implements OnInit {
       }, (error: any) => {
         console.error('ERROR: ', error);
       });
+  }
+
+  getRealPlaces(): void {
+    this.createItineraryService.addRealPlaces().subscribe(
+      (response: any) => {
+        console.log(response);
+      }, (error: any) => {
+        console.error('ERROR: ', error);
+      });
+  }
+
+
+  ngOnInit(): void {
+    this.getCategories();
+    this.getRealPlaces();
   }
 
 }
