@@ -59,19 +59,8 @@ export class CreateItineraryComponent implements OnInit {
       });
   }
 
-  getRealPlaces(): void {
-    this.createItineraryService.addRealPlaces().subscribe(
-      (response: any) => {
-        console.log(response);
-      }, (error: any) => {
-        console.error('ERROR: ', error);
-      });
-  }
-
-
   ngOnInit(): void {
     this.getCategories();
-    this.getRealPlaces();
   }
 
 }

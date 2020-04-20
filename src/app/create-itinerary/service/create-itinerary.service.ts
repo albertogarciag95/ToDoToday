@@ -21,8 +21,4 @@ export class CreateItineraryService {
     return this.httpService.post(AppEndpoints.ITINERARY, body);
   }
 
-  addRealPlaces(): Observable<any> {
-    return this.httpService.post(AppEndpoints.REAL_PLACES_ENDPOINT);
-  }
-
 }
