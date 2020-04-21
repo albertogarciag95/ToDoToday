@@ -10,9 +10,9 @@ export default function getDbModels() {
     name: String,
     description: String,
     category: String,
-    latitude: number,
-    longitude: number,
-    price_per_person: number
+    latitude: Number,
+    longitude: Number,
+    price_per_person: Number
   });
 
   return Object.freeze({
