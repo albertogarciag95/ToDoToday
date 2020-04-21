@@ -19,7 +19,7 @@ describe('CreateItineraryService', () => {
 
   const places: Place[] = [
     { name: 'test', description: 'test', category: { name: 'test' }, price_per_person: 0, latitude: 0, longitude: 0 }
-  ]
+  ];
 
   beforeEach(async(() => {
     const httpServiceSpy = jasmine.createSpyObj('HttpService', ['get', 'post']);

@@ -17,7 +17,7 @@ export class CreateItineraryService {
     return this.httpService.get(AppEndpoints.CATEGORIES);
   }
 
-  createItinerary(body: Object): Observable<Place[]> {
+  createItinerary(body: object): Observable<Place[]> {
     return this.httpService.post(AppEndpoints.ITINERARY, body);
   }
 

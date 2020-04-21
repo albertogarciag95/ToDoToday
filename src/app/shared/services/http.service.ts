@@ -25,12 +25,12 @@ export class HttpService {
       );
   }
 
-  post(endpoint: string, body?: Object) {
+  post(endpoint: string, body?: object) {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
       .pipe(
         map((response: any) => response.body),
         catchError((error: any) => of('ERROR: ', error))
-      )
+      );
   }
 
   private createOptions(): any {

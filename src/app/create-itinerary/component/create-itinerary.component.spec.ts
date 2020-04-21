@@ -22,7 +22,7 @@ describe('CreateItineraryComponent', () => {
 
   const places: Place[] = [
     { name: 'test', description: 'test', category: { name: 'test' }, price_per_person: 0, latitude: 0, longitude: 0 }
-  ]
+  ];
 
   let fixture: ComponentFixture<CreateItineraryComponent>;
 
@@ -67,6 +67,6 @@ describe('CreateItineraryComponent', () => {
   it('should createItinerary', async(() => {
     component.createItinerary();
     expect(component.places).toEqual(places);
-  }))
+  }));
 
 });
