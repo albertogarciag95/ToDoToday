@@ -34,16 +34,16 @@ export class CreateItineraryComponent implements OnInit {
         console.log(response);
       }, (error: any) => {
         console.error('ERROR: ', error);
-      })
+      });
   }
 
   onFirstCategoryChanges(value) {
-    this.secondOptionCategories = this.categories.filter(category => category.name != value.name);
+    this.secondOptionCategories = this.categories.filter(category => category.name !== value.name);
     this.firstCategorySelected = this.categories.find(category => category.name === value);
   }
 
   onSecondCategoryChanges(value) {
-    this.firstOptionCategories = this.categories.filter(category => category.name != value.name);
+    this.firstOptionCategories = this.categories.filter(category => category.name !== value.name);
     this.secondCategorySelected = this.categories.find(category => category.name === value);
   }
 
