@@ -14,7 +14,7 @@
     "server-build": "npm run server-clean && cd src/node-api && babel src -d dist",
     "server-dev": "npm run db && cd src/node-api/src && nodemon --exec babel-node index.js",
     "server-pro": "npm run server-build && npm run db && cd src/node-api/dist && node index.js",
-    "server-test": "cd src/node-api && mocha --require @babel/register --recursive test"
+    "server-test": "cd src/node-api && nyc --reporter=html --reporter=text mocha --require @babel/register --recursive test"
   },
   "private": true,
   "dependencies": {
@@ -51,9 +51,11 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "babel-plugin-istanbul": "^6.0.0",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -63,6 +65,7 @@
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "nodemon": "^2.0.2",
+    "nyc": "^15.0.1",
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

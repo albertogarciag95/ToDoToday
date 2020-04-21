@@ -35,6 +35,9 @@ speed-measure-plugin*.json
 .vscode/extensions.json
 .history/*
 
+# Istambul Node testing
+.nyc_output
+
 # misc
 /.sass-cache
 /connect.lock
