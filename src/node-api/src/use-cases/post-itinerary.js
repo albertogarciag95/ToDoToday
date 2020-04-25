@@ -8,13 +8,14 @@ export default function makePostItineraryUseCase({ db }) {
     const { category } = body;
     let query = {};
 
-    await db.getCategoryByName(category).then(
+    await db.getCategoryByName(category.name).then(
       category => {
         query = Object.assign({}, { category: category[0]._id })
       }
     );
 
     const places = await db.queryPlaces(query);
+    console.log("PLACES: ", places);
     places.map(place => place.category = category.name);
 
     return places;

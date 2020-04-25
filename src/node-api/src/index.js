@@ -1,4 +1,4 @@
-const PORT = 3000;
+const PORT = 2345;
 
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -25,7 +25,7 @@ app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
 app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
 
 app.listen(PORT, () => {
-  console.log('Server Node.js + Express is listening on port 3000');
+  console.log(`Server Node.js + Express is listening on port ${PORT}`);
 });
 
 export default app;

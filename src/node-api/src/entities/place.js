@@ -1,30 +1,35 @@
 export default function makePlace ({
+    id,
     title,
     description,
     category,
     latitude,
     longitude,
+    location,
     price_per_person = 0,
     dateStart,
     dateEnd
   } = {}) {
-    if (!title || title.length > 30) {
-      throw new Error('Place must have a title or is invalid')
+    if (!title || title.length > 100) {
+      throw new Error(`Place ${id} must have a title or is invalid`);
     }
-    if (!description) {
-      throw new Error('Place must have a description.')
+    if (description === null || description === undefined) {
+      throw new Error(`Place ${title} must have a description.`);
     }
-    if (!category || isNaN(category)) {
-      throw new Error("Place's category is invalid or null")
+    if (!category) {
+      throw new Error(`Place ${title} category is invalid or null.`);
     }
     if (!latitude || isNaN(latitude)) {
-      throw new Error('Place must have latitude')
+      throw new Error(`Place ${title} must have latitude`);
+    }
+    if(!location) {
+      throw new Error(`Place ${title} must have location`);
     }
     if (!longitude || isNaN(longitude)) {
-      throw new Error('Place must have longitude')
+      throw new Error(`Place ${title} must have longitude`);
     }
-    if (!price_per_person || isNaN(price_per_person)) {
-      throw new Error('Comment must have a source.')
+    if (isNaN(price_per_person)) {
+      throw new Error(`Place ${title} must have price`);
     }
 
     return Object.freeze({
@@ -33,6 +38,7 @@ export default function makePlace ({
       getCategory: () => category,
       getLatitude: () => latitude,
       getLongitude: () => longitude,
+      getLocation: () => location,
       getPrice: () => price_per_person,
       getDateStart: () => dateStart || 'no_date',
       getDateEnd: () => dateEnd || 'no_date',
