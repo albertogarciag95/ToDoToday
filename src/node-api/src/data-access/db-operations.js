@@ -7,7 +7,9 @@ export default function makeDbOperations({ makeDb }) {
   return Object.freeze({
     getAllCategories,
     getCategoryByName,
-    queryPlaces
+    queryPlaces,
+    findPlaceByName,
+    postPlace
   })
 
   async function getAllCategories() {
@@ -17,16 +19,33 @@ export default function makeDbOperations({ makeDb }) {
     }
   }
 
-  async function getCategoryByName({ name }) {
+  async function getCategoryByName(name) {
     if(await makeDb()) {
       return await categoriesModel.find({ name });
     }
   }
 
-  async function queryPlaces({ category }) {
+  async function queryPlaces(query) {
     if(await makeDb()) {
+      const { category } = query;
+
       const places = await placesModel.find({ category }).select('-_id').sort('name');
       return places;
+    }
+  }
+
+  async function findPlaceByName({ name }) {
+    if(await makeDb()) {
+      const place = await placesModel.find({ name });
+      return place;
+    }
+  }
+
+  async function postPlace(place) {
+    if(await makeDb()) {
+
+      const newPlace = new placesModel(place);
+      return newPlace.save();
     }
   }
 }

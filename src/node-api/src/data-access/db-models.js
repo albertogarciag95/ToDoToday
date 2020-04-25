@@ -7,12 +7,15 @@ export default function getDbModels() {
   });
 
   const PlaceSchema = new mongoose.Schema({
-    name: String,
+    title: String,
     description: String,
     category: String,
     latitude: Number,
     longitude: Number,
-    price_per_person: Number
+    location: String,
+    price_per_person: Number,
+    dateStart: String,
+    dateEnd: String
   });
 
   return Object.freeze({

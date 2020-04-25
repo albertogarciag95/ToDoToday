@@ -18,16 +18,24 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
           const foundPlaces = JSON.parse(data)["@graph"];
           const postedPlaces = [];
 
-          const defaultCategoryName = 'Cultura y ocio';
+          const defaultCategoryName = 'Cultura y sociedad';
 
           foundPlaces.forEach(async (placeInfo) => {
-            postedPlaces.push(await postPlaceUseCase({
-              dtstart: dateStart,
-              dtend: dateEnd,
-              ...placeInfo,
-              latitude: location.latitude,
-              longitude: location.longitude
-            }, defaultCategoryName));
+
+            if(isPlaceValidToInsert(placeInfo)) {
+              const newPlace = await postPlaceUseCase({
+                dateStart: placeInfo.dtstart,
+                dateEnd: placeInfo.dtend ,
+                ...placeInfo,
+                location: placeInfo['event-location'],
+                latitude: placeInfo.location ? placeInfo.location.latitude : 0,
+                longitude: placeInfo.location ? placeInfo.location.longitude : 0
+              }, defaultCategoryName);
+
+              postedPlaces.push(newPlace);
+              console.log("postedPlaces", postedPlaces);
+            }
+
           });
 
           return postedPlaces;
@@ -45,5 +53,10 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
         }
       }
     }
+
+    function isPlaceValidToInsert(placeInfo) {
+      return !!placeInfo.location;
+    }
+
   }
 }

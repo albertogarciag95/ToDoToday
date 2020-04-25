@@ -1,10 +1,13 @@
 import { Category } from './category';
 
 export interface Place {
-  name: string;
+  title: string;
   description: string;
   category: Category;
   latitude: number;
   longitude: number;
+  dateStart: string;
+  dateEnd: string;
+  location: string;
   price_per_person: number;
 }
