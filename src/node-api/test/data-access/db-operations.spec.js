@@ -3,10 +3,10 @@ import db from '../../src/data-access';
 
 const expect = chai.expect;
 
-describe('categories collection operations', () => {
+describe('db operations', () => {
 
   it('lists categories', () => {
-    return db.getAllCategories().then(categories => {
+    db.getAllCategories().then(categories => {
       expect(categories).to.have.lengthOf(6);
     });
   })

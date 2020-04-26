@@ -1,6 +1,5 @@
 import chai from 'chai';
 import spies from 'chai-spies';
-import mongoose from 'mongoose';
 
 import { addRealPlacesController } from '../../src/controllers';
 import { postPlaceUseCase } from '../../src/use-cases';
@@ -13,7 +12,7 @@ describe('Add real places controller test', function() {
   const useCaseSpy = chai.spy(postPlaceUseCase);
 
   it('addRealPlaces controller goes fine', () => {
-    return addRealPlacesController().then(response => {
+    addRealPlacesController().then(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response).to.be.an('array');
 
@@ -22,7 +21,4 @@ describe('Add real places controller test', function() {
       expect(response[0]).to.have.property('longitude');
     });
   });
-
-  after(() => mongoose.connection.close());
-
 });

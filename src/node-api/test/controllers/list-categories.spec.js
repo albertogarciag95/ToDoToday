@@ -1,6 +1,5 @@
 import chai from 'chai';
 import spies from 'chai-spies';
-import mongoose from 'mongoose';
 
 import makeListCategoryController from '../../src/controllers/list-categories';
 import { listCategoriesController } from '../../src/controllers';
@@ -13,13 +12,14 @@ describe('List categories controller test', function() {
   chai.use(spies);
   const useCaseSpy = chai.spy(listCategoriesUseCase);
 
-  it('list caregories controller goes fine', async () => {
-    const response = await listCategoriesController();
-    expect(useCaseSpy).to.have.been.called;
-    expect(response).to.have.property('body');
+  it('list caregories controller goes fine', () => {
+    listCategoriesController().then(response => {
+      expect(useCaseSpy).to.have.been.called;
+      expect(response).to.have.property('body');
+    });
   });
 
-  it('list categories controller goes wrong', async () => {
+  it('list categories controller goes wrong', () => {
     const listCategoryController = makeListCategoryController({
       listCategoriesUseCase: () => {
         throw Error('Pow!')
@@ -32,10 +32,9 @@ describe('List categories controller test', function() {
       statusCode: 400,
       body: { error: 'Pow!' }
     }
-    const actual = await listCategoryController();
-    expect(actual).to.deep.equal(expected);
+    listCategoryController().then(actual => {
+      expect(actual).to.deep.equal(expected);
+    });
   });
-
-  after(() => mongoose.connection.close());
 
 });

@@ -5,7 +5,7 @@ import { postItineraryUseCase } from '../../src/use-cases';
 
 const expect = chai.expect;
 
-describe('Post itinerary controller test', function() {
+describe('Post itinerary controller test', () => {
 
   chai.use(spies);
   const useCaseSpy = chai.spy(postItineraryUseCase);
@@ -16,7 +16,7 @@ describe('Post itinerary controller test', function() {
         category: { name: 'Cultura y sociedad' }
       }
     };
-    return postItineraryController(httpRequest).then(response => {
+    postItineraryController(httpRequest).then(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response.statusCode === 201).to.be.true;
       expect(response.body).to.be.an('array');
@@ -25,7 +25,7 @@ describe('Post itinerary controller test', function() {
 
   it('Post itinterary controller goes wrong', () => {
     const httpRequest = {};
-    return postItineraryController(httpRequest).catch(response => {
+    postItineraryController(httpRequest).catch(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response.statusCode === 400).to.be.true;
     });
