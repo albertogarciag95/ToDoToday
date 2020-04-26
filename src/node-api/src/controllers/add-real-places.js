@@ -2,11 +2,9 @@ import https from 'https';
 import Constants from '../constants';
 
 export default function makeAddRealPlacesController({ postPlaceUseCase }) {
-  return async function addRealPlacesController () {
-    const headers = {
-      'Content-Type': 'application/json'
-    }
-    try {
+  return function addRealPlacesController () {
+
+    return new Promise((resolve, reject) => {
       https.get(Constants.OPEN_DATA_URL, (res) => {
         let data = '';
 
@@ -14,49 +12,49 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
           data += chunk;
         })
 
-        res.on('end', () => {
+        res.on('end', async () => {
           const foundPlaces = JSON.parse(data)["@graph"];
-          const postedPlaces = [];
+          let postedPlaces = [];
 
           const defaultCategoryName = 'Cultura y sociedad';
 
-          foundPlaces.forEach(async (placeInfo) => {
+          const start = async () => {
+            await asyncForEach(foundPlaces, async (placeInfo) => {
+              if(isPlaceValidToInsert(placeInfo)) {
+                const newPlace = await postPlaceUseCase({
+                  dateStart: placeInfo.dtstart,
+                  dateEnd: placeInfo.dtend ,
+                  ...placeInfo,
+                  location: placeInfo['event-location'],
+                  latitude: placeInfo.location ? placeInfo.location.latitude : 0,
+                  longitude: placeInfo.location ? placeInfo.location.longitude : 0
+                }, defaultCategoryName);
 
-            if(isPlaceValidToInsert(placeInfo)) {
-              const newPlace = await postPlaceUseCase({
-                dateStart: placeInfo.dtstart,
-                dateEnd: placeInfo.dtend ,
-                ...placeInfo,
-                location: placeInfo['event-location'],
-                latitude: placeInfo.location ? placeInfo.location.latitude : 0,
-                longitude: placeInfo.location ? placeInfo.location.longitude : 0
-              }, defaultCategoryName);
+                postedPlaces = postedPlaces.concat(newPlace);
+              }
+            });
 
-              postedPlaces.push(newPlace);
-              console.log("postedPlaces", postedPlaces);
+            resolve(postedPlaces);
+          }
+
+          async function asyncForEach(foundPlaces, callback) {
+            for (let index = 0; index < foundPlaces.length; index++) {
+              await callback(foundPlaces[index]);
             }
+          }
 
-          });
+          start();
 
-          return postedPlaces;
         })
       }).on('error', (error) => {
-        console.log("ERROR", error.message);
+        reject(`Got error: ${error.message}`);
       });
-    } catch (e) {
-      console.log(e);
-      return {
-        headers,
-        statusCode: 400,
-        body: {
-          error: e.message
-        }
-      }
-    }
 
-    function isPlaceValidToInsert(placeInfo) {
-      return !!placeInfo.location;
-    }
+      function isPlaceValidToInsert(placeInfo) {
+        return !!placeInfo.location;
+      }
+
+    });
 
   }
 }

@@ -45,7 +45,17 @@ describe('HttpService', () => {
   it('should retrieve post from de API', () => {
 
     const places: Place[] = [
-      { name: 'test', description: 'test', category: { name: 'test' }, price_per_person: 0, latitude: 0, longitude: 0 }
+      {
+        title: 'test',
+        description: 'test',
+        category: { name: 'test' },
+        price_per_person: 0,
+        latitude: 0,
+        longitude: 0,
+        location: 'test',
+        dateEnd: 'test',
+        dateStart: 'test'
+      }
     ];
 
     service.post('/itinerary', { name: 'Experiencia Gastronómica' }).subscribe(

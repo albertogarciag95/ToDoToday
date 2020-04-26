@@ -11,7 +11,7 @@ export default function makePlace ({
     dateEnd
   } = {}) {
     if (!title || title.length > 100) {
-      throw new Error(`Place ${id} must have a title or is invalid`);
+      throw new Error(`Place must have a title or is invalid`);
     }
     if (description === null || description === undefined) {
       throw new Error(`Place ${title} must have a description.`);
@@ -28,9 +28,6 @@ export default function makePlace ({
     if (!longitude || isNaN(longitude)) {
       throw new Error(`Place ${title} must have longitude`);
     }
-    if (isNaN(price_per_person)) {
-      throw new Error(`Place ${title} must have price`);
-    }
 
     return Object.freeze({
       getTitle: () => title,
@@ -42,7 +39,6 @@ export default function makePlace ({
       getPrice: () => price_per_person,
       getDateStart: () => dateStart || 'no_date',
       getDateEnd: () => dateEnd || 'no_date',
-      getText: () => sanitizedText,
       isFree: () => price_per_person === 0
     })
 }

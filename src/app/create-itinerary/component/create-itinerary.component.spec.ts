@@ -20,9 +20,17 @@ describe('CreateItineraryComponent', () => {
     { name: 'Ocio y entretenimiento' }
   ];
 
-  const places: Place[] = [
-    { name: 'test', description: 'test', category: { name: 'test' }, price_per_person: 0, latitude: 0, longitude: 0 }
-  ];
+  const places: Place[] = [{
+    title: 'test',
+    description: 'test',
+    category: { name: 'test' },
+    price_per_person: 0,
+    latitude: 0,
+    longitude: 0,
+    location: 'test',
+    dateEnd: 'test',
+    dateStart: 'test'
+  }];
 
   let fixture: ComponentFixture<CreateItineraryComponent>;
 

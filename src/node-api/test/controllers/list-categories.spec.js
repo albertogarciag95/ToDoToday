@@ -1,8 +1,9 @@
 import chai from 'chai';
 import spies from 'chai-spies';
+
+import makeListCategoryController from '../../src/controllers/list-categories';
 import { listCategoriesController } from '../../src/controllers';
 import { listCategoriesUseCase } from '../../src/use-cases';
-import mongoose from 'mongoose';
 
 const expect = chai.expect;
 
@@ -11,15 +12,29 @@ describe('List categories controller test', function() {
   chai.use(spies);
   const useCaseSpy = chai.spy(listCategoriesUseCase);
 
-  it('listCategoriesUseCase goes fine', async function() {
-    await listCategoriesController().then(response => {
+  it('list caregories controller goes fine', () => {
+    listCategoriesController().then(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response).to.have.property('body');
     });
   });
 
-  after(() => {
-    mongoose.connection.close();
+  it('list categories controller goes wrong', () => {
+    const listCategoryController = makeListCategoryController({
+      listCategoriesUseCase: () => {
+        throw Error('Pow!')
+      }
+    });
+    const expected = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      statusCode: 400,
+      body: { error: 'Pow!' }
+    }
+    listCategoryController().then(actual => {
+      expect(actual).to.deep.equal(expected);
+    });
   });
 
 });

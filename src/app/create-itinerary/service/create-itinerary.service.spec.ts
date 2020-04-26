@@ -18,7 +18,17 @@ describe('CreateItineraryService', () => {
   ];
 
   const places: Place[] = [
-    { name: 'test', description: 'test', category: { name: 'test' }, price_per_person: 0, latitude: 0, longitude: 0 }
+    {
+      title: 'test',
+      description: 'test',
+      category: { name: 'test' },
+      price_per_person: 0,
+      latitude: 0,
+      longitude: 0,
+      location: 'test',
+      dateEnd: 'test',
+      dateStart: 'test'
+    }
   ];
 
   beforeEach(async(() => {

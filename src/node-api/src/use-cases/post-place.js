@@ -13,7 +13,8 @@ export default function makePostPlaceUseCase({ db }) {
     }
 
     const place = makePlace(placeInfo);
-    const exists = await db.findPlaceByName(place);
+
+    const exists = await db.findPlaceByTitle(place.getTitle());
     if (exists.length !== 0) {
       return exists;
     }

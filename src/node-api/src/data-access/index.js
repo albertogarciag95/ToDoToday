@@ -14,10 +14,6 @@ export async function makeDb() {
   return mongoose.connection;
 };
 
-mongoose.connection.on('connected', () => {
-  console.log('Mongoose default connection open to ' + mongoURI);
-});
-
 mongoose.connection.on('error', (err)=>{
     console.log('handle mongo errored connections: ' + err);
 });
@@ -27,10 +23,8 @@ mongoose.connection.on('disconnected', ()=>{
 });
 
 process.on('SIGINT', () => {
-    mongoose.connection.close(()=>{
-        console.log('App terminated, closing mongo connections');
-        process.exit(0);
-    });
+    mongoose.connection.close();
+    process.exit(0);
 });
 
 const db = makeDbOperations({ makeDb });

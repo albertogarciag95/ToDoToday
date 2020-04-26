@@ -15,7 +15,6 @@ export default function makePostItineraryUseCase({ db }) {
     );
 
     const places = await db.queryPlaces(query);
-    console.log("PLACES: ", places);
     places.map(place => place.category = category.name);
 
     return places;

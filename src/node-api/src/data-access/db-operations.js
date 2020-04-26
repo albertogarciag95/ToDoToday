@@ -8,45 +8,40 @@ export default function makeDbOperations({ makeDb }) {
     getAllCategories,
     getCategoryByName,
     queryPlaces,
-    findPlaceByName,
+    findPlaceByTitle,
     postPlace
   })
 
   async function getAllCategories() {
-    if(await makeDb()) {
-      var query = { isFoodType: false };
-      return await categoriesModel.find(query).select('name -_id').sort('name');
-    }
+    await makeDb();
+    var query = { isFoodType: false };
+    return await categoriesModel.find(query).select('name -_id').sort('name');
   }
 
   async function getCategoryByName(name) {
-    if(await makeDb()) {
-      return await categoriesModel.find({ name });
-    }
+    await makeDb();
+    return await categoriesModel.find({ name });
   }
 
   async function queryPlaces(query) {
-    if(await makeDb()) {
-      const { category } = query;
+    await makeDb();
+    const { category } = query;
 
-      const places = await placesModel.find({ category }).select('-_id').sort('name');
-      return places;
-    }
+    const places = await placesModel.find({ category }).select('-_id').sort('name');
+    return places;
   }
 
-  async function findPlaceByName({ name }) {
-    if(await makeDb()) {
-      const place = await placesModel.find({ name });
-      return place;
-    }
+  async function findPlaceByTitle(title) {
+    await makeDb();
+    const place = await placesModel.find({ title });
+    return place;
   }
 
   async function postPlace(place) {
-    if(await makeDb()) {
+    await makeDb();
 
-      const newPlace = new placesModel(place);
-      return newPlace.save();
-    }
+    const newPlace = new placesModel(place);
+    return newPlace.save();
   }
 }
 
