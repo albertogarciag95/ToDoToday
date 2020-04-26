@@ -12,7 +12,7 @@ describe('List categories use-case test', function() {
   const useCaseSpy = chai.spy(db.getAllCategories);
 
   it('listCategoriesUseCase goes fine', () => {
-    return listCategoriesUseCase().then(() => {
+    listCategoriesUseCase().then(() => {
       expect(useCaseSpy).to.have.been.called;
     })
   });
