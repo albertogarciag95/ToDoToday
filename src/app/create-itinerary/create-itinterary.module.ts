@@ -6,17 +6,23 @@ import { FormsModule } from '@angular/forms';
 
 import { CreateItineraryComponent } from './component/create-itinerary.component';
 import { CreateItineraryService } from './service/create-itinerary.service';
+import { MapService } from './map/service/map.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MapComponent } from './map/component/map.component';
+
 
 const routes: Routes = [
   { path: '', component: CreateItineraryComponent }
 ];
 
 @NgModule({
-  declarations: [ CreateItineraryComponent ],
+  declarations: [
+    CreateItineraryComponent,
+    MapComponent
+  ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -25,7 +31,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatButtonModule
   ],
-  providers: [ CreateItineraryService ],
+  providers: [ CreateItineraryService, MapService ],
   exports: [ RouterModule ]
 })
 
