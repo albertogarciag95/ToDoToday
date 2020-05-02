@@ -58,9 +58,9 @@ export class MapComponent implements OnInit {
   }
 
   makePopup(place) {
-    return new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 25, className: 'hola'})
+    return new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 25})
       .setLngLat([place.longitude, place.latitude])
-      .setHTML(`<div class="hola"><strong>${place.title}</strong></div>`)
+      .setHTML(`<strong>${place.title}</strong>`)
       .addTo(this.map);
   }
 

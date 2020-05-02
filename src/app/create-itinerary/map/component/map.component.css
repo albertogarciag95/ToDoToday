@@ -2,12 +2,3 @@
   width: auto;
   height: 500px;
 }
-
-.mapboxgl-popup {
-    max-width: 200px;
-    background-color: red !important;
-}
-
-.mapboxgl-popup-content {
-  background-color: red;
-}
