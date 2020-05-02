@@ -39,19 +39,19 @@ export class MapComponent implements OnInit {
 
   addPlaces(places) {
     places.forEach(place => {
-      let myMarker = new mapboxgl.Marker({ color: '#7862DA' })
+      const myMarker = new mapboxgl.Marker({ color: '#7862DA' })
         .setLngLat([place.longitude, place.latitude])
         .addTo(this.map);
 
-      myMarker.getElement().addEventListener('mouseenter', function () {
+      myMarker.getElement().addEventListener('mouseenter', function(){
         myMarker.getElement().style.cursor = 'pointer';
         myMarker.setPopup(this.makePopup(place));
       }.bind(this));
 
-      myMarker.getElement().addEventListener('mouseleave', function () {
+      myMarker.getElement().addEventListener('mouseleave', function(){
         this.map.getCanvas().style.cursor = '';
         myMarker.getPopup().remove();
-      }.bind(this))
+      }.bind(this));
 
       myMarker.getElement().addEventListener('click', this.flyToPoint.bind(this, place));
     });
