@@ -26,7 +26,6 @@ script:
   - ng e2e --port 4201 --protractor-config=e2e/protractor-travis.conf.js
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
   - npm run server-test
-  - sonar-scanner -Dsonar.projectKey=ToDoToday -Dsonar.sources=src
 
 
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
