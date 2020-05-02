@@ -3,10 +3,9 @@
   <div class="container-fluid col-lg-6 col-md-8 col-xs-12">
     <div class="form-container">
       <h1 class="big-title">Crea tu propio itinerario</h1>
-      <div class="categories-container">
-        <div class="row">
-          <div class="col-lg-6">
-            <h3>1. ¿Qué te apetece hacer hoy?</h3>
+        <div class="row field">
+          <div class="col-lg-12">
+            <h1>1. ¿Qué te apetece hacer hoy?</h1>
             <mat-form-field>
               <mat-label>Tú eliges! </mat-label>
               <mat-select (selectionChange)="onFirstCategoryChanges($event.value)" required>
@@ -16,10 +15,13 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-lg-6">
-            <h3>2. ¿Te gustaría hacer alguna otra cosa?</h3>
+        </div>
+        <div class="row field">
+          <div class="col-lg-12">
+            <h1>2. ¿Te gustaría hacer alguna otra cosa?</h1>
+            <h3>¡El día es muy largo! ¿Por qué no exprimirlo al máximo?</h3>
             <mat-form-field>
-              <mat-label>Tú eliges </mat-label>
+              <mat-label>Tú eliges! (opcional)</mat-label>
               <mat-select (selectionChange)="onSecondCategoryChanges($event.value)">
                 <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
                   {{category.name}}
@@ -28,14 +30,42 @@
             </mat-form-field>
           </div>
         </div>
+        <div class="row field">
+          <div class="col-lg-12">
+            <h1>3. ¿Qué te apetece comer?</h1>
+            <mat-form-field>
+              <mat-label>Selecciona un tipo de comida</mat-label>
+              <mat-select (selectionChange)="($event.value)">
+                <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-checkbox>Gracias, pero esta vez no pararé a comer</mat-checkbox>
+          </div>
+        </div>
+        <div class="row field">
+          <div class="col-lg-12">
+            <h1>4. ¿Qué te apetece cenar?</h1>
+            <mat-form-field>
+              <mat-label>Selecciona un tipo de comida</mat-label>
+              <mat-select (selectionChange)="($event.value)">
+                <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-checkbox>Gracias, pero esta vez no pararé a cenar</mat-checkbox>
+          </div>
+        </div>
       </div>
 
       <div class="button-create">
         <button mat-raised-button color="primary" (click)="createItinerary()">Crear itinerario</button>
       </div>
       <hr>
-      <div class="results-container">
-        <h1>Esto es lo que te proponemos</h1>
+      <div *ngIf="places" class="results-container">
+        <h1 class="big-title">Esto es lo que te proponemos</h1>
         <div *ngFor="let place of places" value="place" class="row col-lg-10">
           <div class="col-lg-4">
             <img class="place-img" src="../../../assets/images/default.png">
@@ -51,8 +81,7 @@
           </div>
         </div>
       </div>
-      <app-map *ngIf="places" [places]="places"></app-map>
-    </div>
+    <app-map *ngIf="places" [places]="places"></app-map>
   </div>
   <div class="col-lg-3 col-md-2"></div>
 </div>

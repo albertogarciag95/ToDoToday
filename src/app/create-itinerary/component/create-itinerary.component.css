@@ -1,9 +1,13 @@
 h1 {
-  font-family: "Raleway Bold";
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
 }
 
-h3, mat-label {
+h3, mat-checkbox{
   font-family: "Raleway Medium";
+  color: #000;
+  font-size: 1.2em;
 }
 
 .place-card {
@@ -16,15 +20,26 @@ h3, mat-label {
   display: block;
 }
 
-
 .form-container {
   padding: 20px;
   height: 100vh;
 }
 
+.form-container .field {
+  padding-bottom: 45px;
+}
+
+mat-form-field {
+  font-size: 1.1em;
+  width: 70%;
+  font-family: "Raleway Medium";
+}
+
 .big-title {
-  padding: 20px 0 20px 0;
+  font-family: "Raleway Bold";
+  padding: 20px 0 60px 0;
   font-size: 3em;
+  text-align: center;
 }
 
 .button-create {
@@ -34,4 +49,7 @@ h3, mat-label {
 
 .button-create button {
   margin-left: 30%;
+  background-color: #7862DA;
+  font-size: 1.2em;
+  padding: 5px 25px 5px 25px;
 }
