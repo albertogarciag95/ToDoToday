@@ -1,87 +1,134 @@
 <div class="row">
   <div class="col-lg-3 col-md-2"></div>
-  <div class="container-fluid col-lg-6 col-md-8 col-xs-12">
-    <div class="form-container">
+  <div class="col-lg-6 col-md-8 col-xs-12">
+    <form [formGroup]="itineraryForm" (ngSubmit)="createItinerary()" class="form-container">
       <h1 class="big-title">Crea tu propio itinerario</h1>
         <div class="row field">
-          <div class="col-lg-12">
+          <div class="col-lg-12" [ngClass]="fieldStates[0]">
             <h1>1. ¿Qué te apetece hacer hoy?</h1>
-            <mat-form-field>
+            <mat-form-field *ngIf="fieldStates[0] !== 'completed'">
               <mat-label>Tú eliges! </mat-label>
-              <mat-select (selectionChange)="onFirstCategoryChanges($event.value)" required>
+              <mat-select
+                formControlName="firstCategorySelected"
+                (selectionChange)="onFirstCategoryChanges($event.value, 0)"
+                [disabled]="fieldStates[0] === 'disabled'">
                 <mat-option *ngFor="let category of firstOptionCategories" value="{{category.name}}">
                   {{category.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            <div *ngIf="fieldStates[0] === 'completed'" class="step-completed">
+              <span>{{itineraryForm.controls.firstCategorySelected.value}}</span>
+              <a (click)="editField(0)">Editar</a>
+            </div>
+            <div *ngIf="fieldStates[0] === 'completed'"><hr></div>
           </div>
         </div>
         <div class="row field">
-          <div class="col-lg-12">
+          <div class="col-lg-12" [ngClass]="fieldStates[1]">
             <h1>2. ¿Te gustaría hacer alguna otra cosa?</h1>
-            <h3>¡El día es muy largo! ¿Por qué no exprimirlo al máximo?</h3>
-            <mat-form-field>
-              <mat-label>Tú eliges! (opcional)</mat-label>
-              <mat-select (selectionChange)="onSecondCategoryChanges($event.value)">
-                <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div *ngIf="fieldStates[1] !== 'completed'">
+              <h3>¡El día es muy largo! ¿Por qué no exprimirlo al máximo?</h3>
+              <mat-form-field>
+                <mat-label>Tú eliges! (opcional)</mat-label>
+                <mat-select
+                  formControlName="secondCategorySelected"
+                  (selectionChange)="onSecondCategoryChanges($event.value, 1)"
+                  [disabled]="fieldStates[1] === 'disabled'">
+                  <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
+                    {{category.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-checkbox
+                [disabled]="fieldStates[1] === 'disabled'"
+                (change)="onCheckNoSecondCategory($event)">
+                Saltar este paso
+              </mat-checkbox>
+            </div>
+            <div *ngIf="fieldStates[1] === 'completed'" class="step-completed">
+              <span>{{itineraryForm.controls.secondCategorySelected.value}}</span>
+              <a (click)="editField(1)">Editar</a>
+            </div>
           </div>
         </div>
         <div class="row field">
-          <div class="col-lg-12">
+          <div class="col-lg-12" [ngClass]="fieldStates[2]">
             <h1>3. ¿Qué te apetece comer?</h1>
-            <mat-form-field>
-              <mat-label>Selecciona un tipo de comida</mat-label>
-              <mat-select (selectionChange)="($event.value)">
-                <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-checkbox>Gracias, pero esta vez no pararé a comer</mat-checkbox>
+            <div *ngIf="fieldStates[2] !== 'completed'">
+              <mat-form-field>
+                <mat-label>Selecciona un tipo de comida</mat-label>
+                <mat-select
+                  formControlName="lunchCategorySelected"
+                  (selectionChange)="completeField(2)"
+                  [disabled]="fieldStates[2] === 'disabled'">
+                  <mat-option *ngFor="let category of lunchFoodCategories" value="{{category.name}}">
+                    {{category.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-checkbox
+                [disabled]="fieldStates[2] === 'disabled'"
+                (change)="onCheckNoLunch($event)">
+                Esta vez no pararé a comer
+              </mat-checkbox>
+            </div>
+            <div *ngIf="fieldStates[2] === 'completed'" class="step-completed">
+              <span>{{itineraryForm.controls.lunchCategorySelected.value}}</span>
+              <a (click)="editField(2)">Editar</a>
+            </div>
           </div>
         </div>
         <div class="row field">
-          <div class="col-lg-12">
+          <div class="col-lg-12" [ngClass]="fieldStates[3]">
             <h1>4. ¿Qué te apetece cenar?</h1>
-            <mat-form-field>
-              <mat-label>Selecciona un tipo de comida</mat-label>
-              <mat-select (selectionChange)="($event.value)">
-                <mat-option *ngFor="let category of secondOptionCategories" value="{{category.name}}">
-                  {{category.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-checkbox>Gracias, pero esta vez no pararé a cenar</mat-checkbox>
+            <div *ngIf="fieldStates[3] !== 'completed'">
+              <mat-form-field>
+                <mat-label>Selecciona un tipo de comida</mat-label>
+                <mat-select
+                  formControlName="dinnerCategorySelected"
+                  (selectionChange)="completeField(3)"
+                  [disabled]="fieldStates[3] === 'disabled'">
+                  <mat-option *ngFor="let category of dinnerFoodCategories" value="{{category.name}}">
+                    {{category.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-checkbox
+                (change)="onCheckNoDinner($event)"
+                [disabled]="fieldStates[3] === 'disabled'">
+                Esta vez no pararé a cenar
+              </mat-checkbox>
+            </div>
+            <div *ngIf="fieldStates[3] === 'completed'" class="step-completed">
+              <span>{{itineraryForm.controls.dinnerCategorySelected.value}}</span>
+              <a (click)="editField(3)">Editar</a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="button-create">
-        <button mat-raised-button color="primary" (click)="createItinerary()">Crear itinerario</button>
-      </div>
-      <hr>
-      <div *ngIf="places" class="results-container">
-        <h1 class="big-title">Esto es lo que te proponemos</h1>
-        <div *ngFor="let place of places" value="place" class="row col-lg-10">
-          <div class="col-lg-4">
-            <img class="place-img" src="../../../assets/images/default.png">
-          </div>
-          <div class="place-card col-lg-8">
-            <h2>{{place.title}}</h2>
-            <p>{{place.description}}</p>
-            <p>¿Dónde?: {{place.location}}</p>
-            <p>Precio por persona: {{place.price_per_person}} euros</p>
-            <p>Fecha inicio: {{place.dateStart}}</p>
-            <p>Fecha fin: {{place.dateEnd}}</p>
-            <hr>
-          </div>
+        <div class="button-create">
+          <button type="submit" mat-raised-button color="primary" [disabled]="areAllFieldsFilled()">Crear itinerario</button>
+        </div>
+    </form>
+    <hr>
+    <div #results *ngIf="places" class="results-container">
+      <h1 class="big-title">Esto es lo que te proponemos</h1>
+      <div *ngFor="let place of places" value="place" class="row col-lg-10">
+        <div class="col-lg-4">
+          <img class="place-img" src="../../../assets/images/default.png">
+        </div>
+        <div class="place-card col-lg-8">
+          <h2>{{place.title}}</h2>
+          <p>{{place.description}}</p>
+          <p>¿Dónde?: {{place.location}}</p>
+          <p>Precio por persona: {{place.price_per_person}} euros</p>
+          <p>Fecha inicio: {{place.dateStart}}</p>
+          <p>Fecha fin: {{place.dateEnd}}</p>
+          <hr>
         </div>
       </div>
-    <app-map *ngIf="places" [places]="places"></app-map>
+      <app-map *ngIf="places" [places]="places"></app-map>
+    </div>
   </div>
   <div class="col-lg-3 col-md-2"></div>
 </div>

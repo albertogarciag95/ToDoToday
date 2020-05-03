@@ -12,18 +12,18 @@ describe('CreateItineraryComponent', () => {
   let component: CreateItineraryComponent;
 
   const categories: Category[] = [
-    { name: 'Cultura y arte' },
-    { name: 'Deporte' },
-    { name: 'Gastronomía' },
-    { name: 'Música' },
-    { name: 'Naturaleza' },
-    { name: 'Ocio y entretenimiento' }
+    { name: 'Cultura y arte', isFoodType: false },
+    { name: 'Deporte', isFoodType: false },
+    { name: 'Gastronomía', isFoodType: false },
+    { name: 'Música', isFoodType: false },
+    { name: 'Naturaleza', isFoodType: false },
+    { name: 'Ocio y entretenimiento', isFoodType: false }
   ];
 
   const places: Place[] = [{
     title: 'test',
     description: 'test',
-    category: { name: 'test' },
+    category: { name: 'test', isFoodType: false },
     price_per_person: 0,
     latitude: 0,
     longitude: 0,
@@ -63,13 +63,13 @@ describe('CreateItineraryComponent', () => {
   }));
 
   it('should modify second selector onFirstCategoryChanges', (() => {
-    component.onFirstCategoryChanges({ name: 'Gastronomía' });
-    expect(component.secondOptionCategories.includes({ name: 'Gastronomía' })).toBeFalse();
+    component.onFirstCategoryChanges('Gastronomía', 0);
+    expect(component.secondOptionCategories.includes({ name: 'Gastronomía', isFoodType: false })).toBeFalse();
   }));
 
   it('should modify second selector onSecondCategoryChanges', (() => {
-    component.onSecondCategoryChanges({ name: 'Gastronomía' });
-    expect(component.firstOptionCategories.includes({ name: 'Gastronomía' })).toBeFalse();
+    component.onSecondCategoryChanges('Gastronomía', 1);
+    expect(component.firstOptionCategories.includes({ name: 'Gastronomía', isFoodType: false })).toBeFalse();
   }));
 
   it('should createItinerary', async(() => {
