@@ -36,10 +36,7 @@ export class CreateItineraryComponent implements OnInit {
   constructor(private createItineraryService: CreateItineraryService, private formBuilder: FormBuilder, private changeDetector : ChangeDetectorRef) { }
 
   createItinerary() {
-    const { controls: { firstCategorySelected } } = this.itineraryForm;
-    const body = {
-      category: firstCategorySelected.value
-    };
+    const body = this.buildRequestBody(this.itineraryForm.controls)
 
     this.createItineraryService.createItinerary(body).subscribe(
       (response: Place[]) => {
@@ -50,6 +47,22 @@ export class CreateItineraryComponent implements OnInit {
       }, (error: any) => {
         console.error('ERROR: ', error);
       });
+  }
+
+  buildRequestBody(controls: any) {
+    const {
+      firstCategorySelected,
+      secondCategorySelected,
+      lunchCategorySelected,
+      dinnerCategorySelected
+    } = controls;
+
+    return {
+      category: firstCategorySelected.value,
+      secondCategory: null,
+      lunchCategory: lunchCategorySelected.value,
+      dinnerCategory: dinnerCategorySelected.value
+    }
   }
 
   onFirstCategoryChanges(value, index) {
