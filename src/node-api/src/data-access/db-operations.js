@@ -14,8 +14,7 @@ export default function makeDbOperations({ makeDb }) {
 
   async function getAllCategories() {
     await makeDb();
-    var query = { isFoodType: false };
-    return await categoriesModel.find(query).select('name -_id').sort('name');
+    return await categoriesModel.find().select('-_id').sort('name');
   }
 
   async function getCategoryByName(name) {

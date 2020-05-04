@@ -1,10 +1,11 @@
-h1 {
+h1, .step-completed a  {
   font-family: "Raleway Medium";
   color: #7862DA;
   text-shadow: 1px 1px 1px #000000;
+  width: 100%;
 }
 
-h3, mat-checkbox{
+h3, mat-checkbox, .completed .step-completed{
   font-family: "Raleway Medium";
   color: #000;
   font-size: 1.2em;
@@ -22,7 +23,7 @@ h3, mat-checkbox{
 
 .form-container {
   padding: 20px;
-  height: 100vh;
+  margin-top: 64px;
 }
 
 .form-container .field {
@@ -33,6 +34,10 @@ mat-form-field {
   font-size: 1.1em;
   width: 70%;
   font-family: "Raleway Medium";
+}
+
+mat-checkbox {
+  display: block;
 }
 
 .big-title {
@@ -53,3 +58,32 @@ mat-form-field {
   font-size: 1.2em;
   padding: 5px 25px 5px 25px;
 }
+
+.disabled {
+  opacity: 0.3;
+}
+
+.active {
+  opacity: 1;
+}
+
+.completed {
+  display: inline-flex;
+}
+
+.step-completed {
+  margin-top: 10px;
+  margin-left: 10%;
+  width: 100%;
+}
+
+.step-completed a {
+  cursor: pointer;
+  margin-left: 20%
+}
+
+.results-container {
+  padding-top: 100px;
+}
+
+
