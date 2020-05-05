@@ -11,7 +11,6 @@ export default function makeListCategoriesController ({ listCategoriesUseCase })
         body: categories
       }
     } catch (e) {
-      console.log(e);
       return {
         headers,
         statusCode: 400,

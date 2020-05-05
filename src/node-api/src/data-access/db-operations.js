@@ -9,7 +9,8 @@ export default function makeDbOperations({ makeDb }) {
     getCategoryByName,
     queryPlaces,
     findPlaceByTitle,
-    postPlace
+    postPlace,
+    deletePlace
   })
 
   async function getAllCategories() {
@@ -41,6 +42,12 @@ export default function makeDbOperations({ makeDb }) {
 
     const newPlace = new placesModel(place);
     return newPlace.save();
+  }
+
+  async function deletePlace(place) {
+    await makeDb();
+
+    return await placesModel.deleteOne(place);
   }
 }
 
