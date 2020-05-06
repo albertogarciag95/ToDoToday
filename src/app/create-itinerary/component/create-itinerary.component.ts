@@ -14,6 +14,7 @@ import { FormBuilder } from '@angular/forms';
 export class CreateItineraryComponent implements OnInit {
 
   @ViewChild('results', { static: false }) results: ElementRef;
+  @ViewChild('map', { static: false }) map: ElementRef;
 
   categories: Category[];
   firstOptionCategories: Category[];
@@ -30,8 +31,11 @@ export class CreateItineraryComponent implements OnInit {
     dinnerCategorySelected: ['']
   });
 
+  itineraryResult: any;
   places: Place[];
   buttonEnabled: boolean;
+  isMapEnabled: boolean;
+
 
   constructor(private createItineraryService: CreateItineraryService, private formBuilder: FormBuilder, private changeDetector : ChangeDetectorRef) { }
 
@@ -39,10 +43,17 @@ export class CreateItineraryComponent implements OnInit {
     const body = this.buildRequestBody(this.itineraryForm.controls)
 
     this.createItineraryService.createItinerary(body).subscribe(
-      (response: Place[]) => {
-        this.places = response;
+      (response: any) => {
+        this.itineraryResult = response;
+        this.places = [
+          ...response.categoryPlaces,
+          ...response.secondCategoryPlaces,
+          ...response.lunchPlaces,
+          ...response.dinnerPlaces
+        ];
         this.changeDetector.detectChanges();
         this.results.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+
         console.log(response);
       }, (error: any) => {
         console.error('ERROR: ', error);
@@ -133,6 +144,12 @@ export class CreateItineraryComponent implements OnInit {
         return true;
       }
     }
+  }
+
+  enableMap() {
+    this.isMapEnabled = true;
+    this.changeDetector.detectChanges();
+    this.map.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   ngOnInit(): void {
