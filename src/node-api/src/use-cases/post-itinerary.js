@@ -25,15 +25,15 @@ export default function makePostItineraryUseCase({ db }) {
 
     categoryPlaces = await queryPlaces(category).then(places => places);
 
-    secondCategory ?
+    secondCategory && secondCategory != 'none' ?
       secondCategoryPlaces = await queryPlaces(secondCategory).then(places => places) :
       secondCategoryPlaces = [];
 
-    lunchCategory ?
+    lunchCategory && lunchCategory != 'none' ?
       lunchPlaces = await queryPlaces(lunchCategory).then(places => places) :
       lunchPlaces = [];
 
-    dinnerCategory ?
+    dinnerCategory && dinnerCategory != 'none' ?
       dinnerPlaces = await queryPlaces(dinnerCategory).then(places => places) :
       dinnerPlaces = [];
 

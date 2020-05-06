@@ -49,11 +49,11 @@ mat-checkbox {
 
 .button-create {
   width: 100%;
+  text-align: center;
   padding: 30px 0px 10px 0px;
 }
 
 .button-create button {
-  margin-left: 30%;
   background-color: #7862DA;
   font-size: 1.2em;
   padding: 5px 25px 5px 25px;
