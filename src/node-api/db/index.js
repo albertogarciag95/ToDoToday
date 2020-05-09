@@ -1,4 +1,4 @@
-import { makeDb } from '../src/data-access'
+import { makeDb } from '../src/adapters/data-access'
 
 ;(async function setupDb () {
   console.log('Setting up database...')

@@ -6,7 +6,6 @@
     <mat-form-field *ngIf="state !== 'completed'">
       <mat-label>Tú eliges! </mat-label>
       <mat-select
-        id="selector"
         [value]="selected"
         (selectionChange)="onItemSelected($event.value)"
         [disabled]="state === 'disabled'">
@@ -23,7 +22,6 @@
 
     <div *ngIf="required === false && state !== 'completed'">
       <mat-checkbox
-        id="checkbox"
         [checked]="checkboxChecked"
         [disabled]="state === 'disabled'"
         (change)="onCheckboxChecked($event)">
