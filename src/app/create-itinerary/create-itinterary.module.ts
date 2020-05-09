@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CreateItineraryComponent } from './component/create-itinerary.component';
+import { CreateItineraryComponent } from './components/create-itinerary.component';
 import { CreateItineraryService } from './service/create-itinerary.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MapComponent } from './map/component/map.component';
+import { FormSelectorComponent } from './components/form-fields/form-selector/form-selector.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CreateItineraryComponent,
-    MapComponent
+    MapComponent,
+    FormSelectorComponent
   ],
   imports: [
     RouterModule.forChild(routes),

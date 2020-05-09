@@ -23,7 +23,7 @@ describe('MapComponent', () => {
   const places: Place[] = [{
     title: 'test',
     description: 'test',
-    category: { name: 'test' },
+    category: { name: 'test', isFoodType: false },
     price_per_person: 0,
     latitude: 0,
     longitude: 0,

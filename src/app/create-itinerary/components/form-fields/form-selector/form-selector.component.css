@@ -1,0 +1,48 @@
+mat-form-field {
+  font-size: 1.1em;
+  width: 30em;
+  font-family: "Raleway Medium";
+}
+
+mat-checkbox {
+  display: block;
+}
+
+h1 {
+  margin-right: 50px;
+}
+
+h1, .step-completed a  {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+h3, mat-checkbox, .completed .step-completed{
+  font-family: "Raleway Medium";
+  color: #000;
+  font-size: 1.2em;
+}
+
+.step-completed {
+  margin-top: 10px;
+}
+
+.step-completed a {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.completed {
+  display: inline-flex;
+  width: 100%;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.active {
+  opacity: 1;
+}
+
