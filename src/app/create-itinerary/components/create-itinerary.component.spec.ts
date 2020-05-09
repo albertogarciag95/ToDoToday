@@ -6,6 +6,10 @@ import { HttpService } from '../../shared/services/http.service';
 import { Category } from '../../shared/models/category';
 import { of } from 'rxjs';
 import { Place } from 'src/app/shared/models/place';
+import { FormBuilder } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { ElementRef } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 
 describe('CreateItineraryComponent', () => {
@@ -32,12 +36,18 @@ describe('CreateItineraryComponent', () => {
     dateStart: 'test'
   }];
 
+
   let fixture: ComponentFixture<CreateItineraryComponent>;
 
   beforeEach(async(() => {
     const spy = jasmine.createSpyObj('CreateItineraryService', ['getCategories', 'createItinerary']);
     spy.getCategories.and.returnValue( of(categories) );
-    spy.createItinerary.and.returnValue( of(places) );
+    spy.createItinerary.and.returnValue( of({
+      categoryPlaces: places,
+      secondCategoryPlaces: [],
+      dinnerPlaces: [],
+      lunchPlaces: []
+    }) );
 
     const httpServiceSpy = jasmine.createSpyObj('HttpService', ['get', 'post']);
     httpServiceSpy.get.and.returnValue( of(categories) );
@@ -46,6 +56,7 @@ describe('CreateItineraryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CreateItineraryComponent ],
       providers: [
+        FormBuilder,
         { provide: CreateItineraryService, useValue: spy },
         { provide: HttpService, useValue: httpServiceSpy }
       ]
@@ -54,6 +65,11 @@ describe('CreateItineraryComponent', () => {
     fixture = TestBed.createComponent(CreateItineraryComponent);
     fixture.detectChanges();
     component = fixture.componentInstance;
+    component.firstCategorySelected = 'test';
+    component.secondCategorySelected = '';
+    component.lunchCategorySelected = '';
+    component.dinnerCategorySelected = '';
+    component.map = new ElementRef({ scrollIntoView() {} });
   }));
 
 
@@ -62,19 +78,26 @@ describe('CreateItineraryComponent', () => {
     expect(component).toBeTruthy();
   }));
 
-  it('should modify second selector onFirstCategoryChanges', (() => {
-    component.onFirstCategoryChanges('Gastronomía', 0);
-    expect(component.secondOptionCategories.includes({ name: 'Gastronomía', isFoodType: false })).toBeFalse();
+
+  it('firstCategorySelector should listen selectedChange event', (() => {
+    const selector = fixture.debugElement.query(By.css('#firstCategorySelector'));
+    selector.triggerEventHandler('selectedChange', {});
+    expect(component.fieldStates[1]).toEqual('active');
   }));
 
-  it('should modify second selector onSecondCategoryChanges', (() => {
-    component.onSecondCategoryChanges('Gastronomía', 1);
-    expect(component.firstOptionCategories.includes({ name: 'Gastronomía', isFoodType: false })).toBeFalse();
+  it('secondCategorySelector should listen selectedChange event', (() => {
+    const selector = fixture.debugElement.query(By.css('#secondCategorySelector'));
+    selector.triggerEventHandler('selectedChange', {});
+    expect(component.fieldStates[2]).toEqual('active');
+  }));
+
+  it('should enable map', async(() => {
+    component.enableMap();
+    expect(component.isMapEnabled).toBe(true);
   }));
 
   it('should createItinerary', async(() => {
     component.createItinerary();
-    expect(component.places).toEqual(places);
   }));
 
 });

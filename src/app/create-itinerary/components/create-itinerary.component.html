@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col-lg-3 col-md-2"></div>
+  <div class="col-lg-6 col-md-8 col-xs-12">
+    <form (ngSubmit)="createItinerary()" class="form-container">
+      <h1 class="big-title">Crea tu propio itinerario</h1>
+        <div class="row field">
+          <app-form-selector
+            id="firstCategorySelector"
+            [title]="firstCategoryTitle"
+            [listItems]="firstOptionCategories"
+            [selected]="firstCategorySelected"
+            (selectedChange)="firstCategorySelected = $event; onFirstCategoryChanges($event)">
+            [state]="fieldStates[0]"
+            [required]="true">
+          </app-form-selector>
+        </div>
+        <div class="row field">
+          <app-form-selector
+            id="secondCategorySelector"
+            [title]="secondCategoryTitle"
+            [subtitle]="secondCategorySubtitle"
+            [listItems]="secondOptionCategories"
+            [state]="fieldStates[1]"
+            [required]="false"
+            [checkboxText]="'Saltar este paso'"
+            [selected]="secondCategorySelected"
+            (selectedChange)="secondCategorySelected = $event; onSecondCategoryChanges($event)">
+          </app-form-selector>
+        </div>
+        <div class="row field">
+          <app-form-selector
+            [title]="lunchCategoryTitle"
+            [listItems]="lunchFoodCategories"
+            [state]="fieldStates[2]"
+            [required]="false"
+            [checkboxText]="'Esta vez no pararé a comer'"
+            [selected]="lunchCategorySelected"
+            (selectedChange)="lunchCategorySelected = $event; fieldStates[3] = 'active'">
+          </app-form-selector>
+        </div>
+        <div class="row field">
+          <app-form-selector
+            [title]="dinnerCategoryTitle"
+            [listItems]="dinnerFoodCategories"
+            [state]="fieldStates[3]"
+            [required]="false"
+            [checkboxText]="'Esta vez no pararé a cenar'"
+            [selected]="dinnerCategorySelected"
+            (selectedChange)="dinnerCategorySelected = $event;">
+          </app-form-selector>
+        </div>
+        <div class="button-create">
+          <h3 *ngIf="areAllFieldsFilled()">Por favor, rellena todos los campos</h3>
+          <button type="submit" [disabled]="areAllFieldsFilled()" mat-raised-button color="primary">Crear itinerario</button>
+        </div>
+    </form>
+    <hr>
+    <div #results *ngIf="itineraryResult" class="results-container">
+      <h1 class="big-title">Esto es lo que te proponemos</h1>
+      <h2>En {{firstCategorySelected.toLowerCase()}} :</h2>
+      <div *ngFor="let place of itineraryResult.categoryPlaces" value="place" class="row col-lg-10">
+        <div class="col-lg-4">
+          <img class="place-img" src="../../../assets/images/default.png">
+        </div>
+        <div class="place-card col-lg-8">
+          <h2>{{place.title}}</h2>
+          <p>{{place.description}}</p>
+          <p>¿Dónde?: {{place.location}}</p>
+          <p>Precio por persona: {{place.price_per_person}} euros</p>
+          <p>Fecha inicio: {{place.dateStart}}</p>
+          <p>Fecha fin: {{place.dateEnd}}</p>
+          <hr>
+        </div>
+      </div>
+      <div *ngIf="itineraryResult.secondCategoryPlaces.length > 0">
+        <h2>En {{secondCategorySelected.toLowerCase()}} :</h2>
+        <div *ngFor="let place of itineraryResult.secondCategoryPlaces" value="place" class="row col-lg-10">
+          <div class="col-lg-4">
+            <img class="place-img" src="../../../assets/images/default.png">
+          </div>
+          <div class="place-card col-lg-8">
+            <h2>{{place.title}}</h2>
+            <p>{{place.description}}</p>
+            <p>¿Dónde?: {{place.location}}</p>
+            <p>Precio por persona: {{place.price_per_person}} euros</p>
+            <p>Fecha inicio: {{place.dateStart}}</p>
+            <p>Fecha fin: {{place.dateEnd}}</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="itineraryResult.lunchPlaces.length > 0">
+        <h2>En cuanto a comer {{lunchCategorySelected.toLowerCase()}} :</h2>
+        <div *ngFor="let place of itineraryResult.lunchPlaces" value="place" class="row col-lg-10">
+          <div class="col-lg-4">
+            <img class="place-img" src="../../../assets/images/default.png">
+          </div>
+          <div class="place-card col-lg-8">
+            <h2>{{place.title}}</h2>
+            <p>{{place.description}}</p>
+            <p>¿Dónde?: {{place.location}}</p>
+            <p>Precio por persona: {{place.price_per_person}} euros</p>
+            <p>Fecha inicio: {{place.dateStart}}</p>
+            <p>Fecha fin: {{place.dateEnd}}</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="itineraryResult.dinnerPlaces.length > 0">
+        <h2>Si quieres cenar {{dinnerCategorySelected.toLowerCase()}} :</h2>
+        <div *ngFor="let place of itineraryResult.dinnerPlaces" value="place" class="row col-lg-10">
+          <div class="col-lg-4">
+            <img class="place-img" src="../../../assets/images/default.png">
+          </div>
+          <div class="place-card col-lg-8">
+            <h2>{{place.title}}</h2>
+            <p>{{place.description}}</p>
+            <p>¿Dónde?: {{place.location}}</p>
+            <p>Precio por persona: {{place.price_per_person}} euros</p>
+            <p>Fecha inicio: {{place.dateStart}}</p>
+            <p>Fecha fin: {{place.dateEnd}}</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="button-create">
+        <button type="submit" (click)="enableMap()" mat-raised-button color="primary">Abrir el mapa</button>
+      </div>
+      <div #map *ngIf="isMapEnabled">
+        <app-map *ngIf="itineraryResult" [places]="places"></app-map>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-2"></div>
+</div>

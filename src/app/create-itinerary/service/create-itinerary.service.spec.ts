@@ -9,19 +9,19 @@ describe('CreateItineraryService', () => {
   let service: CreateItineraryService;
 
   const categories: Category[] = [
-    { name: 'Cultura y arte' },
-    { name: 'Deporte' },
-    { name: 'Gastronomía' },
-    { name: 'Música' },
-    { name: 'Naturaleza' },
-    { name: 'Ocio y entretenimiento' }
+    { name: 'Cultura y arte', isFoodType: false },
+    { name: 'Deporte', isFoodType: false },
+    { name: 'Gastronomía', isFoodType: false },
+    { name: 'Música', isFoodType: false },
+    { name: 'Naturaleza', isFoodType: false },
+    { name: 'Ocio y entretenimiento', isFoodType: false }
   ];
 
   const places: Place[] = [
     {
       title: 'test',
       description: 'test',
-      category: { name: 'test' },
+      category: { name: 'test', isFoodType: false },
       price_per_person: 0,
       latitude: 0,
       longitude: 0,

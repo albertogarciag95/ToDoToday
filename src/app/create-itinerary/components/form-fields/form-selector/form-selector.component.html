@@ -1,0 +1,37 @@
+<div #currentElement>
+  <div class="col-lg-12" [ngClass]="state">
+    <h1>{{title}}</h1>
+    <h3 *ngIf="subtitle && state !== 'completed'">{{subtitle}}</h3>
+
+    <mat-form-field *ngIf="state !== 'completed'">
+      <mat-label>Tú eliges! </mat-label>
+      <mat-select
+        id="selector"
+        [value]="selected"
+        (selectionChange)="onItemSelected($event.value)"
+        [disabled]="state === 'disabled'">
+        <mat-option *ngFor="let item of listItems" value="{{item.name}}">
+          {{item.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="state === 'completed'" class="step-completed">
+      <span>{{selected}}</span>
+      <a (click)="editField()">Editar</a>
+    </div>
+
+    <div *ngIf="required === false && state !== 'completed'">
+      <mat-checkbox
+        id="checkbox"
+        [checked]="checkboxChecked"
+        [disabled]="state === 'disabled'"
+        (change)="onCheckboxChecked($event)">
+        {{checkboxText}}
+      </mat-checkbox>
+    </div>
+
+  </div>
+  <div *ngIf="state === 'completed'"><hr></div>
+</div>
+
