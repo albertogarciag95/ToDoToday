@@ -1,3 +1,5 @@
+import Constants from '../constants';
+
 export default function makePostItineraryUseCase({ db, coordinates }) {
 
   function getPlacesByQueryParams({ category, secondCategory, lunchCategory, dinnerCategory }) {
@@ -20,9 +22,9 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
   function queryPlaces({ category }) {
     return db.getCategoryByName(category).then(
       async result => {
-        if(result) {
+        if(result.length !== 0) {
           const categoryPlaces = await db.queryPlaces({ category: result[0]._id });
-          categoryPlaces.map(place => place.category = result.name);
+          categoryPlaces.map(place => place.category = result[0].name);
           return categoryPlaces;
         } else {
           return [];
@@ -31,36 +33,49 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     ).catch(error => error);
   }
 
-  function getNearbyPlaces(places, startingPoint) {
-    let distances = [];
-    if(places.length === 0) return [];
-    
+  function getNearbyPlaces(places, startingPoint, howMany = 1) {
+    let nearbyPlaces = [];
+    if(places.length === 0 || startingPoint === "") return [];
     places.forEach(place => {
-      startingPoint,
-      distances.push({
+      nearbyPlaces.push({
         place,
         distance: coordinates.getDistanceBetweenCoordinates(startingPoint, place)
       });
     });
 
-    return distances.sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1);
+    nearbyPlaces
+      .sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1)
+      .filter(place => place.distance != 0);
+
+    nearbyPlaces.length = howMany;
+
+    return nearbyPlaces;
   }
 
-  function createItinerary(firstPlace, filteredPlaces) {
-    const secondPlaces = getNearbyPlaces(filteredPlaces.secondCategoryPlaces, firstPlace);
-    secondPlaces.length = 1;
+  function createItinerary(firstPlace, { lunchPlaces, secondCategoryPlaces, dinnerPlaces}) {
+    let startingPoint = firstPlace.place;
+    const nearbyLunchPlaces = getNearbyPlaces(lunchPlaces, startingPoint || "");
 
-    const lunchPlaces = getNearbyPlaces(filteredPlaces.lunchPlaces, secondPlaces[0]);
-    lunchPlaces.length = 1;
+    if(nearbyLunchPlaces.length !== 0) {
+      startingPoint = nearbyLunchPlaces[0].place;
+    }
+    const nearbySecondCategoryPlaces = getNearbyPlaces(secondCategoryPlaces, startingPoint || "");
 
-    const dinnerPlaces = getNearbyPlaces(filteredPlaces.dinnerPlaces, lunchPlaces[0]);
+    if(nearbySecondCategoryPlaces.length !== 0) {
+      startingPoint = nearbySecondCategoryPlaces[0].place;
+    }
+    const nearbyDinnerPlaces = getNearbyPlaces(dinnerPlaces, startingPoint || "");
 
-    return { secondPlace: secondPlaces[0], lunchPlace: lunchPlaces[0], dinnerPlace: dinnerPlaces[0] }
+    return {
+      lunchPlace: nearbyLunchPlaces[0],
+      secondPlace: nearbySecondCategoryPlaces[0],
+      dinnerPlace: nearbyDinnerPlaces[0]
+    }
   }
-
 
   return async function postItineraryUseCase(body) {
     const { category, userLocation } = body;
+    const result = [];
 
     if(!body) {
       throw new Error('body is required');
@@ -70,23 +85,19 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
       throw new Error('missing required fields');
     }
 
-    const userCoordinates = { latitude: userLocation[0], longitude: userLocation[1] }
+    const userCoordinates = { latitude: userLocation[0], longitude: userLocation[1] };
 
     const filteredPlaces = await getPlacesByQueryParams(body);
-    const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userCoordinates);
+    const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userCoordinates, Constants.NUMBER_OF_ROUTES);
 
-    nearbyFirstPlaces.length = 2;
+    nearbyFirstPlaces.forEach(place => {
+      result.push({
+        firstPlace: place,
+        ...createItinerary(place, filteredPlaces)
+      })
+    })
 
-    return {
-      firstOption: {
-        firstPlace: nearbyFirstPlaces[0],
-        ...createItinerary(nearbyFirstPlaces[0], filteredPlaces),
-      },
-      secondOption: {
-        firstPlace: nearbyFirstPlaces[1],
-        ...createItinerary(nearbyFirstPlaces[1], filteredPlaces)
-      }
-    };
+    return result;
 
   }
 }

@@ -25,7 +25,7 @@ describe('db operations', () => {
   })
 
   it('delete place', () => {
-    db.deletePlace({ title: 'Test' }).then(result => {
+    db.removePlace({ title: 'Test' }).then(result => {
       expect(result).to.have.property('deletedCount');
     });
   })
