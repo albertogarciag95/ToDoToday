@@ -6,16 +6,22 @@ export default function makeDbOperations({ makeDb }) {
 
   return Object.freeze({
     getAllCategories,
+    getAllPlaces,
     getCategoryByName,
     queryPlaces,
     findPlaceByTitle,
     postPlace,
-    deletePlace
+    removePlace
   })
 
   async function getAllCategories() {
     await makeDb();
     return await categoriesModel.find().select('-_id').sort('name');
+  }
+
+  async function getAllPlaces() {
+    await makeDb();
+    return await placesModel.find().select('-_id');
   }
 
   async function getCategoryByName(name) {
@@ -44,7 +50,7 @@ export default function makeDbOperations({ makeDb }) {
     return newPlace.save();
   }
 
-  async function deletePlace(place) {
+  async function removePlace(place) {
     await makeDb();
 
     return await placesModel.deleteOne(place);

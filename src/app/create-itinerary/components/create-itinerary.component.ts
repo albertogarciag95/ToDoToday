@@ -49,6 +49,7 @@ export class CreateItineraryComponent implements OnInit {
 
     this.createItineraryService.createItinerary(body).subscribe(
       (response: any) => {
+        console.log(response);
         this.itineraryResult = response;
         this.places = [
           ...response.categoryPlaces,
@@ -70,7 +71,8 @@ export class CreateItineraryComponent implements OnInit {
       category: this.firstCategorySelected,
       secondCategory: this.secondCategorySelected,
       lunchCategory: this.lunchCategorySelected,
-      dinnerCategory: this.dinnerCategorySelected
+      dinnerCategory: this.dinnerCategorySelected,
+      userLocation: [40.435552, -3.708358]
     };
   }
 
