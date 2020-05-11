@@ -5,9 +5,9 @@ export default function makeCoordinatesOperations({ geolib }) {
   })
 
   function getDistanceBetweenCoordinates(place1, place2) {
-    return geolib.getDistance(
+    return geolib.getPreciseDistance(
       { latitude: place1.latitude, longitude: place1.longitude },
-      { latitude: place2.latitude, longitude: place2.longitude }
+      { latitude: place2.latitude, longitude: place2.longitude }, 1
     )
   }
 }

@@ -72,8 +72,8 @@ export class CreateItineraryComponent implements OnInit {
       secondCategory: this.secondCategorySelected,
       lunchCategory: this.lunchCategorySelected,
       dinnerCategory: this.dinnerCategorySelected,
-      userLocation: [40.435552, -3.708358]
-    };
+      userLocation: [40.416988, -3.703510]
+    }; 
   }
 
   onFirstCategoryChanges(selectedItem) {
