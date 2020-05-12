@@ -2,6 +2,8 @@ import Constants from '../constants';
 
 export default function makePostItineraryUseCase({ db, coordinates }) {
 
+  let currentPlaces = [];
+
   function getPlacesByQueryParams({ category, secondCategory, lunchCategory, dinnerCategory }) {
     let promises = [];
     promises.push(queryPlaces({ category }));
@@ -43,9 +45,10 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
       });
     });
 
-    nearbyPlaces
-      .sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1)
-      .filter(place => place.distance != 0);
+    nearbyPlaces =
+    nearbyPlaces.sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1)
+      .filter(place => place.distance != 0)
+      .filter(({ place }) => !currentPlaces.includes(place.title));
 
     nearbyPlaces.length = howMany;
 
@@ -54,17 +57,24 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
 
   function createItinerary(firstPlace, { lunchPlaces, secondCategoryPlaces, dinnerPlaces}) {
     let startingPoint = firstPlace.place;
+    currentPlaces.push(startingPoint.title);
     const nearbyLunchPlaces = getNearbyPlaces(lunchPlaces, startingPoint || "");
 
     if(nearbyLunchPlaces.length !== 0) {
       startingPoint = nearbyLunchPlaces[0].place;
+      currentPlaces.push(startingPoint.title);
     }
     const nearbySecondCategoryPlaces = getNearbyPlaces(secondCategoryPlaces, startingPoint || "");
 
     if(nearbySecondCategoryPlaces.length !== 0) {
       startingPoint = nearbySecondCategoryPlaces[0].place;
+      currentPlaces.push(startingPoint.title);
     }
     const nearbyDinnerPlaces = getNearbyPlaces(dinnerPlaces, startingPoint || "");
+
+    if(nearbyDinnerPlaces.length !== 0) {
+      currentPlaces.push(nearbyDinnerPlaces[0].place.title);
+    }
 
     return {
       lunchPlace: nearbyLunchPlaces[0],
@@ -76,6 +86,7 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
   return async function postItineraryUseCase(body) {
     const { category, userLocation } = body;
     const result = [];
+    currentPlaces = [];
 
     if(!body) {
       throw new Error('body is required');
@@ -98,6 +109,5 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     })
 
     return result;
-
   }
 }

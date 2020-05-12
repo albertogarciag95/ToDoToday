@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
       container: 'map',
       style: this.style,
       center: [-3.707884, 40.421528],
-      zoom: 12,
+      zoom: 12
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
