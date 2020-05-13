@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "debug": "babel-node --nolazy --inspect-brk=9229 src/node-api/src/index.js",
+    "debug": "babel-node --nolazy --inspect-brk=9228 src/node-api/src/index.js",
     "build": "ng build",
     "test": "ng test --watch --code-coverage && npm run e2e && npm run lint",
     "lint": "ng lint",
@@ -28,6 +28,8 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@turf/helpers": "^6.1.4",
+    "@turf/turf": "^5.1.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",

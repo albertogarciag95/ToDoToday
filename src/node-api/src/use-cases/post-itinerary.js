@@ -92,14 +92,12 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
       throw new Error('body is required');
     }
 
-    if(!category || userLocation.length === 0) {
+    if(!category || !userLocation) {
       throw new Error('missing required fields');
     }
 
-    const userCoordinates = { latitude: userLocation[0], longitude: userLocation[1] };
-
     const filteredPlaces = await getPlacesByQueryParams(body);
-    const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userCoordinates, Constants.NUMBER_OF_ROUTES);
+    const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userLocation, Constants.NUMBER_OF_ROUTES);
 
     nearbyFirstPlaces.forEach(place => {
       result.push({

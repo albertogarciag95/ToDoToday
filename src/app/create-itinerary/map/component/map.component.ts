@@ -183,9 +183,9 @@ export class MapComponent implements OnInit {
 
       this.mapService.getOptimizedRoute(coordinates, mapboxgl.accessToken).subscribe(
         (data: any) => {
-          let routeGeoJSON: any = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
+          let routeGeoJSON: any = turf.featureCollection([turf.feature(data.routes[0].geometry)]);
 
-          if (!data.trips[0]) {
+          if (!data.routes[0]) {
             routeGeoJSON = nothing;
           } else {
 

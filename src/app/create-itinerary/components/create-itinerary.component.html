@@ -58,32 +58,19 @@
   </div>
   <div class="col-lg-3 col-md-2"></div>
 </div>
-<div class="row">
-  <div class="col-lg-1 col-md-1 col-xs-1"></div>
-  <div class="col-lg-10 col-md-10 col-xs-10">
-    <div #options *ngIf="itineraryResult" style="text-align: center;">
-      <h1 class="big-title">Esto es lo que te proponemos</h1>
-      <div *ngFor="let option of itineraryResult; let i = index" [attr.data-index]="i" class="col-lg-5 options">
-        <div class="col-lg-6 option-buttons">
-          <button type="submit" mat-raised-button>Ver detalle</button>
-          <button type="submit" mat-raised-button>Ver en el mapa</button>
-          <button type="submit" mat-raised-button>¡Comenzar itinerario!</button>
-        </div>
-        <div class="col-lg-6 option-places">
-          <h3>Opción {{i + 1}}</h3>
-            <ul *ngFor="let place of option | keyvalue">
-              <li>{{place.value.place.title}}</li>
-            </ul>
-        </div>
-        <div class="col-lg-1"></div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-1 col-md-10 col-xs-1"></div>
+
+<div #options>
+  <app-options
+    *ngIf="itineraryResult"
+    [result]="itineraryResult"
+    (detailsChanged)="detailsSelected = $event"
+    (mapOptionChanged)="enableMap($event)">
+  </app-options>
 </div>
-<!-- <div class="row">
-  <div #results *ngIf="itineraryResult" class="results-container">
-    <h2>En {{firstCategorySelected.toLowerCase()}} :</h2>
+
+<div class="row">
+  <div #results *ngIf="detailsSelected" class="results-container">
+    <h2>En {{detailsSelected.firstPlace.place.title}} :</h2>
     <div *ngFor="let place of itineraryResult.categoryPlaces" value="place">
       <div class="col-lg-6 col-md-6 col-lg-12">
         <img class="options-img" src="../../../assets/images/default.png">
@@ -149,11 +136,8 @@
         </div>
       </div>
     </div>
-    <div class="button-create">
-      <button type="submit" (click)="enableMap()" mat-raised-button color="primary">Ver en el mapa</button>
-    </div>
-    <div #map *ngIf="isMapEnabled">
-      <app-map *ngIf="itineraryResult" [places]="places"></app-map>
-    </div>
   </div>
-</div> -->
+</div>
+<div #map *ngIf="mapOptionSelected">
+  <app-map *ngIf="itineraryResult" [userLocation]="userLocation" [places]="mapOptionSelected"></app-map>
+</div>
