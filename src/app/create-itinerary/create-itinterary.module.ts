@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MapComponent } from './map/component/map.component';
 import { FormSelectorComponent } from './components/form-fields/form-selector/form-selector.component';
+import { OptionsComponent } from './components/options/options.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   declarations: [
     CreateItineraryComponent,
     MapComponent,
-    FormSelectorComponent
+    FormSelectorComponent,
+    OptionsComponent
   ],
   imports: [
     RouterModule.forChild(routes),

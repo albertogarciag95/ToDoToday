@@ -25,6 +25,14 @@ export class HttpService {
       );
   }
 
+  getForeign(endpoint: string): Observable<any> {
+    return this.http.get(endpoint)
+      .pipe(
+        map((response: any) => response),
+        catchError((error: any) => of('ERROR: ', error))
+      );
+  }
+
   post(endpoint: string, body?: object) {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
       .pipe(

@@ -13,6 +13,7 @@ import { Place } from 'src/app/shared/models/place';
 export class CreateItineraryComponent implements OnInit {
 
   @ViewChild('results', { static: false }) results: ElementRef;
+  @ViewChild('options', { static: false }) options: ElementRef;
   @ViewChild('map', { static: false }) map: ElementRef;
 
   firstCategoryTitle = '1. ¿Qué te apetece hacer hoy?';
@@ -35,11 +36,12 @@ export class CreateItineraryComponent implements OnInit {
   noFoodCategories: Category[];
 
   fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled'];
+  userLocation: any = { latitude: 40.416988, longitude: -3.703510 };
 
   itineraryResult: any;
-  places: Place[];
-  buttonEnabled: boolean;
-  isMapEnabled: boolean;
+
+  detailsSelected: any;
+  mapOptionSelected: any;
 
 
   constructor(private createItineraryService: CreateItineraryService, private changeDetector: ChangeDetectorRef) { }
@@ -51,16 +53,8 @@ export class CreateItineraryComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.itineraryResult = response;
-        this.places = [
-          ...response.categoryPlaces,
-          ...response.secondCategoryPlaces,
-          ...response.lunchPlaces,
-          ...response.dinnerPlaces
-        ];
         this.changeDetector.detectChanges();
-        this.results.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        console.log(response);
+        this.options.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, (error: any) => {
         console.error('ERROR: ', error);
       });
@@ -72,8 +66,8 @@ export class CreateItineraryComponent implements OnInit {
       secondCategory: this.secondCategorySelected,
       lunchCategory: this.lunchCategorySelected,
       dinnerCategory: this.dinnerCategorySelected,
-      userLocation: [40.416988, -3.703510]
-    }; 
+      userLocation: this.userLocation
+    };
   }
 
   onFirstCategoryChanges(selectedItem) {
@@ -109,8 +103,8 @@ export class CreateItineraryComponent implements OnInit {
     );
   }
 
-  enableMap() {
-    this.isMapEnabled = true;
+  enableMap(option) {
+    this.mapOptionSelected = option;
     this.changeDetector.detectChanges();
     this.map.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
