@@ -1,6 +1,6 @@
 import chai from 'chai';
 import spies from 'chai-spies';
-import db from '../../src/data-access';
+import db from '../../src/adapters/data-access';
 
 import { postItineraryUseCase } from '../../src/use-cases';
 

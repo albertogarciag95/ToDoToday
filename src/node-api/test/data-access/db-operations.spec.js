@@ -1,5 +1,5 @@
 import chai from 'chai';
-import db from '../../src/data-access';
+import db from '../../src/adapters/data-access';
 
 const expect = chai.expect;
 

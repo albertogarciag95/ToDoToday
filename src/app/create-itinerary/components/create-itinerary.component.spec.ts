@@ -92,8 +92,8 @@ describe('CreateItineraryComponent', () => {
   }));
 
   it('should enable map', async(() => {
-    component.enableMap();
-    expect(component.isMapEnabled).toBe(true);
+    component.enableMap({});
+    expect(component.mapOptionSelected).toBe({});
   }));
 
   it('should createItinerary', async(() => {

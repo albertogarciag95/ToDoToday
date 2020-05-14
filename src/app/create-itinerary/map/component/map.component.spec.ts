@@ -56,7 +56,7 @@ describe('MapComponent', () => {
 
   it('should create the map', () => {
     component.places = places;
-    component.addPlaces(places);
+    component.addPlacesToMap(places);
     myMarker.getElement().dispatchEvent(new Event('mouseenter'));
   });
 
