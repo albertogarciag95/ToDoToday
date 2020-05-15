@@ -3,10 +3,6 @@ node_js:
   - '12'
 addons:
   chrome: stable
-  sonarcloud:
-    organization: "albertogarciag95-github"
-    token:
-      secure: "Jx40GkFcK1yPHVr19wGR4Y1VqgnzjlBa5rFXtljorJXwVa4eme8iMxbA5WPwQmDlfyyFURIySik7BBg/TjAxHdTiE4XggMGdi2W2XzXKdwlwQUMUkeM1nPgrPps0qH/zoWrr0IUXcUCmZvBvBrQjHMqWT6i9scaXXXbVpX+bAygU7avvZtlm20p/UISFI+yIGy3zCl9coQTreJ3bkBXA5b+92jhd3MiPwIOUSCae6LHFiNMJuDhf02G2Nh7vd7jCRktPJwtyaNo2OKfhVlQEKdRlkhCw7KZE+riM6AkWZAUQ9AkrZXZydIBYHAKFBNKTH4+9b+2wuM5q+9AVsBi1quot0VNHMpJd2nRN9MaLRBqMNGhD86V1hgWTsKRkQjVkx4DKbYy0gLpeaPEkRSGzK837EXLVFNV09LwTZ1HtL3BeGb8IDx7787BEoQDg28mJqcdoxSJB1fS7RyozMB3/N5ecrmTWcZVRQ6sTLc6sBl7SR8+7eCfn/4YZnFTubeDJ0N/xCO+WjYJxITycs+0zl222FamCWUa19vNje4wGHCcvcB2qxBLD18Nx3rokzqYf2eJYj+CEzQC3lnjFELETehm1KXBLr+CivgZfep+62Sq8YgJhC1SQBljLiB+lTsMSdDPwe2JXEAMD2cc4SeErZbcQe/txjOvrABfmk58Do5E="
 branches:
   - develop
   - /^release-[0-999].[0-999]$/

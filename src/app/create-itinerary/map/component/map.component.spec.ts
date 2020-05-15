@@ -79,7 +79,6 @@ describe('MapComponent', () => {
     const { lng, lat } = component.map.getCenter();
       let userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
       component.map.on('load', () => {
-        component.map.removeLayer('warehouse');
         component.addUserPoint(userPoint)
         expect(component).toBeTruthy();
     })
@@ -87,7 +86,6 @@ describe('MapComponent', () => {
 
   it('makePopup', () => {
     component.map.on('load', () => {
-      component.map.removeLayer('warehouse');
       component.makePopup(component.places[1]);
       expect(component).toBeTruthy();
     });
@@ -95,7 +93,6 @@ describe('MapComponent', () => {
 
   it('flyToPoint', () => {
     component.map.on('load', () => {
-      component.map.removeLayer('warehouse');
       component.flyToPoint(component.places[1]);
       expect(component).toBeTruthy();
     });
@@ -111,7 +108,5 @@ describe('MapComponent', () => {
       expect(component).toBeTruthy();
     });
   });
-
-
 
 });
