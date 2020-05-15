@@ -5,7 +5,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () =>
     import('../home/home.module').then(mod => mod.HomeModule) },
   { path: 'create-itinerary', loadChildren: () =>
-    import('../create-itinerary/create-itinterary.module').then(mod => mod.CreateItineraryModule) },
+    import('../create-itinerary/create-itinerary.module').then(mod => mod.CreateItineraryModule) },
   { path: '**', redirectTo: 'home' }
 ];
 

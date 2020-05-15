@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
 import { Place } from 'src/app/shared/models/place';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/helpers';

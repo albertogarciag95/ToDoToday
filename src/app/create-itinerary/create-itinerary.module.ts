@@ -11,9 +11,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MapComponent } from './map/component/map.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MapComponent } from './components/map/component/map.component';
 import { FormSelectorComponent } from './components/form-fields/form-selector/form-selector.component';
 import { OptionsComponent } from './components/options/options.component';
+import { FormLocationComponent } from './components/form-fields/form-location/form-location.component';
 
 
 const routes: Routes = [
@@ -25,7 +27,8 @@ const routes: Routes = [
     CreateItineraryComponent,
     MapComponent,
     FormSelectorComponent,
-    OptionsComponent
+    OptionsComponent,
+    FormLocationComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -35,7 +38,8 @@ const routes: Routes = [
     MatSelectModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
   providers: [ CreateItineraryService ],
   exports: [ RouterModule ]

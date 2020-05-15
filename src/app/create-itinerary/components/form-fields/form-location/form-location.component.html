@@ -1,0 +1,15 @@
+<div class="col-lg-12" [ngClass]="state">
+  <h1>{{title}}</h1>
+  <div class="location-options" *ngIf="state !== 'completed'">
+    <mat-slide-toggle
+      [disabled]="state === 'disabled'"
+      (toggleChange)="selectMyLocation()">
+      Desde mi ubicación
+    </mat-slide-toggle>
+    <a class="edit" (click)="openMapForSelectLocation()">Desde otro punto</a>
+  </div>
+  <div *ngIf="state === 'completed'">
+    {{location}}
+    <a class="edit" (click)="editField()">Editar</a>
+  </div>
+</div>
