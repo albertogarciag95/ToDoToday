@@ -13,14 +13,14 @@ describe('Post itinerary controller test', () => {
   it('Post itinterary controller goes fine', () => {
     const httpRequest = {
       body: {
-        category: 'Cultura y sociedad'
+        category: 'Cultura y sociedad',
+        userLocation: { latitude: 30, longitude: -3 }
       }
     };
     postItineraryController(httpRequest).then(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response.statusCode === 201).to.be.true;
-      expect(response.body).to.be.an('object');
-      expect(response.body).to.have.property('categoryPlaces')
+      expect(response.body).to.be.an('array');
     });
   });
 

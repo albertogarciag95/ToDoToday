@@ -39,17 +39,15 @@ describe('CreateItineraryService', () => {
     service = new CreateItineraryService(httpServiceSpy);
   }));
 
-  it('#getCategories should return value from observable', (done: DoneFn) => {
+  it('#getCategories should return value from observable', () => {
     service.getCategories().subscribe(value => {
       expect(value).toBe(categories);
-      done();
     });
   });
 
-  it('#createItinerary should return value from observable', (done: DoneFn) => {
+  it('#createItinerary should return value from observable', () => {
     service.createItinerary({ category: 'test' }).subscribe(value => {
       expect(value).toBe(places);
-      done();
     });
   });
 

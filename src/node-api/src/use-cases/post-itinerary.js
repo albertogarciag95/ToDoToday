@@ -84,13 +84,13 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
   }
 
   return async function postItineraryUseCase(body) {
-    const { category, userLocation } = body;
     const result = [];
     currentPlaces = [];
 
     if(!body) {
       throw new Error('body is required');
     }
+    const { category, userLocation } = body;
 
     if(!category || !userLocation) {
       throw new Error('missing required fields');

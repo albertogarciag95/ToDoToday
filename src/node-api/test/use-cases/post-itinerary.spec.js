@@ -1,6 +1,6 @@
 import chai from 'chai';
 import spies from 'chai-spies';
-import db from '../../src/data-access';
+import db from '../../src/adapters/data-access';
 
 import { postItineraryUseCase } from '../../src/use-cases';
 
@@ -20,9 +20,11 @@ describe('Post itinerary use-case test', function() {
   });
 
   it('postItineraryUseCase one category', () => {
-    postItineraryUseCase({ category: 'Cultura y sociedad' }).then(response => {
+    const body = { category: 'Cultura y sociedad', userLocation: { latitude: 30, longitude: -3 } };
+    postItineraryUseCase(body).then(response => {
       expect(dbSpy).to.have.been.called;
-      expect(response).to.have.property('categoryPlaces');
+      expect(response).to.be.an('array');
+      expect(response[0]).to.have.property('firstPlace');
     });
   });
 
@@ -37,12 +39,14 @@ describe('Post itinerary use-case test', function() {
   it('postItineraryUseCase all categories', () => {
     postItineraryUseCase({
         category: 'Cultura y sociedad',
+        userLocation: { latitude: 30, longitude: -3 },
         secondCategory: 'Música',
         lunchCategory: 'Burguer',
         dinnerCategory: 'Healthy'
       }).then(response => {
         expect(dbSpy).to.have.been.called;
-        expect(response).to.have.property('categoryPlaces');
+        expect(response).to.be.an('array');
+        expect(response[0]).to.have.property('firstPlace');
       });
   });
 

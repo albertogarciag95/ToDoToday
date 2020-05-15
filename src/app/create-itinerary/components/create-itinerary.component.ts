@@ -42,6 +42,7 @@ export class CreateItineraryComponent implements OnInit {
 
   detailsSelected: any;
   mapOptionSelected: any;
+  mapPlaces: any;
 
 
   constructor(private createItineraryService: CreateItineraryService, private changeDetector: ChangeDetectorRef) { }
@@ -105,8 +106,16 @@ export class CreateItineraryComponent implements OnInit {
 
   enableMap(option) {
     this.mapOptionSelected = option;
+    this.mapPlaces = this.translateToPlaces(this.mapOptionSelected);
     this.changeDetector.detectChanges();
     this.map.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  translateToPlaces(places: any) {
+    return [
+      this.userLocation,
+      ...Object.values(places).map(({ place }) => place)
+    ];
   }
 
   ngOnInit(): void {

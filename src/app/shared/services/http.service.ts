@@ -26,9 +26,9 @@ export class HttpService {
   }
 
   getForeign(endpoint: string): Observable<any> {
-    return this.http.get(endpoint)
+    return this.http.get(endpoint, this.createOptions())
       .pipe(
-        map((response: any) => response),
+        map((response: any) => response.body),
         catchError((error: any) => of('ERROR: ', error))
       );
   }
@@ -57,10 +57,6 @@ export class HttpService {
     this.headers = new HttpHeaders( { 'Content-Type': 'application/json' });
     this.params = new HttpParams();
     this.responseType = 'json';
-  }
-
-  private handleError(error): void {
-    console.error(error);
   }
 
 }
