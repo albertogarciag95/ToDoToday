@@ -27,7 +27,6 @@ describe('MapComponent', () => {
   });
 
   const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
-  let response: any;
 
   const places: any[] = [
     {latitude: 40.416988, longitude: -3.70351},
@@ -77,11 +76,11 @@ describe('MapComponent', () => {
 
   it('addUserPoint', () => {
     const { lng, lat } = component.map.getCenter();
-      let userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
-      component.map.on('load', () => {
-        component.addUserPoint(userPoint)
-        expect(component).toBeTruthy();
-    })
+    const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
+    component.map.on('load', () => {
+      component.addUserPoint(userPoint);
+      expect(component).toBeTruthy();
+    });
   });
 
   it('makePopup', () => {
@@ -104,9 +103,17 @@ describe('MapComponent', () => {
         type: 'geojson',
         data: turf.featureCollection([])
       });
-      component.getOptimizedRoute(fakeCoordinates, turf.featureCollection([]))
+      component.getOptimizedRoute(fakeCoordinates, turf.featureCollection([]));
       expect(component).toBeTruthy();
     });
   });
+
+  afterEach(() => {
+    component.map.on('load', () => {
+      if(component.map.getLayer('warehouse')) {
+        component.map.removeLayer('warehouse');
+      }
+    });
+  })
 
 });

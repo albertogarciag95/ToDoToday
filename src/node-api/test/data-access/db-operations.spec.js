@@ -7,7 +7,7 @@ describe('db operations', () => {
 
   it('lists categories', () => {
     db.getAllCategories().then(categories => {
-      expect(categories).to.have.lengthOf(12);
+      expect(categories).to.have.lengthOf(16);
     });
   })
 

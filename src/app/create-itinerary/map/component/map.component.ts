@@ -63,18 +63,18 @@ export class MapComponent implements OnInit {
 
   printRoute(places: Place[]) {
     const { lng, lat } = this.map.getCenter();
-    let userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
-    let dropoffs: any = turf.featureCollection([]);
-    let nothing: any = turf.featureCollection([]);
-    let coordinates = [];
+    const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
+    const dropoffs: any = turf.featureCollection([]);
+    const nothing: any = turf.featureCollection([]);
+    const coordinates = [];
 
     places.forEach((place: { longitude: any; latitude: any; }) => {
       const coordinate = [place.longitude, place.latitude];
-      var pt = turf.point(coordinate);
+      const pt = turf.point(coordinate);
 
       dropoffs.features.push(pt);
       coordinates.push(coordinate);
-    })
+    });
 
     this.map.on('load', () => {
       this.addUserPoint(userPoint);
@@ -135,9 +135,9 @@ export class MapComponent implements OnInit {
       paint: {
         'line-color': '#3887be',
         'line-width': [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
+          'interpolate',
+          ['linear'],
+          ['zoom'],
           12, 3,
           22, 12
         ]
@@ -152,16 +152,16 @@ export class MapComponent implements OnInit {
         'symbol-placement': 'line',
         'text-field': '▶',
         'text-size': [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
+          'interpolate',
+          ['linear'],
+          ['zoom'],
           5, 10,
           10, 25
         ],
         'symbol-spacing': [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
+          'interpolate',
+          ['linear'],
+          ['zoom'],
           2, 7,
           5, 35
         ],

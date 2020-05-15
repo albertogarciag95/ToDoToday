@@ -115,7 +115,7 @@ export class CreateItineraryComponent implements OnInit {
     return [
       this.userLocation,
       ...Object.values(places).map(({ place }) => place)
-    ]
+    ];
   }
 
   ngOnInit(): void {

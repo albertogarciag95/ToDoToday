@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 describe('MapService', () => {
   let service: MapService;
-  let response: any;
+  const response: any = null;
   const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
 
   beforeEach(async(() => {
