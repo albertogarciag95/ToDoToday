@@ -110,10 +110,10 @@ describe('MapComponent', () => {
 
   afterEach(() => {
     component.map.on('load', () => {
-      if(component.map.getLayer('warehouse')) {
+      if (component.map.getLayer('warehouse')) {
         component.map.removeLayer('warehouse');
       }
     });
-  })
+  });
 
 });
