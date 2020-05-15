@@ -1,16 +1,24 @@
-import { TestBed } from '@angular/core/testing';
+import { async } from '@angular/core/testing';
 
 import { MapService } from './map.service';
+import { of } from 'rxjs';
 
 describe('MapService', () => {
   let service: MapService;
+  let response: any;
+  const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(MapService);
-  });
+  beforeEach(async(() => {
+    const httpServiceSpy = jasmine.createSpyObj('HttpService', ['getForeign']);
+    httpServiceSpy.getForeign.and.returnValue( of(response) );
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    service = new MapService(httpServiceSpy);
+  }));
+
+  it('getOptimizedRoute', (done: DoneFn) => {
+    service.getOptimizedRoute(fakeCoordinates).subscribe(value => {
+      expect(value).toBe(response);
+      done();
+    });
   });
 });

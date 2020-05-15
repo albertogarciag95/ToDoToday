@@ -28,7 +28,7 @@ describe('FormSelectorComponent', () => {
   });
 
   it('formSelector should listen selectionChange event', fakeAsync(() => {
-    const selector = fixture.debugElement.query(By.css('mat-select'));
+    const selector = fixture.debugElement.query(By.css('.select'));
     selector.triggerEventHandler('selectionChange', {});
     tick(100);
     fixture.detectChanges();
@@ -70,9 +70,8 @@ describe('FormSelectorComponent', () => {
 
     fixture.detectChanges();
 
-    const checkbox = fixture.debugElement.query(By.css('mat-checkbox'));
+    const checkbox = fixture.debugElement.query(By.css('.checkbox'));
     checkbox.triggerEventHandler('change', { checked: false });
-
 
     expect(component).toBeTruthy();
   }));
@@ -81,7 +80,7 @@ describe('FormSelectorComponent', () => {
     component.state = 'completed';
     fixture.detectChanges();
 
-    const link = fixture.debugElement.query(By.css('a'));
+    const link = fixture.debugElement.query(By.css('.edit'));
     link.triggerEventHandler('click', {});
 
     expect(component.state).toBe('active');

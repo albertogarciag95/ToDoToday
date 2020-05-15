@@ -9,7 +9,7 @@ import { Place } from 'src/app/shared/models/place';
 import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ElementRef } from '@angular/core';
-import { map } from 'rxjs/operators';
+import fakeResponse from './mocks/fakeResponse';
 
 
 describe('CreateItineraryComponent', () => {
@@ -80,7 +80,7 @@ describe('CreateItineraryComponent', () => {
 
 
   it('firstCategorySelector should listen selectedChange event', (() => {
-    const selector = fixture.debugElement.query(By.css('#firstCategorySelector'));
+    const selector = fixture.debugElement.query(By.css('#firstCategory'));
     selector.triggerEventHandler('selectedChange', {});
     expect(component.fieldStates[1]).toEqual('active');
   }));
@@ -92,12 +92,13 @@ describe('CreateItineraryComponent', () => {
   }));
 
   it('should enable map', async(() => {
-    component.enableMap({});
-    expect(component.mapOptionSelected).toBe({});
+    component.enableMap(fakeResponse);
+    expect(component.mapOptionSelected).toBe(fakeResponse);
   }));
 
   it('should createItinerary', async(() => {
     component.createItinerary();
+    expect(component).toBeTruthy();
   }));
 
 });

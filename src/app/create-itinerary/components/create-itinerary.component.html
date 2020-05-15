@@ -5,11 +5,11 @@
       <h1 class="big-title">Crea tu propio itinerario</h1>
         <div class="row field">
           <app-form-selector
-            id="firstCategorySelector"
+            id="firstCategory"
             [title]="firstCategoryTitle"
             [listItems]="firstOptionCategories"
             [selected]="firstCategorySelected"
-            (selectedChange)="firstCategorySelected = $event; onFirstCategoryChanges($event)">
+            (selectedChange)="firstCategorySelected = $event; onFirstCategoryChanges($event)"
             [state]="fieldStates[0]"
             [required]="true">
           </app-form-selector>
@@ -139,5 +139,5 @@
   </div>
 </div>
 <div #map *ngIf="mapOptionSelected">
-  <app-map *ngIf="itineraryResult" [userLocation]="userLocation" [places]="mapOptionSelected"></app-map>
+  <app-map *ngIf="itineraryResult" [places]="mapPlaces"></app-map>
 </div>

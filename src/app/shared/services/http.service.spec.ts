@@ -4,9 +4,13 @@ import { HttpService } from './http.service';
 import { Category } from '../models/category';
 import { Place } from '../models/place';
 
+import * as mapboxgl from 'mapbox-gl';
+
 describe('HttpService', () => {
   let service: HttpService;
   let httpMock: HttpTestingController;
+
+  const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,6 +44,7 @@ describe('HttpService', () => {
     expect(request.request.method).toBe('GET');
 
     request.flush(categories);
+    httpMock.verify();
   });
 
   it('should retrieve post from de API', () => {
