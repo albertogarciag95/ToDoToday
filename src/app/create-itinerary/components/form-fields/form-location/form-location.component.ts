@@ -46,7 +46,6 @@ export class FormLocationComponent implements OnInit {
   onToggleMyLocation(toggle) {
     if(toggle.checked) {
       this.getMyLocation(this.returnMyLocation.bind(this));
-      this.state = 'completed';
     } else {
       this.userLocationChange.emit(undefined);
     }
