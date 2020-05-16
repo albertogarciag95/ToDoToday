@@ -3,10 +3,10 @@
   <div class="location-options" *ngIf="state !== 'completed'">
     <mat-slide-toggle
       [disabled]="state === 'disabled'"
-      (toggleChange)="selectMyLocation()">
+      (change)="onToggleMyLocation($event)">
       Desde mi ubicación
     </mat-slide-toggle>
-    <a class="edit" (click)="openMapForSelectLocation()">Desde otro punto</a>
+    <a class="edit" (click)="onSelectOtherPoint()">Desde otro punto</a>
   </div>
   <div *ngIf="state === 'completed'">
     {{location}}

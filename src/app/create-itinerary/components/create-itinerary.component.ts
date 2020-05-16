@@ -101,7 +101,8 @@ export class CreateItineraryComponent implements OnInit {
       this.firstCategorySelected !== undefined &&
       this.secondCategorySelected !== undefined &&
       this.lunchCategorySelected !== undefined &&
-      this.dinnerCategorySelected !== undefined
+      this.dinnerCategorySelected !== undefined &&
+      this.userLocation !== undefined
     );
   }
 

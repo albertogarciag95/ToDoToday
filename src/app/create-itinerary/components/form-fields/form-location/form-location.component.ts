@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MapSelectDialog } from '../../dialogs/map-select-dialog/map-select-dialog';
 
 @Component({
   selector: 'app-form-location',
@@ -12,11 +14,27 @@ export class FormLocationComponent implements OnInit {
   @Output() userLocationChange = new EventEmitter<any>();
 
   location: string = 'Mi ubicación';
+  isMapOpened: boolean = false;
+  myLocationChecked: boolean = false;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
-  openMapForSelectLocation() {
-    console.log("not yet");
+  onSelectOtherPoint() {
+    this.getMyLocation(this.openMapDialog.bind(this));
+  }
+
+  openMapDialog(position) {
+    const dialogRef = this.dialog.open(MapSelectDialog, {
+      width: '100%',
+      data: {
+        userLocation: [position.coords.longitude, position.coords.latitude]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.userLocationChange.emit({ latitude: result[0], longitude: result[1] });
+      this.state = 'completed';
+    });
   }
 
   editField() {
@@ -25,16 +43,29 @@ export class FormLocationComponent implements OnInit {
     }
   }
 
-  selectMyLocation() {
+  onToggleMyLocation(toggle) {
+    if(toggle.checked) {
+      this.getMyLocation(this.returnMyLocation.bind(this));
+      this.state = 'completed';
+    } else {
+      this.userLocationChange.emit(undefined);
+    }
+  }
+
+  getMyLocation(successCallback) {
     if('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.userLocationChange.emit({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-      }, (error) => {
-        throw new Error(error.message);
-      });
+      return navigator.geolocation.getCurrentPosition(
+        successCallback,
+        (error) => { throw new Error(error.message); },
+        { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
+      );
     } else {
       throw new Error('Geolocation is not allowed in your navigator');
     }
+  }
+
+  returnMyLocation(position) {
+    this.userLocationChange.emit({ latitude: position.coords.latitude, longitude: position.coords.longitude });
   }
 
   ngOnInit(): void {
