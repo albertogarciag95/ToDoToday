@@ -32,7 +32,7 @@ export class FormLocationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userLocationChange.emit({ latitude: result[0], longitude: result[1] });
+      this.userLocationChange.emit({ longitude: result[0], latitude: result[1] });
       this.state = 'completed';
     });
   }

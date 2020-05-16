@@ -3,6 +3,9 @@ import { environment } from '../../../../../environments/environment';
 
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/helpers';
+
+let MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -31,14 +34,36 @@ export class MapSelectDialog implements OnInit {
       center: userLocation,
       zoom: 15
     });
-
-    this.map.addControl(new mapboxgl.NavigationControl());
+    this.addMapControls(userLocation);
 
     this.map.on('load', () => {
       const userPoint = turf.featureCollection([ turf.point(userLocation)]);
       this.addUserPoint(userPoint);
       this.addClickEventHandler();
     });
+  }
+
+  addMapControls(userLocation) {
+    this.map.addControl(new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      placeholder: 'p. ej. Plaza de Callao',
+      proximity: { longitude: userLocation[0], latitude: userLocation[1] },
+      filter: this._filterResultsByRegion.bind(this),
+      marker: { color: '#7862DA' },
+      mapboxgl: mapboxgl
+    }).on('result', ({ result }) => {
+      const { geometry: { coordinates }} = result;
+      this.isElementSelected = true;
+
+      this.data.selected = coordinates;
+    }));
+
+    this.map.addControl(new mapboxgl.NavigationControl());
+  }
+
+  _filterResultsByRegion(item) {
+    return item.context.map(itemCtx => (itemCtx.id.split('.').shift() === 'region' && itemCtx.text === 'Madrid'))
+      .reduce((acc, cur) => acc || cur);
   }
 
   addClickEventHandler() {

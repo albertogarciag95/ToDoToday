@@ -28,6 +28,9 @@ a {
 .completed {
   display: inline-flex;
   width: 100%;
+  font-family: "Raleway Medium";
+  color: #000;
+  font-size: 1.2em;
 }
 
 .disabled {
