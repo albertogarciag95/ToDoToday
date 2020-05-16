@@ -46,8 +46,15 @@
             [required]="false"
             [checkboxText]="'Esta vez no pararé a cenar'"
             [selected]="dinnerCategorySelected"
-            (selectedChange)="dinnerCategorySelected = $event;">
+            (selectedChange)="dinnerCategorySelected = $event; fieldStates[4] = 'active'">
           </app-form-selector>
+        </div>
+        <div class="row field">
+          <app-form-location
+            [title]="locationTitle"
+            [state]="fieldStates[4]"
+            (userLocationChange)="userLocation = $event">
+          </app-form-location>
         </div>
         <div class="button-create">
           <h3 *ngIf="areAllFieldsFilled()">Por favor, rellena todos los campos</h3>
@@ -138,6 +145,6 @@
     </div>
   </div>
 </div>
-<div #map *ngIf="mapOptionSelected">
+<!-- <div #map *ngIf="mapOptionSelected">
   <app-map *ngIf="itineraryResult" [places]="mapPlaces"></app-map>
-</div>
+</div> -->

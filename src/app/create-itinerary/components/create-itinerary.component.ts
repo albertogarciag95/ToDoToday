@@ -20,6 +20,7 @@ export class CreateItineraryComponent implements OnInit {
   secondCategoryTitle = '2. ¿Te gustaría hacer alguna otra cosa?';
   lunchCategoryTitle = '3. ¿Qué te apetece comer?';
   dinnerCategoryTitle = '4. ¿Qué te apetece cenar?';
+  locationTitle = '5. ¿Dónde empieza tu itinerario?';
 
   secondCategorySubtitle = '¡El día es muy largo! ¿Por qué no exprimirlo al máximo?';
 
@@ -35,8 +36,8 @@ export class CreateItineraryComponent implements OnInit {
   foodCategories: Category[];
   noFoodCategories: Category[];
 
-  fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled'];
-  userLocation: any = { latitude: 40.416988, longitude: -3.703510 };
+  fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled'];
+  userLocation: any;
 
   itineraryResult: any;
 
@@ -100,7 +101,8 @@ export class CreateItineraryComponent implements OnInit {
       this.firstCategorySelected !== undefined &&
       this.secondCategorySelected !== undefined &&
       this.lunchCategorySelected !== undefined &&
-      this.dinnerCategorySelected !== undefined
+      this.dinnerCategorySelected !== undefined &&
+      this.userLocation !== undefined
     );
   }
 

@@ -1,0 +1,41 @@
+h1 {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+mat-slide-toggle {
+  font-family: "Raleway Medium";
+  color: #000;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+a {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.location-options {
+  margin-top: 30px;
+  width: 60%;
+}
+
+.completed {
+  display: inline-flex;
+  width: 100%;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.active {
+  opacity: 1;
+}
+
+

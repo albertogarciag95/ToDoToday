@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Selecciona un punto de partida</h1>
+<div mat-dialog-content>
+  <div class="row" id="map"></div>
+</div>
+<div class="actions" mat-dialog-actions>
+  <button mat-button (click)="close()">Volver</button>
+  <button mat-button [disabled]="!isElementSelected" [mat-dialog-close]="data.selected" cdkFocusInitial>Ok</button>
+</div>
+
