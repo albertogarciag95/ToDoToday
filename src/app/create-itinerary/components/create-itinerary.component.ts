@@ -37,7 +37,7 @@ export class CreateItineraryComponent implements OnInit {
   noFoodCategories: Category[];
 
   fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled'];
-  userLocation: any = { latitude: 40.416988, longitude: -3.703510 };
+  userLocation: any;
 
   itineraryResult: any;
 

@@ -53,7 +53,8 @@
           <app-form-location
             [title]="locationTitle"
             [state]="fieldStates[4]"
-          ></app-form-location>
+            (userLocationChange)="userLocation = $event">
+          </app-form-location>
         </div>
         <div class="button-create">
           <h3 *ngIf="areAllFieldsFilled()">Por favor, rellena todos los campos</h3>

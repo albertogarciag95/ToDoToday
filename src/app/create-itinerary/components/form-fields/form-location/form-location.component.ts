@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form-location',
@@ -9,6 +9,7 @@ export class FormLocationComponent implements OnInit {
 
   @Input() title: string;
   @Input() state: string;
+  @Output() userLocationChange = new EventEmitter<any>();
 
   location: string = 'Mi ubicación';
 
@@ -25,7 +26,15 @@ export class FormLocationComponent implements OnInit {
   }
 
   selectMyLocation() {
-    console.log('not yet');
+    if('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.userLocationChange.emit({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+      }, (error) => {
+        throw new Error(error.message);
+      });
+    } else {
+      throw new Error('Geolocation is not allowed in your navigator');
+    }
   }
 
   ngOnInit(): void {

@@ -37,6 +37,12 @@ export class MapComponent implements OnInit {
     this.printRoute(this.places);
 
     this.map.addControl(new mapboxgl.NavigationControl());
+    this.map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+          enableHighAccuracy: true
+      },
+      trackUserLocation: true
+  }));
     this.addMarkers(this.places);
   }
 
