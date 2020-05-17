@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormLocationComponent } from './form-location.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 describe('FormLocationComponent', () => {
   let component: FormLocationComponent;
@@ -8,7 +10,9 @@ describe('FormLocationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormLocationComponent ]
+      imports: [ OverlayModule, MatDialogModule ],
+      declarations: [ FormLocationComponent ],
+      providers: [ MatDialog, MatDialogModule ]
     })
     .compileComponents();
   }));

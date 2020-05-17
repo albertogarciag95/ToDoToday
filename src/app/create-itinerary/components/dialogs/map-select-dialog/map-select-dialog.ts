@@ -123,7 +123,10 @@ export class MapSelectDialog implements OnInit {
   }
 
   closePassingLocation() {
-    this.dialogRef.close(this.data);
+    this.okPressed = true;
+    if(this.isElementSelected) {
+      this.dialogRef.close(this.data);
+    }
   }
 
   ngOnInit(): void {

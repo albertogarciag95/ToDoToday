@@ -26,6 +26,8 @@ h1 {
 .actions-left {
   float: left;
   color: red;
+  width: 50%;
+  margin-left: 10px;
 }
 
 #map {

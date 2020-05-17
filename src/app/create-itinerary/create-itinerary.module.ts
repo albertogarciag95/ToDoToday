@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { CreateItineraryComponent } from './components/create-itinerary.component';
 import { CreateItineraryService } from './service/create-itinerary.service';
@@ -45,7 +46,8 @@ const routes: Routes = [
     MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    OverlayModule
   ],
   providers: [ CreateItineraryService ],
   exports: [ RouterModule ]
