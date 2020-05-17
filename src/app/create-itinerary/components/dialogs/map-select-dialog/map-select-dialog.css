@@ -16,6 +16,7 @@ h1 {
 .actions {
   float: right;
   margin-right: 40px;
+  margin-top: 10px;
 }
 
 #map {
@@ -23,3 +24,13 @@ h1 {
   height: 400px;
 }
 
+#buttonOk {
+  background-color: #7862DA;
+  color: white;
+}
+
+.completed a {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+}

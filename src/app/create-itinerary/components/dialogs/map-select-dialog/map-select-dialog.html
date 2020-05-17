@@ -3,7 +3,7 @@
   <div class="row" id="map"></div>
 </div>
 <div class="actions" mat-dialog-actions>
-  <button mat-button (click)="close()">Volver</button>
-  <button mat-button [disabled]="!isElementSelected" [mat-dialog-close]="data.selected" cdkFocusInitial>Ok</button>
+  <button mat-raised-button (click)="close()">Volver</button>
+  <button id="buttonOk" mat-raised-button [disabled]="!isElementSelected" [mat-dialog-close]="data.selected" cdkFocusInitial>Ok</button>
 </div>
 
