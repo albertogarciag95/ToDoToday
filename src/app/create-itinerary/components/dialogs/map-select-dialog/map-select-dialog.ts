@@ -4,9 +4,10 @@ import { environment } from '../../../../../environments/environment';
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/helpers';
 
-let MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MapService } from '../../map/service/map.service';
 
 @Component({
   selector: 'app-map-select-dialog',
@@ -21,8 +22,9 @@ export class MapSelectDialog implements OnInit {
   style = `mapbox://styles/mapbox/streets-v11`;
 
   isElementSelected: boolean = false;
+  okPressed: boolean = false;
 
-  constructor(public dialogRef: MatDialogRef<MapSelectDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public dialogRef: MatDialogRef<MapSelectDialog>, public service: MapService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.mapbox.accessToken = environment.mapBoxToken;
   }
 
@@ -52,10 +54,9 @@ export class MapSelectDialog implements OnInit {
       marker: { color: '#7862DA' },
       mapboxgl: mapboxgl
     }).on('result', ({ result }) => {
-      const { geometry: { coordinates }} = result;
+      const { geometry: { coordinates }, place_name} = result;
       this.isElementSelected = true;
-
-      this.data.selected = coordinates;
+      this.data = { selected: coordinates, location: place_name }
     }));
 
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -79,9 +80,17 @@ export class MapSelectDialog implements OnInit {
         .addTo(this.map);
 
       this.isElementSelected = true;
-      this.data.selected = pointSelected;
-      this.flyToPoint(pointSelected, this.map.getZoom());
+      this.getPlaceName(pointSelected);
     });
+  }
+
+  getPlaceName(pointSelected: string[]) {
+    this.service.getGeocoding(pointSelected).subscribe(
+      response => {
+        response.features[0].place_name
+        this.data = { selected: pointSelected, location: response.features[0].place_name };
+        this.flyToPoint(pointSelected, this.map.getZoom());
+      });
   }
 
   flyToPoint(place: any, zoom: number) {
@@ -110,6 +119,10 @@ export class MapSelectDialog implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  closePassingLocation() {
+    this.dialogRef.close(this.data);
   }
 
   ngOnInit(): void {

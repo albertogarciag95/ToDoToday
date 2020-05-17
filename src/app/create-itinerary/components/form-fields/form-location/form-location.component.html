@@ -9,7 +9,7 @@
     <a class="edit" (click)="onSelectOtherPoint()">Desde otro punto</a>
   </div>
   <div *ngIf="state === 'completed'">
-    {{location}}
+    <span>{{location}}</span><br><br>
     <a class="edit" (click)="editField()">Editar</a>
   </div>
 </div>

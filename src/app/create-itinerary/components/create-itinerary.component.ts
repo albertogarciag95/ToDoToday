@@ -12,7 +12,7 @@ import { Place } from 'src/app/shared/models/place';
 
 export class CreateItineraryComponent implements OnInit {
 
-  @ViewChild('results', { static: false }) results: ElementRef;
+  @ViewChild('details', { static: false }) details: ElementRef;
   @ViewChild('options', { static: false }) options: ElementRef;
   @ViewChild('map', { static: false }) map: ElementRef;
 
@@ -111,6 +111,12 @@ export class CreateItineraryComponent implements OnInit {
     this.mapPlaces = this.translateToPlaces(this.mapOptionSelected);
     this.changeDetector.detectChanges();
     this.map.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  showItineraryDetails(details) {
+    this.detailsSelected = details;
+    this.changeDetector.detectChanges();
+    this.details.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   translateToPlaces(places: any) {

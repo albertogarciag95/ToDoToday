@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MapSelectDialog } from '../../dialogs/map-select-dialog/map-select-dialog';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-form-location',
@@ -32,7 +33,10 @@ export class FormLocationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userLocationChange.emit({ longitude: result[0], latitude: result[1] });
+      this.location = result.location.split(', ')
+        .filter(item => item !== environment.CITY && !environment.COUNTRY.includes(item))
+        .join(', ');
+      this.userLocationChange.emit({ longitude: result.selected[0], latitude: result.selected[1] });
       this.state = 'completed';
     });
   }

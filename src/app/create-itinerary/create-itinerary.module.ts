@@ -18,6 +18,7 @@ import { FormSelectorComponent } from './components/form-fields/form-selector/fo
 import { OptionsComponent } from './components/options/options.component';
 import { FormLocationComponent } from './components/form-fields/form-location/form-location.component';
 import { MapSelectDialog } from './components/dialogs/map-select-dialog/map-select-dialog';
+import { DetailsComponent } from './components/details/details/details.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
     FormSelectorComponent,
     OptionsComponent,
     FormLocationComponent,
-    MapSelectDialog
+    MapSelectDialog,
+    DetailsComponent
   ],
   imports: [
     RouterModule.forChild(routes),

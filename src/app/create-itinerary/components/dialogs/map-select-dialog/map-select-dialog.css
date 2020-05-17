@@ -13,10 +13,19 @@ h1 {
   overflow: hidden;
 }
 
-.actions {
+.actions-right {
   float: right;
   margin-right: 40px;
   margin-top: 10px;
+}
+
+.actions {
+  display: block;
+}
+
+.actions-left {
+  float: left;
+  color: red;
 }
 
 #map {
@@ -24,8 +33,13 @@ h1 {
   height: 400px;
 }
 
-#buttonOk {
+.buttonOk {
   background-color: #7862DA;
+  color: white;
+}
+
+.disabled {
+  background-color: rgb(184, 176, 218);
   color: white;
 }
 

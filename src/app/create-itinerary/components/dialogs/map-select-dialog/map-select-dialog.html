@@ -3,7 +3,16 @@
   <div class="row" id="map"></div>
 </div>
 <div class="actions" mat-dialog-actions>
-  <button mat-raised-button (click)="close()">Volver</button>
-  <button id="buttonOk" mat-raised-button [disabled]="!isElementSelected" [mat-dialog-close]="data.selected" cdkFocusInitial>Ok</button>
+  <div *ngIf="!isElementSelected && okPressed" class="actions-left">
+    ¡No has seleccionado ningún lugar en el mapa!
+  </div>
+  <div class="actions-right">
+    <button mat-raised-button (click)="close()">Volver</button>
+    <button
+      (click)="closePassingLocation()"
+      mat-raised-button
+      [ngClass]="!isElementSelected ? 'disabled' : 'buttonOk'"
+      >Ok</button>
+  </div>
 </div>
 
