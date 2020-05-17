@@ -21,8 +21,8 @@ export class MapSelectDialog implements OnInit {
   map: mapboxgl.Map;
   style = `mapbox://styles/mapbox/streets-v11`;
 
-  isElementSelected: boolean = false;
-  okPressed: boolean = false;
+  isElementSelected = false;
+  okPressed = false;
 
   constructor(public dialogRef: MatDialogRef<MapSelectDialog>, public service: MapService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.mapbox.accessToken = environment.mapBoxToken;
@@ -52,11 +52,11 @@ export class MapSelectDialog implements OnInit {
       proximity: { longitude: userLocation[0], latitude: userLocation[1] },
       filter: this._filterResultsByRegion.bind(this),
       marker: { color: '#7862DA' },
-      mapboxgl: mapboxgl
+      mapboxgl
     }).on('result', ({ result }) => {
       const { geometry: { coordinates }, place_name} = result;
       this.isElementSelected = true;
-      this.data = { selected: coordinates, location: place_name }
+      this.data = { selected: coordinates, location: place_name };
     }));
 
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -72,9 +72,11 @@ export class MapSelectDialog implements OnInit {
     this.map.getCanvas().style.cursor = 'pointer';
 
     this.map.on('click', (element) => {
-      currentMarker && currentMarker.remove();
+      if (currentMarker) {
+        currentMarker.remove();
+      }
 
-      const pointSelected: any = [element.lngLat.lng, element.lngLat.lat]
+      const pointSelected: any = [element.lngLat.lng, element.lngLat.lat];
       currentMarker = new mapboxgl.Marker({ color: '#7862DA' })
         .setLngLat(pointSelected)
         .addTo(this.map);
@@ -87,7 +89,6 @@ export class MapSelectDialog implements OnInit {
   getPlaceName(pointSelected: string[]) {
     this.service.getGeocoding(pointSelected).subscribe(
       response => {
-        response.features[0].place_name
         this.data = { selected: pointSelected, location: response.features[0].place_name };
         this.flyToPoint(pointSelected, this.map.getZoom());
       });

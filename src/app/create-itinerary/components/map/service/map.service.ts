@@ -22,7 +22,7 @@ export class MapService {
   }
 
   getGeocoding(coordinates: string[]): Observable<any> {
-    const URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places'+
+    const URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places' +
       '/' + coordinates.join(',') + '.json' +
       '?access_token=' + mapboxgl.accessToken +
       '&routing=true' +

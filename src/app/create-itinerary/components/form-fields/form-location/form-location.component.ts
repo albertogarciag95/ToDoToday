@@ -14,9 +14,9 @@ export class FormLocationComponent implements OnInit {
   @Input() state: string;
   @Output() userLocationChange = new EventEmitter<any>();
 
-  location: string = 'Mi ubicación';
-  isMapOpened: boolean = false;
-  myLocationChecked: boolean = false;
+  location = 'Mi ubicación';
+  isMapOpened = false;
+  myLocationChecked = false;
 
   constructor(public dialog: MatDialog) { }
 
@@ -48,7 +48,7 @@ export class FormLocationComponent implements OnInit {
   }
 
   onToggleMyLocation(toggle) {
-    if(toggle.checked) {
+    if (toggle.checked) {
       this.getMyLocation(this.returnMyLocation.bind(this));
     } else {
       this.userLocationChange.emit(undefined);
@@ -56,7 +56,7 @@ export class FormLocationComponent implements OnInit {
   }
 
   getMyLocation(successCallback) {
-    if('geolocation' in navigator) {
+    if ('geolocation' in navigator) {
       return navigator.geolocation.getCurrentPosition(
         successCallback,
         (error) => { throw new Error(error.message); },
