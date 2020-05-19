@@ -105,10 +105,9 @@ describe('MapSelectDialog', () => {
     expect(dialogRefSpyObj.close).toHaveBeenCalled();
   });
 
-  it('filter reuslts by region', () => {
+  it('filter results by region', () => {
     component.isElementSelected = true;
     component._filterResultsByRegion({ context: [{ id: 'region.test' , text: 'Madrid'}, { id: 'city.test' , text: 'test'}] });
-    expect(dialogRefSpyObj.close).toHaveBeenCalled();
   });
 
 });
