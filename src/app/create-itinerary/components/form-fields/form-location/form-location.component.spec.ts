@@ -30,7 +30,7 @@ describe('FormLocationComponent', () => {
   let fixtureDialog: ComponentFixture<MapSelectDialog>;
   let debugElement: DebugElement;
 
-  let dialog: MdDialogMock;
+  let dialog: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
