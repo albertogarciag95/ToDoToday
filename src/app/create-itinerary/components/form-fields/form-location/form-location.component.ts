@@ -56,15 +56,11 @@ export class FormLocationComponent implements OnInit {
   }
 
   getMyLocation(successCallback) {
-    if ('geolocation' in navigator) {
-      return navigator.geolocation.getCurrentPosition(
-        successCallback,
-        (error) => { throw new Error(error.message); },
-        { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
-      );
-    } else {
-      throw new Error('Geolocation is not allowed in your navigator');
-    }
+    return navigator.geolocation.getCurrentPosition(
+      successCallback,
+      (error) => { throw new Error(error.message); },
+      { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
+    );
   }
 
   returnMyLocation(position) {

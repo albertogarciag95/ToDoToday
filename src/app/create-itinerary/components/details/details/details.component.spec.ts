@@ -6,7 +6,7 @@ import { Place } from 'src/app/shared/models/place';
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
-  let place: any = {
+  const place: any = {
     title: 'test',
     description: 'test',
     category: 'test',

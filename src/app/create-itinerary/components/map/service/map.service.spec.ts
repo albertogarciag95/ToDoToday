@@ -21,4 +21,11 @@ describe('MapService', () => {
       done();
     });
   });
+
+  it('getceoCoding', (done: DoneFn) => {
+    service.getGeocoding(fakeCoordinates).subscribe(value => {
+      expect(value).toBe(response);
+      done();
+    });
+  });
 });

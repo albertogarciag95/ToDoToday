@@ -10,12 +10,12 @@ import * as turf from '@turf/helpers';
 import { MapService } from '../service/map.service';
 import { of } from 'rxjs';
 import { HttpService } from 'src/app/shared/services/http.service';
-import fakeResponse from './mocks/fakeResponse';
 
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
   let myMarker: mapboxgl.Marker;
+  let fakeResponse: any;
   const mapbox = mapboxgl as typeof mapboxgl;
   mapbox.accessToken = environment.mapBoxToken;
 
@@ -43,6 +43,7 @@ describe('MapComponent', () => {
   }];
 
   beforeEach(async(() => {
+    fakeResponse = { data: { routes: []}};
     const spy = jasmine.createSpyObj('MapService', ['getOptimizedRoute']);
     const httpServiceSpy = jasmine.createSpyObj('HttpService', ['getForeign']);
     spy.getOptimizedRoute.and.returnValue( of(fakeResponse) );

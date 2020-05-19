@@ -86,7 +86,7 @@ export class MapSelectDialog implements OnInit {
     });
   }
 
-  getPlaceName(pointSelected: string[]) {
+  getPlaceName(pointSelected) {
     this.service.getGeocoding(pointSelected).subscribe(
       response => {
         this.data = { selected: pointSelected, location: response.features[0].place_name };
@@ -124,7 +124,7 @@ export class MapSelectDialog implements OnInit {
 
   closePassingLocation() {
     this.okPressed = true;
-    if(this.isElementSelected) {
+    if (this.isElementSelected) {
       this.dialogRef.close(this.data);
     }
   }

@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 
-@Injectable()
+@Injectable({ providedIn: 'any' })
 export class HttpService {
 
   static API_END_POINT = environment.API;
