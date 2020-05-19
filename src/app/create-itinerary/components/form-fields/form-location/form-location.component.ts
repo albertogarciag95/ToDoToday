@@ -58,8 +58,8 @@ export class FormLocationComponent implements OnInit {
   getMyLocation(successCallback) {
     return navigator.geolocation.getCurrentPosition(
       successCallback,
-      (error) => { throw new Error(error.message); },
-      { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
+      (error) => { throw new Error(error.message); }
+      // { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
     );
   }
 
