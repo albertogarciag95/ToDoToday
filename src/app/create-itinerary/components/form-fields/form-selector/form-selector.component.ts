@@ -16,7 +16,7 @@ export class FormSelectorComponent {
   @Input() required: boolean;
   @Input() checkboxText: string;
 
-  @Output() selectedHasChanged = new EventEmitter<any>();
+  @Output() selectedChange = new EventEmitter<any>();
   @ViewChild('currentElement') element: ElementRef;
 
   checkboxChecked: boolean;
@@ -32,7 +32,7 @@ export class FormSelectorComponent {
     if(this.selected && (this.price || this.priceCheckboxChecked)) {
       this.state = 'completed';
       this.summary = { selected: this.selected, price: this.price };
-      this.selectedHasChanged.emit({ selected: this.selected, price: this.price });
+      this.selectedChange.emit({ selected: this.selected, price: this.price });
       this.checkboxChecked = false;
       this.priceCheckboxChecked = false;
 
@@ -44,16 +44,16 @@ export class FormSelectorComponent {
 
   onSkipCheckboxChecked(event) {
     if (event.checked) {
-      this.selectedHasChanged.emit('');
+      this.selectedChange.emit('');
       setTimeout(() => {
         this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
       }, 100);
     }
     if (!event.checked && this.selected) {
-      this.selectedHasChanged.emit({ selected: this.selected, price: this.price });
+      this.selectedChange.emit({ selected: this.selected, price: this.price });
     }
     if (!event.checked && !this.selected) {
-      this.selectedHasChanged.emit(undefined);
+      this.selectedChange.emit(undefined);
     }
   }
 
