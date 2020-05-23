@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MapSelectDialog } from '../../dialogs/map-select-dialog/map-select-dialog';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-form-location',
@@ -13,9 +14,9 @@ export class FormLocationComponent implements OnInit {
   @Input() state: string;
   @Output() userLocationChange = new EventEmitter<any>();
 
-  location: string = 'Mi ubicación';
-  isMapOpened: boolean = false;
-  myLocationChecked: boolean = false;
+  location = 'Mi ubicación';
+  isMapOpened = false;
+  myLocationChecked = false;
 
   constructor(public dialog: MatDialog) { }
 
@@ -32,7 +33,10 @@ export class FormLocationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userLocationChange.emit({ longitude: result[0], latitude: result[1] });
+      this.location = result.location.split(', ')
+        .filter(item => item !== environment.CITY && !environment.COUNTRY.includes(item))
+        .join(', ');
+      this.userLocationChange.emit({ longitude: result.selected[0], latitude: result.selected[1] });
       this.state = 'completed';
     });
   }
@@ -44,7 +48,7 @@ export class FormLocationComponent implements OnInit {
   }
 
   onToggleMyLocation(toggle) {
-    if(toggle.checked) {
+    if (toggle.checked) {
       this.getMyLocation(this.returnMyLocation.bind(this));
     } else {
       this.userLocationChange.emit(undefined);
@@ -52,15 +56,11 @@ export class FormLocationComponent implements OnInit {
   }
 
   getMyLocation(successCallback) {
-    if('geolocation' in navigator) {
-      return navigator.geolocation.getCurrentPosition(
-        successCallback,
-        (error) => { throw new Error(error.message); },
-        { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
-      );
-    } else {
-      throw new Error('Geolocation is not allowed in your navigator');
-    }
+    return navigator.geolocation.getCurrentPosition(
+      successCallback,
+      (error) => { throw new Error(error.message); }
+      // { enableHighAccuracy: true, timeout: 100000, maximumAge: 0 }
+    );
   }
 
   returnMyLocation(position) {

@@ -70,81 +70,15 @@
   <app-options
     *ngIf="itineraryResult"
     [result]="itineraryResult"
-    (detailsChanged)="detailsSelected = $event"
+    (detailsChanged)="showItineraryDetails($event)"
     (mapOptionChanged)="enableMap($event)">
   </app-options>
 </div>
 
-<div class="row">
-  <div #results *ngIf="detailsSelected" class="results-container">
-    <h2>En {{detailsSelected.firstPlace.place.title}} :</h2>
-    <div *ngFor="let place of itineraryResult.categoryPlaces" value="place">
-      <div class="col-lg-6 col-md-6 col-lg-12">
-        <img class="options-img" src="../../../assets/images/default.png">
-      </div>
-      <div class="place-card col-lg-8">
-        <h2>{{place.title}}</h2>
-        <p>{{place.description}}</p>
-        <p>¿Dónde?: {{place.location}}</p>
-        <p>Precio por persona: {{place.price_per_person}} euros</p>
-        <p>Fecha inicio: {{place.dateStart}}</p>
-        <p>Fecha fin: {{place.dateEnd}}</p>
-        <hr>
-      </div>
-    </div>
-    <div *ngIf="itineraryResult.secondCategoryPlaces.length > 0">
-      <h2>En {{secondCategorySelected.toLowerCase()}} :</h2>
-      <div *ngFor="let place of itineraryResult.secondCategoryPlaces" value="place" class="row col-lg-10">
-        <div class="col-lg-4">
-          <img class="place-img" src="../../../assets/images/default.png">
-        </div>
-        <div class="place-card col-lg-8">
-          <h2>{{place.title}}</h2>
-          <p>{{place.description}}</p>
-          <p>¿Dónde?: {{place.location}}</p>
-          <p>Precio por persona: {{place.price_per_person}} euros</p>
-          <p>Fecha inicio: {{place.dateStart}}</p>
-          <p>Fecha fin: {{place.dateEnd}}</p>
-          <hr>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="itineraryResult.lunchPlaces.length > 0">
-      <h2>En cuanto a comer {{lunchCategorySelected.toLowerCase()}} :</h2>
-      <div *ngFor="let place of itineraryResult.lunchPlaces" value="place" class="row col-lg-10">
-        <div class="col-lg-4">
-          <img class="place-img" src="../../../assets/images/default.png">
-        </div>
-        <div class="place-card col-lg-8">
-          <h2>{{place.title}}</h2>
-          <p>{{place.description}}</p>
-          <p>¿Dónde?: {{place.location}}</p>
-          <p>Precio por persona: {{place.price_per_person}} euros</p>
-          <p>Fecha inicio: {{place.dateStart}}</p>
-          <p>Fecha fin: {{place.dateEnd}}</p>
-          <hr>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="itineraryResult.dinnerPlaces.length > 0">
-      <h2>Si quieres cenar {{dinnerCategorySelected.toLowerCase()}} :</h2>
-      <div *ngFor="let place of itineraryResult.dinnerPlaces" value="place" class="row col-lg-10">
-        <div class="col-lg-4">
-          <img class="place-img" src="../../../assets/images/default.png">
-        </div>
-        <div class="place-card col-lg-8">
-          <h2>{{place.title}}</h2>
-          <p>{{place.description}}</p>
-          <p>¿Dónde?: {{place.location}}</p>
-          <p>Precio por persona: {{place.price_per_person}} euros</p>
-          <p>Fecha inicio: {{place.dateStart}}</p>
-          <p>Fecha fin: {{place.dateEnd}}</p>
-          <hr>
-        </div>
-      </div>
-    </div>
-  </div>
+<div #details>
+  <app-details *ngIf="detailsSelected" [details]="detailsSelected"></app-details>
 </div>
+
 <div #map *ngIf="mapOptionSelected">
   <app-map *ngIf="itineraryResult" [places]="mapPlaces"></app-map>
 </div>
