@@ -16,40 +16,58 @@ export class FormSelectorComponent {
   @Input() required: boolean;
   @Input() checkboxText: string;
 
-  @Output() selectedChange = new EventEmitter<string>();
+  @Output() selectedHasChanged = new EventEmitter<any>();
   @ViewChild('currentElement') element: ElementRef;
 
   checkboxChecked: boolean;
+  priceCheckboxChecked: boolean;
+  price: Number;
+  summary: any;
+
+  prices = ["5€", "10€", "15€", "20€", "25€"]
 
   constructor() {}
 
-  onItemSelected(value) {
-    this.state = 'completed';
-    this.checkboxChecked = false;
-    this.selectedChange.emit(value);
-    setTimeout(() => {
-      this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-    }, 100);
+  completeStep() {
+    if(this.selected && (this.price || this.priceCheckboxChecked)) {
+      this.state = 'completed';
+      this.summary = { selected: this.selected, price: this.price };
+      this.selectedHasChanged.emit({ selected: this.selected, price: this.price });
+      this.checkboxChecked = false;
+      this.priceCheckboxChecked = false;
+
+      setTimeout(() => {
+        this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+      }, 100);
+    }
   }
 
-  onCheckboxChecked(event) {
+  onSkipCheckboxChecked(event) {
     if (event.checked) {
-      this.selectedChange.emit('');
+      this.selectedHasChanged.emit('');
       setTimeout(() => {
         this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
       }, 100);
     }
     if (!event.checked && this.selected) {
-      this.selectedChange.emit(this.selected);
+      this.selectedHasChanged.emit({ selected: this.selected, price: this.price });
     }
     if (!event.checked && !this.selected) {
-      this.selectedChange.emit(undefined);
+      this.selectedHasChanged.emit(undefined);
     }
+  }
+
+  onPriceCheckboxChecked(event) {
+    this.priceCheckboxChecked = event.checked;
+    this.price = undefined;
+    this.completeStep();
   }
 
   editField() {
     if (this.state !== 'active') {
       this.state = 'active';
+      this.selected = undefined;
+      this.price = undefined;
     }
   }
 

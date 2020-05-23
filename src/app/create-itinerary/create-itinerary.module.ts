@@ -9,6 +9,7 @@ import { CreateItineraryComponent } from './components/create-itinerary.componen
 import { CreateItineraryService } from './service/create-itinerary.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -47,7 +48,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatSlideToggleModule,
     MatDialogModule,
-    OverlayModule
+    OverlayModule,
+    MatInputModule
   ],
   providers: [ CreateItineraryService ],
   exports: [ RouterModule ]

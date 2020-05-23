@@ -22,12 +22,13 @@ export class CreateItineraryComponent implements OnInit {
   dinnerCategoryTitle = '4. ¿Qué te apetece cenar?';
   locationTitle = '5. ¿Dónde empieza tu itinerario?';
 
+  firstCategorySubtitle = 'Selecciona una categoría y el precio máximo que estás dispuesto a gastar (precio por persona)';
   secondCategorySubtitle = '¡El día es muy largo! ¿Por qué no exprimirlo al máximo?';
 
-  firstCategorySelected: string;
-  secondCategorySelected: string;
-  lunchCategorySelected: string;
-  dinnerCategorySelected: string;
+  firstCategorySelected: any;
+  secondCategorySelected: any;
+  lunchCategorySelected: any;
+  dinnerCategorySelected: any;
 
   firstOptionCategories: Category[];
   secondOptionCategories: Category[];
@@ -73,12 +74,12 @@ export class CreateItineraryComponent implements OnInit {
   }
 
   onFirstCategoryChanges(selectedItem) {
-    this.secondOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem);
+    this.secondOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
     this.fieldStates[1] = 'active';
   }
 
   onSecondCategoryChanges(selectedItem) {
-    this.firstOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem);
+    this.firstOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
     this.fieldStates[2] = 'active';
   }
 

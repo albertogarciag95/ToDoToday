@@ -24,9 +24,7 @@ export class MapService {
   getGeocoding(coordinates: any[]): Observable<any> {
     const URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places' +
       '/' + coordinates.join(',') + '.json' +
-      '?access_token=' + mapboxgl.accessToken +
-      '&routing=true' +
-      '&autocomplete=true';
+      '?access_token=' + mapboxgl.accessToken;
 
     return this.httpService.getForeign(URL);
   }

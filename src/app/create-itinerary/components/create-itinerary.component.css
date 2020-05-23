@@ -23,7 +23,7 @@ h3 {
 
 .form-container {
   padding: 20px;
-  margin-top: 64px;
+  margin: 64px 10px 0 10px;
 }
 
 .form-container .field {
@@ -61,6 +61,10 @@ h3 {
 #map {
   width: auto;
   height: 500px;
+}
+
+app-form-selector {
+  width: 100%;
 }
 
 

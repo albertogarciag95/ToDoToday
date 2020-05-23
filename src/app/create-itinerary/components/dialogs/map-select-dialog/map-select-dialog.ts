@@ -23,6 +23,7 @@ export class MapSelectDialog implements OnInit {
 
   isElementSelected = false;
   okPressed = false;
+  text = "";
 
   constructor(public dialogRef: MatDialogRef<MapSelectDialog>, public service: MapService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.mapbox.accessToken = environment.mapBoxToken;
@@ -57,6 +58,7 @@ export class MapSelectDialog implements OnInit {
       const { geometry: { coordinates }, place_name} = result;
       this.isElementSelected = true;
       this.data = { selected: coordinates, location: place_name };
+      this.text = place_name;
     }));
 
     this.map.addControl(new mapboxgl.NavigationControl());
