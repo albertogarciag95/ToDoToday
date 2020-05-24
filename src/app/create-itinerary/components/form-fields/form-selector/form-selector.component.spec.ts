@@ -28,12 +28,27 @@ describe('FormSelectorComponent', () => {
   });
 
   it('formSelector should listen selectionChange event', fakeAsync(() => {
+    component.selected = 'Cultura y sociedad';
+    component.price = 13;
+
     const selector = fixture.debugElement.query(By.css('.select'));
     selector.triggerEventHandler('selectionChange', {});
     tick(100);
     fixture.detectChanges();
 
     expect(component.checkboxChecked).toBe(false);
+    expect(component.state).toBe('completed');
+  }));
+
+  it('formSelector should listen selectionChange event selecting price checkbox', fakeAsync(() => {
+    component.selected = 'Cultura y sociedad';
+    component.priceCheckboxChecked = true;
+
+    const selector = fixture.debugElement.query(By.css('.select'));
+    selector.triggerEventHandler('selectionChange', {});
+    tick(100);
+    fixture.detectChanges();
+
     expect(component.state).toBe('completed');
   }));
 
@@ -78,11 +93,24 @@ describe('FormSelectorComponent', () => {
 
   it('formSelector should listen event on click link', (() => {
     component.state = 'completed';
+    component.selected = 'Cultura y ocio';
+
+    component.summary = { selected: component.selected, price: component.price };
+
     fixture.detectChanges();
 
     const link = fixture.debugElement.query(By.css('.edit'));
     link.triggerEventHandler('click', {});
 
     expect(component.state).toBe('active');
+  }));
+
+  it('formSelector should listen event on price checkbox checked', (() => {
+    fixture.detectChanges();
+
+    const link = fixture.debugElement.query(By.css('.checkbox-price'));
+    link.triggerEventHandler('change', { checked: true });
+
+    expect(component.price).toBe(undefined);
   }));
 });

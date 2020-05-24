@@ -23,7 +23,7 @@ export class MapSelectDialog implements OnInit {
 
   isElementSelected = false;
   okPressed = false;
-  text = "";
+  text = '';
 
   constructor(public dialogRef: MatDialogRef<MapSelectDialog>, public service: MapService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.mapbox.accessToken = environment.mapBoxToken;
