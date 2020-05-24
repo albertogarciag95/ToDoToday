@@ -35,7 +35,7 @@
             [(value)]="price"
             (selectionChange)="completeStep()"
             [disabled]="state === 'disabled'">
-            <mat-option *ngFor="let item of prices" value="{{item}}">{{item}}</mat-option>
+            <mat-option *ngFor="let item of secondaryListItems" value="{{item}}">{{item}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-checkbox

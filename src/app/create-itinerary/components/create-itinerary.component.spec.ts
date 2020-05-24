@@ -101,4 +101,16 @@ describe('CreateItineraryComponent', () => {
     expect(component).toBeTruthy();
   }));
 
+  it('buildRequestObject with price = Nada', async(() => {
+    component.firstCategorySelected = { selected: 'Test', price: 'Nada' };
+    expect(component.buildRequestBody().category)
+      .toEqual({ selected: 'Test', price: { initRange: 0, finalRange: 0 } });
+  }));
+
+  it('buildRequestObject with price valid', async(() => {
+    component.firstCategorySelected = { selected: 'Test', price: 'Entre 0$ y 10$' };
+    expect(component.buildRequestBody().category)
+      .toEqual({ selected: 'Test', price: { initRange: 0, finalRange: 10 } });
+  }));
+
 });

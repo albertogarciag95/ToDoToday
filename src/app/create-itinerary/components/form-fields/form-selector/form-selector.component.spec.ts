@@ -29,11 +29,11 @@ describe('FormSelectorComponent', () => {
 
   it('formSelector should listen selectionChange event', fakeAsync(() => {
     component.selected = 'Cultura y sociedad';
-    component.price = 13;
+    component.price = 'Entre 0$ y 10$';
 
     const selector = fixture.debugElement.query(By.css('.select'));
     selector.triggerEventHandler('selectionChange', {});
-    tick(100);
+    tick(500);
     fixture.detectChanges();
 
     expect(component.checkboxChecked).toBe(false);
@@ -46,7 +46,7 @@ describe('FormSelectorComponent', () => {
 
     const selector = fixture.debugElement.query(By.css('.select'));
     selector.triggerEventHandler('selectionChange', {});
-    tick(100);
+    tick(500);
     fixture.detectChanges();
 
     expect(component.state).toBe('completed');
@@ -60,7 +60,7 @@ describe('FormSelectorComponent', () => {
     const checkbox = fixture.debugElement.query(By.css('mat-checkbox'));
     checkbox.triggerEventHandler('change', { checked: true });
 
-    tick(100);
+    tick(500);
     fixture.detectChanges();
 
     expect(component).toBeTruthy();

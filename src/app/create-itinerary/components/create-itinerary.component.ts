@@ -22,7 +22,7 @@ export class CreateItineraryComponent implements OnInit {
   dinnerCategoryTitle = '4. ¿Qué te apetece cenar?';
   locationTitle = '5. ¿Dónde empieza tu itinerario?';
 
-  firstCategorySubtitle = 'Selecciona una categoría y el precio máximo que estás dispuesto a gastar (precio por persona)';
+  firstCategorySubtitle = 'Selecciona una categoría y el precio que estás dispuesto a gastar (por persona)';
   secondCategorySubtitle = '¡El día es muy largo! ¿Por qué no exprimirlo al máximo?';
 
   firstCategorySelected: any;
@@ -36,6 +36,9 @@ export class CreateItineraryComponent implements OnInit {
   dinnerFoodCategories: Category[];
   foodCategories: Category[];
   noFoodCategories: Category[];
+
+  secondaryListItems = ['Entre 5€ y 10€', 'Entre 10€ y 15€', 'Entre 10€ y 20€', 'Entre 20€ y 25€'];
+  priceItems = ['Nada', 'Entre 0€ y 5€', 'Entre 5€ y 10€', 'Entre 10€ y 15€', 'Entre 10€ y 20€', 'Entre 20€ y 25€'];
 
   fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled'];
   userLocation: any;
@@ -65,10 +68,10 @@ export class CreateItineraryComponent implements OnInit {
 
   buildRequestBody() {
     return {
-      category: this.firstCategorySelected,
-      secondCategory: this.secondCategorySelected,
-      lunchCategory: this.lunchCategorySelected,
-      dinnerCategory: this.dinnerCategorySelected,
+      category: this.handlePrice(this.firstCategorySelected),
+      secondCategory: this.handlePrice(this.secondCategorySelected),
+      lunchCategory: this.handlePrice(this.lunchCategorySelected),
+      dinnerCategory: this.handlePrice(this.dinnerCategorySelected),
       userLocation: this.userLocation
     };
   }
@@ -81,6 +84,18 @@ export class CreateItineraryComponent implements OnInit {
   onSecondCategoryChanges(selectedItem) {
     this.firstOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
     this.fieldStates[2] = 'active';
+  }
+
+  handlePrice(category) {
+    const { price } = category;
+    if(!price) {
+      return {...category};
+    }
+    if(price === "Nada") {
+      return Object.assign(category, { price: { initRange: 0, finalRange: 0 }});
+    }
+    let priceRange = price.split(' ').map(item => Number(item.substring(0, item.length - 1)));
+    return Object.assign(category, { price: { initRange: priceRange[1], finalRange: priceRange[3] }});
   }
 
   getCategories(): void {
