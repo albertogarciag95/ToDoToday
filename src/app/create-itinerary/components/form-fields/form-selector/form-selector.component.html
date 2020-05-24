@@ -1,34 +1,57 @@
-<div #currentElement>
-  <div class="col-lg-12" [ngClass]="state">
+<div class="form-selector" #currentElement>
+  <div [ngClass]="state">
     <h1>{{title}}</h1>
     <h3 *ngIf="subtitle && state !== 'completed'">{{subtitle}}</h3>
 
-    <mat-form-field *ngIf="state !== 'completed'">
-      <mat-label>Tú eliges! </mat-label>
-      <mat-select
-        class="select"
-        [value]="selected"
-        (selectionChange)="onItemSelected($event.value)"
-        [disabled]="state === 'disabled'">
-        <mat-option *ngFor="let item of listItems" value="{{item.name}}">
-          {{item.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div *ngIf="state === 'completed'" class="step-completed">
-      <span>{{selected}}</span>
-      <a class="edit" (click)="editField()">Editar</a>
-    </div>
-
-    <div *ngIf="required === false && state !== 'completed'">
+    <div *ngIf="required === false">
       <mat-checkbox
-        class="checkbox"
+        class="checkbox skip"
         [checked]="checkboxChecked"
         [disabled]="state === 'disabled'"
-        (change)="onCheckboxChecked($event)">
+        (change)="onSkipCheckboxChecked($event)">
         {{checkboxText}}
       </mat-checkbox>
+    </div>
+
+    <div class="step-active" *ngIf="state !== 'completed'">
+      <mat-form-field class="example-full-width">
+        <mat-label>Tú eliges! </mat-label>
+        <mat-select
+          class="select"
+          [(value)]="selected"
+          (selectionChange)="completeStep()"
+          [disabled]="state === 'disabled'">
+          <mat-option *ngFor="let item of listItems" value="{{item.name}}">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="price">
+        <mat-form-field class="field-price">
+          <mat-label>Precio (opcional)</mat-label>
+          <mat-select
+            class="select"
+            [(value)]="price"
+            (selectionChange)="completeStep()"
+            [disabled]="state === 'disabled'">
+            <mat-option *ngFor="let item of prices" value="{{item}}">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox
+          class="checkbox"
+          [checked]="priceCheckboxChecked"
+          (change)="onPriceCheckboxChecked($event)"
+          [disabled]="state === 'disabled'">
+          ¡No importa el precio!
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div *ngIf="state === 'completed'" class="step-completed">
+      <span>{{summary.selected}}</span>
+      <span class="price-summary">{{price}}</span>
+      <a class="edit" (click)="editField()">Editar</a>
     </div>
 
   </div>

@@ -4,7 +4,7 @@
 </div>
 <div class="actions" mat-dialog-actions>
   <div *ngIf="!isElementSelected && okPressed" class="actions-left">
-    ¡No has seleccionado ningún lugar en el mapa!
+    {{text}}
   </div>
   <div class="actions-right">
     <button mat-raised-button (click)="close()">Volver</button>
