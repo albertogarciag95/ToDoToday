@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-selector',
@@ -10,21 +10,21 @@ export class FormSelectorComponent {
 
   @Input() state: string;
   @Input() listItems: any[];
+  @Input() secondaryListItems: any[];
   @Input() title: string;
   @Input() subtitle: string;
   @Input() selected: string;
   @Input() required: boolean;
   @Input() checkboxText: string;
 
+
   @Output() selectedChange = new EventEmitter<any>();
   @ViewChild('currentElement') element: ElementRef;
 
   checkboxChecked: boolean;
   priceCheckboxChecked: boolean;
-  price: number;
+  price: string;
   summary: any;
-
-  prices = ['10€', '15€', '20€', '25€'];
 
   constructor() {}
 

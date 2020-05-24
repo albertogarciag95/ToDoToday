@@ -12,7 +12,8 @@
             [selected]="firstCategorySelected"
             (selectedChange)="firstCategorySelected = $event; onFirstCategoryChanges($event)"
             [state]="fieldStates[0]"
-            [required]="true">
+            [required]="true"
+            [secondaryListItems]="priceItems">
           </app-form-selector>
         </div>
         <div class="row field">
@@ -25,7 +26,8 @@
             [required]="false"
             [checkboxText]="'Saltar este paso'"
             [selected]="secondCategorySelected"
-            (selectedChange)="secondCategorySelected = $event; onSecondCategoryChanges($event)">
+            (selectedChange)="secondCategorySelected = $event; onSecondCategoryChanges($event)"
+            [secondaryListItems]="priceItems">
           </app-form-selector>
         </div>
         <div class="row field">
@@ -36,7 +38,8 @@
             [required]="false"
             [checkboxText]="'Esta vez no pararé a comer'"
             [selected]="lunchCategorySelected"
-            (selectedChange)="lunchCategorySelected = $event; fieldStates[3] = 'active'">
+            (selectedChange)="lunchCategorySelected = $event; fieldStates[3] = 'active'"
+            [secondaryListItems]="secondaryListItems">
           </app-form-selector>
         </div>
         <div class="row field">
@@ -47,7 +50,8 @@
             [required]="false"
             [checkboxText]="'Esta vez no pararé a cenar'"
             [selected]="dinnerCategorySelected"
-            (selectedChange)="dinnerCategorySelected = $event; fieldStates[4] = 'active'">
+            (selectedChange)="dinnerCategorySelected = $event; fieldStates[4] = 'active'"
+            [secondaryListItems]="secondaryListItems">
           </app-form-selector>
         </div>
         <div class="row field">
