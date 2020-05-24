@@ -21,15 +21,15 @@ export class FormSelectorComponent {
 
   checkboxChecked: boolean;
   priceCheckboxChecked: boolean;
-  price: Number;
+  price: number;
   summary: any;
 
-  prices = ["5€", "10€", "15€", "20€", "25€"]
+  prices = ['10€', '15€', '20€', '25€'];
 
   constructor() {}
 
   completeStep() {
-    if(this.selected && (this.price || this.priceCheckboxChecked)) {
+    if (this.selected && (this.price || this.priceCheckboxChecked)) {
       this.state = 'completed';
       this.summary = { selected: this.selected, price: this.price };
       this.selectedChange.emit({ selected: this.selected, price: this.price });
@@ -38,7 +38,7 @@ export class FormSelectorComponent {
 
       setTimeout(() => {
         this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-      }, 100);
+      }, 500);
     }
   }
 

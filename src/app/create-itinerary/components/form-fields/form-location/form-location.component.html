@@ -6,10 +6,10 @@
       (change)="onToggleMyLocation($event)">
       Desde mi ubicación
     </mat-slide-toggle>
-    <a class="edit" (click)="onSelectOtherPoint()">Desde otro punto</a>
+    <a [ngClass]="'link-' + state" class="edit" (click)="onSelectOtherPoint()">Desde otro punto</a>
   </div>
   <div *ngIf="state === 'completed'">
     <span>{{location}}</span><br><br>
-    <a id="edit" class="edit" (click)="editField()">Editar</a>
+    <a class="edit" (click)="editField()">Editar</a>
   </div>
 </div>

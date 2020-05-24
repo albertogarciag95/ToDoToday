@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
     <h3 *ngIf="subtitle && state !== 'completed'">{{subtitle}}</h3>
 
-    <div *ngIf="required === false">
+    <div *ngIf="required === false && state !== 'completed'">
       <mat-checkbox
         class="checkbox skip"
         [checked]="checkboxChecked"
@@ -39,7 +39,7 @@
           </mat-select>
         </mat-form-field>
         <mat-checkbox
-          class="checkbox"
+          class="checkbox-price"
           [checked]="priceCheckboxChecked"
           (change)="onPriceCheckboxChecked($event)"
           [disabled]="state === 'disabled'">
@@ -50,7 +50,7 @@
 
     <div *ngIf="state === 'completed'" class="step-completed">
       <span>{{summary.selected}}</span>
-      <span class="price-summary">{{price}}</span>
+      <span *ngIf="price !== undefined" class="price-summary">{{price}}</span>
       <a class="edit" (click)="editField()">Editar</a>
     </div>
 
