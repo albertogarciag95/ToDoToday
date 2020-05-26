@@ -16,6 +16,7 @@ export default function makePostItineraryController ({ postItineraryUseCase }) {
       }
     } catch (e) {
       console.log(e);
+      console.log(e.stack);
       return {
         headers: {
           'Content-Type': 'application/json'
