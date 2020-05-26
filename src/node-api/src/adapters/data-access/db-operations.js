@@ -29,11 +29,17 @@ export default function makeDbOperations({ makeDb }) {
     return await categoriesModel.find({ name });
   }
 
-  async function queryPlaces(query) {
+  async function queryPlaces({ category, price }) {
     await makeDb();
-    const { category } = query;
+    let query = { category };
 
-    const places = await placesModel.find({ category }).select('-_id').sort('name');
+    if(price) {
+      const { initRange, finalRange } = price;
+      query = Object.assign(query, { price_per_person: { $gte: initRange, $lte: finalRange } })
+    }
+
+    const places = await placesModel.find(query).select('-_id').sort('name');
+
     return places;
   }
 

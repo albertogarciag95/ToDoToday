@@ -4,12 +4,12 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
 
   let currentPlaces = [];
 
-  function getPlacesByQueryParams({ category, secondCategory, lunchCategory, dinnerCategory }) {
+  function getPlacesByQueryParams(category, secondCategory, lunchCategory, dinnerCategory) {
     let promises = [];
-    promises.push(queryPlaces({ category }));
-    promises.push(queryPlaces({ category: secondCategory }));
-    promises.push(queryPlaces({ category: lunchCategory }));
-    promises.push(queryPlaces({ category: dinnerCategory }));
+    promises.push(queryPlaces(category));
+    promises.push(queryPlaces(secondCategory));
+    promises.push(queryPlaces(lunchCategory));
+    promises.push(queryPlaces(dinnerCategory));
 
     return Promise.all(promises).then(response => {
       return {
@@ -18,21 +18,23 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
         lunchPlaces: response[2],
         dinnerPlaces: response[3]
       }
-    }).catch(error => error)
+    }).catch(error => {
+      throw new Error("Error in getPlacesByQueryParams", error)
+    })
   }
 
-  function queryPlaces({ category }) {
-    return db.getCategoryByName(category).then(
+  function queryPlaces({ selected:categoryName, price }) {
+    return db.getCategoryByName(categoryName).then(
       async result => {
         if(result.length !== 0) {
-          const categoryPlaces = await db.queryPlaces({ category: result[0]._id });
-          categoryPlaces.map(place => place.category = result[0].name);
-          return categoryPlaces;
+          return await db.queryPlaces({ category: result[0]._id, price });
         } else {
-          return [];
+          throw new Error("Error in db.getCategoryByName");
         }
       }
-    ).catch(error => error);
+    ).catch(error => {
+      throw new Error("Error in queryPlaces", error);
+    });
   }
 
   function getNearbyPlaces(places, startingPoint, howMany = 1) {
@@ -90,13 +92,14 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     if(!body) {
       throw new Error('body is required');
     }
-    const { category, userLocation } = body;
+    const { category, secondCategory, lunchCategory, dinnerCategory, userLocation } = body;
 
     if(!category || !userLocation) {
       throw new Error('missing required fields');
     }
 
-    const filteredPlaces = await getPlacesByQueryParams(body);
+    const filteredPlaces = await getPlacesByQueryParams(category, secondCategory, lunchCategory, dinnerCategory);
+
     const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userLocation, Constants.NUMBER_OF_ROUTES);
 
     nearbyFirstPlaces.forEach(place => {
