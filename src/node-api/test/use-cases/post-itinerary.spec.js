@@ -11,6 +11,22 @@ describe('Post itinerary use-case test', function() {
   chai.use(spies);
   const dbSpy = chai.spy(db.queryPlaces);
 
+  const fakeRequest = {
+    category: {
+      selected: 'Cultura y sociedad', price: undefined
+    },
+    secondCategory: {
+      selected: 'Ocio y entretenimiento', price: undefined
+    },
+    lunchCategory: {
+      selected: 'Burguer', price: undefined
+    },
+    dinnerCategory: {
+      selected: 'Healthy', price: undefined
+    },
+    userLocation: { latitude: 30, longitude: -3 }
+  };
+
   it('postItineraryUseCase goes wrong, body expected', () => {
     postItineraryUseCase().catch(error => {
       expect(error).to.be.an('error');
@@ -20,8 +36,7 @@ describe('Post itinerary use-case test', function() {
   });
 
   it('postItineraryUseCase one category', () => {
-    const body = { category: 'Cultura y sociedad', userLocation: { latitude: 30, longitude: -3 } };
-    postItineraryUseCase(body).then(response => {
+    postItineraryUseCase(fakeRequest).then(response => {
       expect(dbSpy).to.have.been.called;
       expect(response).to.be.an('array');
       expect(response[0]).to.have.property('firstPlace');
@@ -37,13 +52,7 @@ describe('Post itinerary use-case test', function() {
   })
 
   it('postItineraryUseCase all categories', () => {
-    postItineraryUseCase({
-        category: 'Cultura y sociedad',
-        userLocation: { latitude: 30, longitude: -3 },
-        secondCategory: 'Música',
-        lunchCategory: 'Burguer',
-        dinnerCategory: 'Healthy'
-      }).then(response => {
+    postItineraryUseCase(fakeRequest).then(response => {
         expect(dbSpy).to.have.been.called;
         expect(response).to.be.an('array');
         expect(response[0]).to.have.property('firstPlace');
