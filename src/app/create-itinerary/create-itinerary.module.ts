@@ -8,6 +8,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CreateItineraryComponent } from './components/create-itinerary.component';
 import { CreateItineraryService } from './service/create-itinerary.service';
 
+import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +23,16 @@ import { OptionsComponent } from './components/options/options.component';
 import { FormLocationComponent } from './components/form-fields/form-location/form-location.component';
 import { MapSelectDialog } from './components/dialogs/map-select-dialog/map-select-dialog';
 import { DetailsComponent } from './components/details/details/details.component';
+import { FormDateComponent } from './components/form-fields/form-date/form-date.component';
+
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MatMomentDateModule
+} from '@angular/material-moment-adapter';
+
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 
 const routes: Routes = [
@@ -35,7 +47,8 @@ const routes: Routes = [
     OptionsComponent,
     FormLocationComponent,
     MapSelectDialog,
-    DetailsComponent
+    DetailsComponent,
+    FormDateComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -49,9 +62,21 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatDialogModule,
     OverlayModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule
   ],
-  providers: [ CreateItineraryService ],
+  providers: [
+    CreateItineraryService,
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
   exports: [ RouterModule ]
 })
 

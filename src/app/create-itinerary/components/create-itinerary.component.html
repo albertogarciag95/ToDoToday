@@ -4,6 +4,13 @@
     <form (ngSubmit)="createItinerary()" class="form-container">
       <h1 class="big-title">Crea tu propio itinerario</h1>
         <div class="row field">
+          <app-form-date
+            [title]="dateTitle"
+            [state]="fieldStates[0]"
+            [(date)]="dateSelected"
+          ></app-form-date>
+        </div>
+        <div class="row field">
           <app-form-selector
             id="firstCategory"
             [title]="firstCategoryTitle"
@@ -11,7 +18,7 @@
             [listItems]="firstOptionCategories"
             [selected]="firstCategorySelected"
             (selectedChange)="firstCategorySelected = $event; onFirstCategoryChanges($event)"
-            [state]="fieldStates[0]"
+            [state]="fieldStates[1]"
             [required]="true"
             [secondaryListItems]="priceItems">
           </app-form-selector>
@@ -22,7 +29,7 @@
             [title]="secondCategoryTitle"
             [subtitle]="secondCategorySubtitle"
             [listItems]="secondOptionCategories"
-            [state]="fieldStates[1]"
+            [state]="fieldStates[2]"
             [required]="false"
             [checkboxText]="'Saltar este paso'"
             [selected]="secondCategorySelected"
@@ -34,11 +41,11 @@
           <app-form-selector
             [title]="lunchCategoryTitle"
             [listItems]="lunchFoodCategories"
-            [state]="fieldStates[2]"
+            [state]="fieldStates[3]"
             [required]="false"
             [checkboxText]="'Esta vez no pararé a comer'"
             [selected]="lunchCategorySelected"
-            (selectedChange)="lunchCategorySelected = $event; fieldStates[3] = 'active'"
+            (selectedChange)="lunchCategorySelected = $event; fieldStates[4] = 'active'"
             [secondaryListItems]="secondaryListItems">
           </app-form-selector>
         </div>
@@ -46,18 +53,18 @@
           <app-form-selector
             [title]="dinnerCategoryTitle"
             [listItems]="dinnerFoodCategories"
-            [state]="fieldStates[3]"
+            [state]="fieldStates[4]"
             [required]="false"
             [checkboxText]="'Esta vez no pararé a cenar'"
             [selected]="dinnerCategorySelected"
-            (selectedChange)="dinnerCategorySelected = $event; fieldStates[4] = 'active'"
+            (selectedChange)="dinnerCategorySelected = $event; fieldStates[5] = 'active'"
             [secondaryListItems]="secondaryListItems">
           </app-form-selector>
         </div>
         <div class="row field">
           <app-form-location
             [title]="locationTitle"
-            [state]="fieldStates[4]"
+            [state]="fieldStates[5]"
             (userLocationChange)="userLocation = $event">
           </app-form-location>
         </div>

@@ -1,0 +1,29 @@
+<div class="form-selector" #currentElement>
+  <div [ngClass]="state">
+    <h1>{{title}}</h1>
+    <div class="form-date">
+      <mat-form-field class="example-full-width">
+        <mat-label>Elige una fecha (dd/mm/aaaa)</mat-label>
+        <form autocomplete="off">
+          <input
+            (input)="onChangeDate($event)"
+            (dateInput)="addEvent($event)"
+            (dateChange)="addEvent($event)"
+            matInput
+            [matDatepicker]="picker"
+            [matDatepickerFilter]="filterSinceToday">
+        </form>
+        <mat-error *ngIf="isDateInvalid()">
+          Por favor introduce una <strong>fecha</strong> con formato válido
+        </mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button class="button-next" mat-button [disabled]="isDateInvalid()" (click)="selectDate()">Siguiente</button>
+    </div>
+    <mat-slide-toggle class="field-today"
+      (change)="onToggleToday($event)">
+      ¡Empezaré hoy!
+    </mat-slide-toggle>
+  </div>
+</div>

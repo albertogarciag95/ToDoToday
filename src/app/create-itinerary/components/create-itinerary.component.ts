@@ -16,15 +16,17 @@ export class CreateItineraryComponent implements OnInit {
   @ViewChild('options', { static: false }) options: ElementRef;
   @ViewChild('map', { static: false }) map: ElementRef;
 
-  firstCategoryTitle = '1. ¿Qué te apetece hacer hoy?';
-  secondCategoryTitle = '2. ¿Te gustaría hacer alguna otra cosa?';
-  lunchCategoryTitle = '3. ¿Qué te apetece comer?';
-  dinnerCategoryTitle = '4. ¿Qué te apetece cenar?';
-  locationTitle = '5. ¿Dónde empieza tu itinerario?';
+  dateTitle = '1. ¿Cuándo empieza tu itinerario?';
+  firstCategoryTitle = '2. ¿Qué te apetece hacer?';
+  secondCategoryTitle = '3. ¿Te gustaría hacer alguna otra cosa?';
+  lunchCategoryTitle = '4. ¿Qué te apetece comer?';
+  dinnerCategoryTitle = '5. ¿Qué te apetece cenar?';
+  locationTitle = '6. ¿Dónde empieza tu itinerario?';
 
   firstCategorySubtitle = 'Selecciona una categoría y el precio que estás dispuesto a gastar (por persona)';
   secondCategorySubtitle = '¡El día es muy largo! ¿Por qué no exprimirlo al máximo?';
 
+  dateSelected: Date;
   firstCategorySelected: any;
   secondCategorySelected: any;
   lunchCategorySelected: any;

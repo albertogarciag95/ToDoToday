@@ -63,7 +63,7 @@ h3 {
   height: 500px;
 }
 
-app-form-selector {
+app-form-selector, app-form-date {
   width: 100%;
 }
 
