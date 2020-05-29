@@ -14,7 +14,7 @@ describe('Post itinerary controller test', () => {
       selected: 'Cultura y sociedad', price: undefined
     },
     secondCategory: {
-      selected: 'Ocio y entretenimiento', price: undefined
+      selected: 'Naturaleza', price: undefined
     },
     lunchCategory: {
       selected: 'Burguer', price: undefined
