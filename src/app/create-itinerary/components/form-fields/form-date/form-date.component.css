@@ -12,10 +12,21 @@ h1 {
   width: 100%;
 }
 
+.date-container {
+  display: block;
+  width: 35em;
+}
+
 mat-form-field {
   font-size: 1.1em;
-  width: 30em;
+  width: 100%;
   font-family: "Raleway Medium";
+}
+
+.form-button {
+  width: 40%;
+  min-width: 200px;
+  margin-right: 40px;
 }
 
 .button-next {
@@ -35,6 +46,10 @@ mat-form-field {
 
 mat-slide-toggle {
   font-size: 1.2em;
+}
+
+mat-error {
+  font-weight: bold;
 }
 
 mat-datepicker-toggle {

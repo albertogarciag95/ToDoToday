@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-form-date',
@@ -16,13 +16,17 @@ export class FormDateComponent implements OnInit {
   @Input() date: any;
   @Output() dateChange = new EventEmitter<any>();
 
-  dateValue: string;
+  isValidDate = false;
+
+  dateControl = new FormControl(
+    'date', [ Validators.required ]
+  );
 
   filterSinceToday = (date: Date | null): boolean => {
     return new Date() < date;
   }
 
-  constructor(private _adapter: DateAdapter<any>) {}
+  constructor(private adapter: DateAdapter<any>) {}
 
   onToggleToday(toggle) {
     if (toggle.checked) {
@@ -38,18 +42,22 @@ export class FormDateComponent implements OnInit {
     this.dateChange.emit(this.date._d);
   }
 
-  onChangeDate($event) {
-    this.dateValue = $event.target.value;
+  getErrorMessage(pickerInput: string): string {
+    this.isValidDate = false;
+    if (!pickerInput || pickerInput === '' ) {
+      return 'Por favor, introduce una fecha';
+    }
+    if (!pickerInput.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/) || this.date < new Date()) {
+      return 'Por favor, introduce una fecha con formato válido';
+    }
+
+    this.isValidDate = true;
+    return '';
   }
 
-  isDateInvalid() {
-    return !this.date || !this.dateValue ||
-      new Date() > new Date(this.dateValue) ||
-      !this.dateValue.match(/^(0?[1-9]|1[0-2])\/(0?[1-9]|1[0-9]|2[0-9]|3(0|1))\/\d{4}$/)
-  }
 
   ngOnInit(): void {
-    this._adapter.setLocale('es');
+    this.adapter.setLocale('es');
   }
 
 }

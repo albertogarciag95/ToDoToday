@@ -1,25 +1,29 @@
-<div class="form-selector" #currentElement>
+<div #currentElement>
   <div [ngClass]="state">
     <h1>{{title}}</h1>
     <div class="form-date">
-      <mat-form-field class="example-full-width">
-        <mat-label>Elige una fecha (dd/mm/aaaa)</mat-label>
+      <div class="date-container">
         <form autocomplete="off">
-          <input
-            (input)="onChangeDate($event)"
-            (dateInput)="addEvent($event)"
-            (dateChange)="addEvent($event)"
-            matInput
-            [matDatepicker]="picker"
-            [matDatepickerFilter]="filterSinceToday">
+          <mat-form-field class="example-full-width">
+            <mat-label>Elige una fecha (dd/mm/aaaa)</mat-label>
+            <input
+              class="datePickerInput"
+              #pickerInput
+              [formControl]="dateControl"
+              (dateInput)="addEvent($event)"
+              (dateChange)="addEvent($event)"
+              matInput
+              [matDatepicker]="picker"
+              [matDatepickerFilter]="filterSinceToday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="dateControl.invalid">{{ getErrorMessage(pickerInput.value) }}</mat-error>
+          </mat-form-field>
         </form>
-        <mat-error *ngIf="isDateInvalid()">
-          Por favor introduce una <strong>fecha</strong> con formato válido
-        </mat-error>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <button class="button-next" mat-button [disabled]="isDateInvalid()" (click)="selectDate()">Siguiente</button>
+      </div>
+      <div class="form-button">
+        <button class="button-next" mat-flat-button [disabled]="dateControl.invalid" (click)="selectDate()">Siguiente</button>
+      </div>
     </div>
     <mat-slide-toggle class="field-today"
       (change)="onToggleToday($event)">
