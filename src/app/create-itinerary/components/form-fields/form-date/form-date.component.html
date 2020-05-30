@@ -1,7 +1,7 @@
 <div #currentElement>
   <div [ngClass]="state">
     <h1>{{title}}</h1>
-    <div class="form-date">
+    <div class="form-date" *ngIf="state === 'active'">
       <div class="date-container">
         <form autocomplete="off">
           <mat-form-field class="example-full-width">
@@ -17,17 +17,24 @@
               [matDatepickerFilter]="filterSinceToday">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="dateControl.invalid">{{ getErrorMessage(pickerInput.value) }}</mat-error>
+            <mat-error *ngIf="dateControl.invalid">{{ validateDate(pickerInput.value) }}</mat-error>
           </mat-form-field>
         </form>
       </div>
       <div class="form-button">
-        <button class="button-next" mat-flat-button [disabled]="dateControl.invalid" (click)="selectDate()">Siguiente</button>
+        <button type="button" class="button-next" mat-flat-button [disabled]="dateControl.invalid" (click)="selectDate()">Siguiente</button>
       </div>
     </div>
-    <mat-slide-toggle class="field-today"
+    <mat-slide-toggle
+      *ngIf="state === 'active'"
+      class="field-today"
       (change)="onToggleToday($event)">
       ¡Empezaré hoy!
     </mat-slide-toggle>
+
+    <div *ngIf="state === 'completed'" class="step-completed">
+      <span>{{dateSummary}}</span>
+      <a class="edit" (click)="editField()">Editar</a>
+    </div>
   </div>
 </div>

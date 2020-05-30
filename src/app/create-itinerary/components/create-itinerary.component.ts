@@ -42,7 +42,7 @@ export class CreateItineraryComponent implements OnInit {
   secondaryListItems = ['Entre 5€ y 10€', 'Entre 10€ y 15€', 'Entre 10€ y 20€', 'Entre 20€ y 25€'];
   priceItems = ['Nada', 'Entre 0€ y 5€', 'Entre 5€ y 10€', 'Entre 10€ y 15€', 'Entre 10€ y 20€', 'Entre 20€ y 25€'];
 
-  fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled'];
+  fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled', 'disabled'];
   userLocation: any;
 
   itineraryResult: any;
@@ -70,6 +70,7 @@ export class CreateItineraryComponent implements OnInit {
 
   buildRequestBody() {
     return {
+      date: this.dateSelected,
       category: this.handlePrice(this.firstCategorySelected),
       secondCategory: this.handlePrice(this.secondCategorySelected),
       lunchCategory: this.handlePrice(this.lunchCategorySelected),
@@ -80,12 +81,12 @@ export class CreateItineraryComponent implements OnInit {
 
   onFirstCategoryChanges(selectedItem) {
     this.secondOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
-    this.fieldStates[1] = 'active';
+    this.fieldStates[2] = 'active';
   }
 
   onSecondCategoryChanges(selectedItem) {
     this.firstOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
-    this.fieldStates[2] = 'active';
+    this.fieldStates[3] = 'active';
   }
 
   handlePrice(category) {

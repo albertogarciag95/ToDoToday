@@ -54,14 +54,14 @@ describe('FormDateComponent', () => {
   });
 
   it('date has wrong format, shows error', () => {
-    expect(component.getErrorMessage('wrongDate')).toBe('Por favor, introduce una fecha con formato válido');
+    expect(component.validateDate('wrongDate')).toBe('Por favor, introduce una fecha con formato válido');
   });
 
   it('date is empty, shows error', () => {
-    expect(component.getErrorMessage('')).toBe('Por favor, introduce una fecha');
+    expect(component.validateDate('')).toBe('Por favor, introduce una fecha');
   });
 
   it('date is OK, do not show nothing', () => {
-    expect(component.getErrorMessage('02/02/2021')).toBe('');
+    expect(component.validateDate('02/02/2021')).toBe('');
   });
 });

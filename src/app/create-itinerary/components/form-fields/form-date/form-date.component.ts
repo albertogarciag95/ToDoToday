@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl, Validators} from '@angular/forms';
@@ -15,9 +15,9 @@ export class FormDateComponent implements OnInit {
   @Input() state: string;
   @Input() date: any;
   @Output() dateChange = new EventEmitter<any>();
+  @ViewChild('currentElement') element: ElementRef;
 
-  isValidDate = false;
-
+  dateSummary: string;
   dateControl = new FormControl(
     'date', [ Validators.required ]
   );
@@ -31,6 +31,8 @@ export class FormDateComponent implements OnInit {
   onToggleToday(toggle) {
     if (toggle.checked) {
       this.dateChange.emit(new Date());
+      this.dateSummary = 'Hoy';
+      this.scrollDown();
     }
   }
 
@@ -40,21 +42,32 @@ export class FormDateComponent implements OnInit {
 
   selectDate() {
     this.dateChange.emit(this.date._d);
+    const { date, month, year } = this.dateControl.value._i;
+    this.dateSummary = `${String(date)}/${String(month + 1)}/${String(year)}`;
+    this.scrollDown();
   }
 
-  getErrorMessage(pickerInput: string): string {
-    this.isValidDate = false;
+  scrollDown() {
+    this.state = 'completed';
+    setTimeout(() => {
+      this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }, 500);
+  }
+
+  validateDate(pickerInput: string): string {
+    this.dateSummary = pickerInput;
     if (!pickerInput || pickerInput === '' ) {
       return 'Por favor, introduce una fecha';
     }
     if (!pickerInput.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/) || this.date < new Date()) {
       return 'Por favor, introduce una fecha con formato válido';
     }
-
-    this.isValidDate = true;
     return '';
   }
 
+  editField() {
+    this.state = 'active';
+  }
 
   ngOnInit(): void {
     this.adapter.setLocale('es');
