@@ -82,13 +82,13 @@ describe('CreateItineraryComponent', () => {
   it('firstCategorySelector should listen selectedChange event', (() => {
     const selector = fixture.debugElement.query(By.css('#firstCategory'));
     selector.triggerEventHandler('selectedChange', {});
-    expect(component.fieldStates[1]).toEqual('active');
+    expect(component.fieldStates[2]).toEqual('active');
   }));
 
   it('secondCategorySelector should listen selectedChange event', (() => {
     const selector = fixture.debugElement.query(By.css('#secondCategorySelector'));
     selector.triggerEventHandler('selectedChange', {});
-    expect(component.fieldStates[2]).toEqual('active');
+    expect(component.fieldStates[3]).toEqual('active');
   }));
 
   it('should enable map', async(() => {

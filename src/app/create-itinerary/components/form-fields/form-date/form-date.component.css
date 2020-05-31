@@ -56,3 +56,25 @@ mat-datepicker-toggle {
   width: 30px !important;
   height: 30px !important;
 }
+
+.step-completed {
+  margin-top: 10px;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: "Raleway Medium";
+  color: #000;
+  font-size: 1.2em;
+}
+
+.step-completed a {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.completed {
+  display: inline-flex;
+}

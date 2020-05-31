@@ -7,7 +7,7 @@
           <app-form-date
             [title]="dateTitle"
             [state]="fieldStates[0]"
-            [(date)]="dateSelected"
+            (dateChange)="dateSelected = $event; fieldStates[1] = 'active'"
           ></app-form-date>
         </div>
         <div class="row field">
