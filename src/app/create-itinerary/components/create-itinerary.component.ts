@@ -95,10 +95,10 @@ export class CreateItineraryComponent implements OnInit {
       return {...category};
     }
     if (price === 'Nada') {
-      return Object.assign(category, { price: { initRange: 0, finalRange: 0 }});
+      return Object.assign({...category}, { price: { initRange: 0, finalRange: 0 }});
     }
     const priceRange = price.split(' ').map(item => Number(item.substring(0, item.length - 1)));
-    return Object.assign(category, { price: { initRange: priceRange[1], finalRange: priceRange[3] }});
+    return Object.assign({...category}, { price: { initRange: priceRange[1], finalRange: priceRange[3] }});
   }
 
   getCategories(): void {

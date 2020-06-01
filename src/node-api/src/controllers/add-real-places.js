@@ -22,8 +22,8 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
             await asyncForEach(foundPlaces, async (placeInfo) => {
               if(isPlaceValidToInsert(placeInfo)) {
                 const newPlace = await postPlaceUseCase({
-                  dateStart: placeInfo.dtstart,
-                  dateEnd: placeInfo.dtend ,
+                  dateStart: new Date(placeInfo.dtstart),
+                  dateEnd: new Date(placeInfo.dtend) ,
                   ...placeInfo,
                   location: placeInfo['event-location'],
                   latitude: placeInfo.location ? placeInfo.location.latitude : 0,

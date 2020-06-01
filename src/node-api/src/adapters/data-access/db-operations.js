@@ -26,12 +26,21 @@ export default function makeDbOperations() {
     return await categoriesModel.find({ name });
   }
 
-  async function queryPlaces({ category, price }) {
+  async function queryPlaces({ category, price, date }) {
     let query = { category };
 
     if(price) {
       const { initRange, finalRange } = price;
-      query = Object.assign(query, { price_per_person: { $gte: initRange, $lte: finalRange } })
+      query.price_per_person = { $gte: initRange, $lte: finalRange };
+    }
+
+    if(date) {
+      query = Object.assign(query,
+        { $or: [
+          { $and: [{ dateStart: { $lte: new Date(date) } }, { dateEnd: { $gte: new Date(date) } }] },
+          { $and: [{ dateStart: undefined }, { dateEnd: undefined }] }
+        ]},
+      );
     }
 
     const places = await placesModel.find(query).select('-_id').sort('name');

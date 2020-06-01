@@ -4,10 +4,10 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
 
   let currentPlaces = [];
 
-  function getPlacesByQueryParams(category, secondCategory, lunchCategory, dinnerCategory) {
+  function getPlacesByQueryParams({ date, category, secondCategory, lunchCategory, dinnerCategory }) {
     let promises = [];
-    promises.push(queryPlaces(category));
-    promises.push(queryPlaces(secondCategory));
+    promises.push(queryPlaces(category, date));
+    promises.push(queryPlaces(secondCategory, date));
     promises.push(queryPlaces(lunchCategory));
     promises.push(queryPlaces(dinnerCategory));
 
@@ -23,11 +23,11 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     })
   }
 
-  function queryPlaces({ selected:categoryName, price }) {
+  function queryPlaces({ selected:categoryName, price }, date) {
     return db.getCategoryByName(categoryName).then(
       async result => {
         if(result.length !== 0) {
-          return await db.queryPlaces({ category: result[0]._id, price });
+          return await db.queryPlaces({ category: result[0]._id, price, date });
         } else {
           throw new Error("Error in db.getCategoryByName");
         }
@@ -92,13 +92,13 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     if(!body) {
       throw new Error('body is required');
     }
-    const { category, secondCategory, lunchCategory, dinnerCategory, userLocation } = body;
+    const { date, category, userLocation } = body;
 
-    if(!category || !userLocation) {
+    if(!date || !category || !userLocation) {
       throw new Error('missing required fields');
     }
 
-    const filteredPlaces = await getPlacesByQueryParams(category, secondCategory, lunchCategory, dinnerCategory);
+    const filteredPlaces = await getPlacesByQueryParams(body);
 
     const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userLocation, Constants.NUMBER_OF_ROUTES);
 
