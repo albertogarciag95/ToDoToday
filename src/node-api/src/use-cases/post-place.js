@@ -1,3 +1,5 @@
+import { AppError } from '../errors/AppError';
+
 import makePlace from '../entities/place';
 
 export default function makePostPlaceUseCase({ db }) {
@@ -6,7 +8,7 @@ export default function makePostPlaceUseCase({ db }) {
 
     if(!placeInfo.category) {
       if(!defaultCategoryName) {
-        throw Error('Error in postPlaceUseCase: no category given');
+        throw new AppError('Error in postPlaceUseCase: no category given');
       }
       const category = await db.getCategoryByName(defaultCategoryName);
       placeInfo.category = category[0]._id;

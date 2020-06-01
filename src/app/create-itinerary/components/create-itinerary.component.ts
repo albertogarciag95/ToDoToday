@@ -58,12 +58,11 @@ export class CreateItineraryComponent implements OnInit {
     const body = this.buildRequestBody();
 
     this.createItineraryService.createItinerary(body).subscribe(
-      (response: any) => {
-        console.log(response);
+      response => {
         this.itineraryResult = response;
         this.changeDetector.detectChanges();
         this.options.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, (error: any) => {
+      }, error => {
         console.error('ERROR: ', error);
       });
   }

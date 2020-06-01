@@ -1,5 +1,5 @@
 export function makeExpressCallback (controller) {
-  return (req, res) => {
+  return (req, res, next) => {
     const httpRequest = {
       body: req.body,
       query: req.query,
@@ -15,6 +15,9 @@ export function makeExpressCallback (controller) {
     }
     controller(httpRequest)
       .then(httpResponse => {
+        if(httpResponse.statusCode === 400 || httpResponse.statusCode === 500 || httpResponse.statusCode === 404) {
+          next(httpResponse);
+        }
         if(httpResponse.headers) {
           res.set(httpResponse.headers);
         }

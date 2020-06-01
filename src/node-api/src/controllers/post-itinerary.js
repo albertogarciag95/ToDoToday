@@ -15,13 +15,11 @@ export default function makePostItineraryController ({ postItineraryUseCase }) {
         body: itineraryPlaces
       }
     } catch (e) {
-      console.log(e);
-      console.log(e.stack);
       return {
         headers: {
           'Content-Type': 'application/json'
         },
-        statusCode: 400,
+        statusCode: e.code,
         body: {
           error: e.message
         }
