@@ -14,8 +14,8 @@ export default function getDbModels() {
     longitude: Number,
     location: String,
     price_per_person: Number,
-    dateStart: String,
-    dateEnd: String
+    dateStart: Date,
+    dateEnd: Date
   });
 
   return Object.freeze({
