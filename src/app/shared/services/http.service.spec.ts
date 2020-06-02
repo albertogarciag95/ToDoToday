@@ -5,6 +5,9 @@ import { Category } from '../models/category';
 import { Place } from '../models/place';
 
 import * as mapboxgl from 'mapbox-gl';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HttpService', () => {
   let service: HttpService;
@@ -14,8 +17,8 @@ describe('HttpService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ HttpService ]
+      imports: [ HttpClientTestingModule, OverlayModule, MatDialogModule, BrowserAnimationsModule ],
+      providers: [ HttpService, MatDialog ]
     });
 
     service = TestBed.inject(HttpService);

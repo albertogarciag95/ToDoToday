@@ -62,7 +62,6 @@ export class CreateItineraryComponent implements OnInit {
 
     this.createItineraryService.createItinerary(body).subscribe(
       response => {
-        console.log("no me muestro");
         this.itineraryResult = response;
         this.changeDetector.detectChanges();
         this.options.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });

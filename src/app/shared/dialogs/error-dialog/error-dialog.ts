@@ -16,11 +16,11 @@ export class ErrorDialog implements OnInit {
 
   ngOnInit(): void {
     const { status, error } = this.data;
-    if(status === 0 ) {
+    if (status === 0 ) {
       this.title = '¡Error de conexión!';
       this.description = 'Algo ha ido mal. Por favor revisa tu conexión e inténtalo más tarde.';
       this.image = '../../assets/images/wifi.png';
-    } else if(status === 404 && error.includes('Itinerary not found')) {
+    } else if (status === 404 && error.includes('Itinerary not found')) {
       this.title = 'Lo sentimos :(';
       this.description = 'No hemos podido confeccionar un itinerario con esos parámetros. Por favor vuelve a intentarlo.';
       this.image = '../../assets/images/route.png';
