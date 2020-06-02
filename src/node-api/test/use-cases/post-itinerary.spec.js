@@ -12,6 +12,7 @@ describe('Post itinerary use-case test', function() {
   const dbSpy = chai.spy(db.queryPlaces);
 
   const fakeRequest = {
+    date: new Date(),
     category: {
       selected: 'Cultura y sociedad', price: undefined
     },

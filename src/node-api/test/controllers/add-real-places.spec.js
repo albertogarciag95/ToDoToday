@@ -14,11 +14,8 @@ describe('Add real places controller test', function() {
   it('addRealPlaces controller goes fine', () => {
     addRealPlacesController().then(response => {
       expect(useCaseSpy).to.have.been.called;
-      expect(response).to.be.an('array');
-
-      expect(response[0]).to.have.property('title');
-      expect(response[0]).to.have.property('latitude');
-      expect(response[0]).to.have.property('longitude');
+      expect(response.body).to.be.an('array');
+      expect(response.statusCode === 200).to.be.true;
     });
   });
 });

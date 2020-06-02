@@ -8,7 +8,8 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
       'Content-Type': 'application/json'
     }
     try {
-        return https.get(Constants.OPEN_DATA_URL, (res) => {
+      return new Promise((resolve, reject) => {
+        https.get(Constants.OPEN_DATA_URL, (res) => {
           let data = '';
           res.on('data', (chunk) => { data += chunk; })
 
@@ -33,11 +34,11 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
                   postedPlaces = postedPlaces.concat(newPlace);
                 }
               });
-              return {
+              resolve({
                 headers,
                 statusCode: 200,
                 body: postedPlaces
-              };
+              });
             }
 
             async function asyncForEach(foundPlaces, callback) {
@@ -45,22 +46,26 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
                 await callback(foundPlaces[index]);
               }
             }
-            return await startController();
+            await startController();
           })
         }).on('error', (error) => {
+          reject(error);
           console.log(`Cannot connect with: ${Constants.OPEN_DATA_URL} : ${error.message}`);
         });
 
         function isPlaceValidToInsert(placeInfo) {
           return !!placeInfo.location;
         }
+      });
     } catch(e) {
       return {
         headers: {
           'Content-Type': 'application/json'
         },
         statusCode: e.code,
-        body: e.message
+        body: {
+          error: e.message
+        }
       }
     }
 

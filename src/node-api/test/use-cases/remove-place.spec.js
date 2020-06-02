@@ -12,11 +12,10 @@ describe('Remove place use-case test', function() {
   const useCaseSpy = chai.spy(db.findPlaceByTitle.bind(this, 'fake'));
 
   it('remove existing place', () => {
-    removePlaceUseCase(
-      { title: "fake", description: 'fake', category: 1, latitude: 1, longitude: 1, location: 'fake' }
-      ).then(() => {
-      expect(useCaseSpy).to.have.been.called;
-    })
+    removePlaceUseCase({ title: "fake", description: 'fake', category: 1, latitude: 1, longitude: 1, location: 'fake' })
+      .then(() => {
+        expect(useCaseSpy).to.have.been.called;
+      })
   });
 
 });
