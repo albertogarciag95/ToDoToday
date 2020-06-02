@@ -33,9 +33,7 @@ export default function makeRemovePastPlacesController({ removePlaceUseCase, lis
       return {
         headers,
         statusCode: e.code,
-        body: {
-          error: e.message
-        }
+        body: e.message
       }
     }
   }

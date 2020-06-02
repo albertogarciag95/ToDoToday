@@ -14,9 +14,7 @@ export default function makeListCategoriesController ({ listCategoriesUseCase })
       return {
         headers,
         statusCode: e.code,
-        body: {
-          error: e.message
-        }
+        body: e.message
       }
     }
   }

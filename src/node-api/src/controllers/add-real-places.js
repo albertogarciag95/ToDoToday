@@ -60,9 +60,7 @@ export default function makeAddRealPlacesController({ postPlaceUseCase }) {
           'Content-Type': 'application/json'
         },
         statusCode: e.code,
-        body: {
-          error: e.message
-        }
+        body: e.message
       }
     }
 

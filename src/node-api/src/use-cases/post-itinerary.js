@@ -99,9 +99,9 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
 
     const filteredPlaces = await getPlacesByQueryParams(body);
 
-    Object.values(filteredPlaces).forEach(places => {
+    Object.entries(filteredPlaces).forEach(([key, places]) => {
       if(places.length === 0) {
-        throw new AppError('Itinerary not found with given parameters', 404);
+        throw new AppError('Itinerary not found: ' + key, 404);
       }
     })
 
