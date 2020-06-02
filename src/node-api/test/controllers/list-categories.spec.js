@@ -1,6 +1,7 @@
 import chai from 'chai';
 import spies from 'chai-spies';
 
+import { AppError } from '../../src/errors/AppError';
 import makeListCategoryController from '../../src/controllers/list-categories';
 import { listCategoriesController } from '../../src/controllers';
 import { listCategoriesUseCase } from '../../src/use-cases';
@@ -22,7 +23,7 @@ describe('List categories controller test', function() {
   it('list categories controller goes wrong', () => {
     const listCategoryController = makeListCategoryController({
       listCategoriesUseCase: () => {
-        throw Error('Pow!')
+        throw new AppError('Pow!', 400);
       }
     });
     const expected = {
@@ -30,8 +31,9 @@ describe('List categories controller test', function() {
         'Content-Type': 'application/json'
       },
       statusCode: 400,
-      body: { error: 'Pow!' }
+      body: 'Pow!'
     }
+
     listCategoryController().then(actual => {
       expect(actual).to.deep.equal(expected);
     });
