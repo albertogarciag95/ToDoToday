@@ -1,0 +1,32 @@
+* {
+  text-align: center;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+  margin: 0;
+}
+
+h1 {
+  font-size: 22pt;
+  margin: 20px 0 10px 0;
+}
+
+.mat-dialog-actions {
+  display: block;
+  text-align: center;
+}
+
+.mat-dialog-content {
+  font-size: 12pt;
+  margin: 0 5px 25px 5px;
+}
+
+button {
+  width: 80%;
+  background-color: #7862DA;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 12pt;
+}

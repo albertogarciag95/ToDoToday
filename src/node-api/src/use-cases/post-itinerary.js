@@ -1,4 +1,5 @@
 import Constants from '../constants';
+import { AppError } from '../errors/AppError';
 
 export default function makePostItineraryUseCase({ db, coordinates }) {
 
@@ -19,7 +20,7 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
         dinnerPlaces: response[3]
       }
     }).catch(error => {
-      throw new Error("Error in getPlacesByQueryParams", error)
+      throw new AppError("Error in getPlacesByQueryParams", 400);
     })
   }
 
@@ -29,11 +30,11 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
         if(result.length !== 0) {
           return await db.queryPlaces({ category: result[0]._id, price, date });
         } else {
-          throw new Error("Error in db.getCategoryByName");
+          throw new AppError("Bad request: category given was not found", 400);
         }
       }
-    ).catch(error => {
-      throw new Error("Error in queryPlaces", error);
+    ).catch((error) => {
+      throw new AppError("Error in queryPlaces", 400);
     });
   }
 
@@ -62,10 +63,8 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     currentPlaces.push(startingPoint.title);
     const nearbyLunchPlaces = getNearbyPlaces(lunchPlaces, startingPoint || "");
 
-    if(nearbyLunchPlaces.length !== 0) {
-      startingPoint = nearbyLunchPlaces[0].place;
-      currentPlaces.push(startingPoint.title);
-    }
+    startingPoint = nearbyLunchPlaces[0].place;
+    currentPlaces.push(startingPoint.title);
     const nearbySecondCategoryPlaces = getNearbyPlaces(secondCategoryPlaces, startingPoint || "");
 
     if(nearbySecondCategoryPlaces.length !== 0) {
@@ -90,15 +89,21 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     currentPlaces = [];
 
     if(!body) {
-      throw new Error('body is required');
+      throw new AppError('body is required', 400);
     }
     const { date, category, userLocation } = body;
 
     if(!date || !category || !userLocation) {
-      throw new Error('missing required fields');
+      throw new AppError('missing required fields', 400);
     }
 
     const filteredPlaces = await getPlacesByQueryParams(body);
+
+    Object.entries(filteredPlaces).forEach(([key, places]) => {
+      if(places.length === 0) {
+        throw new AppError('Itinerary not found: ' + key, 404);
+      }
+    })
 
     const nearbyFirstPlaces = getNearbyPlaces(filteredPlaces.categoryPlaces, userLocation, Constants.NUMBER_OF_ROUTES);
 

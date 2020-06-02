@@ -3,6 +3,7 @@ import { CreateItineraryService } from '../service/create-itinerary.service';
 
 import { Category } from '../../shared/models/category';
 import { Place } from 'src/app/shared/models/place';
+import { ErrorDialog } from 'src/app/shared/dialogs/error-dialog/error-dialog';
 
 @Component({
   selector: 'app-create-itinerary',
@@ -51,20 +52,19 @@ export class CreateItineraryComponent implements OnInit {
   mapOptionSelected: any;
   mapPlaces: any;
 
-
-  constructor(private createItineraryService: CreateItineraryService, private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private createItineraryService: CreateItineraryService,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   createItinerary() {
     const body = this.buildRequestBody();
 
     this.createItineraryService.createItinerary(body).subscribe(
-      (response: any) => {
-        console.log(response);
+      response => {
         this.itineraryResult = response;
         this.changeDetector.detectChanges();
         this.options.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, (error: any) => {
-        console.error('ERROR: ', error);
       });
   }
 

@@ -13,10 +13,8 @@ export default function makeListCategoriesController ({ listCategoriesUseCase })
     } catch (e) {
       return {
         headers,
-        statusCode: 400,
-        body: {
-          error: e.message
-        }
+        statusCode: e.code,
+        body: e.message
       }
     }
   }

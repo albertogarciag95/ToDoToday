@@ -30,13 +30,10 @@ export default function makeRemovePastPlacesController({ removePlaceUseCase, lis
       return startController();
 
     } catch (e) {
-      console.log(e);
       return {
         headers,
-        statusCode: 400,
-        body: {
-          error: e.message
-        }
+        statusCode: e.code,
+        body: e.message
       }
     }
   }

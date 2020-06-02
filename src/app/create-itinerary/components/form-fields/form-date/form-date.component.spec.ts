@@ -55,7 +55,7 @@ describe('FormDateComponent', () => {
     component.state = 'active';
     fixture.detectChanges();
     component.date = { _d: { date: 22, month: 4, year: 2023 }};
-    const control = new FormControl(moment("22/4/2023", "DD/MM/YYYY"));
+    const control = new FormControl(moment('22/4/2023', 'DD/MM/YYYY'));
     fixture.componentInstance.dateControl = control;
     fixture.detectChanges();
 

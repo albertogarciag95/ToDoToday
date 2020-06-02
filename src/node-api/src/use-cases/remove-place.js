@@ -1,4 +1,5 @@
 import makePlace from '../entities/place';
+import { AppError } from '../errors/AppError';
 
 export default function makeRemovePlaceUseCase({ db }) {
 
@@ -7,7 +8,7 @@ export default function makeRemovePlaceUseCase({ db }) {
     const place = makePlace(placeInfo);
     const exists = await db.findPlaceByTitle(place.getTitle());
     if (exists.length === 0) {
-      throw Error('Place you are trying to delete does not exist');
+      throw new AppError('Place you are trying to delete does not exist', 404);
     }
 
     return db.removePlace({
