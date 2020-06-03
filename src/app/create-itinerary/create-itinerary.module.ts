@@ -17,12 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MapComponent } from './components/map/component/map.component';
 import { FormSelectorComponent } from './components/form-fields/form-selector/form-selector.component';
-import { OptionsComponent } from './components/options/options.component';
 import { FormLocationComponent } from './components/form-fields/form-location/form-location.component';
 import { MapSelectDialog } from './components/dialogs/map-select-dialog/map-select-dialog';
-import { DetailsComponent } from './components/details/details/details.component';
 import { FormDateComponent } from './components/form-fields/form-date/form-date.component';
 
 import {
@@ -42,12 +39,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CreateItineraryComponent,
-    MapComponent,
     FormSelectorComponent,
-    OptionsComponent,
     FormLocationComponent,
     MapSelectDialog,
-    DetailsComponent,
     FormDateComponent
   ],
   imports: [

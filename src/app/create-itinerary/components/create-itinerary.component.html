@@ -77,20 +77,3 @@
   </div>
   <div class="col-lg-3 col-md-1"></div>
 </div>
-
-<div #options>
-  <app-options
-    *ngIf="itineraryResult"
-    [result]="itineraryResult"
-    (detailsChanged)="showItineraryDetails($event)"
-    (mapOptionChanged)="enableMap($event)">
-  </app-options>
-</div>
-
-<div #details>
-  <app-details *ngIf="detailsSelected" [details]="detailsSelected"></app-details>
-</div>
-
-<div #map *ngIf="mapOptionSelected">
-  <app-map *ngIf="itineraryResult" [places]="mapPlaces"></app-map>
-</div>

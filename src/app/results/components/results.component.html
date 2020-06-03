@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+  <div class="col-lg-10 col-md-10 col-xs-10">
+    <div style="text-align: center;">
+      <h1 class="big-title">Esto es lo que te proponemos</h1>
+        <app-options
+          [result]="results"
+          (detailsChanged)="detailsSelected = $event">
+        </app-options>
+        <app-details [details]="detailsSelected"></app-details>
+        <app-map [places]="places"></app-map>
+      </div>
+    </div>
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+</div>
