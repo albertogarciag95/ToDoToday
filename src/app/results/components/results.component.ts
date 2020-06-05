@@ -9,23 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class ResultsComponent implements OnInit {
 
   places: any;
-  results: any;
-  detailsSelected: any;
+  result: any;
+  optionSelected: any;
+  totalDistance: number;
 
   constructor() { }
 
   ngOnInit(): void {
     console.log(history.state);
-    const { userLocation, results} = history.state;
-    this.results = results;
-    this.places = this.getPlacesByResults(results, userLocation);
-  }
-
-  getPlacesByResults(results: any, userLocation: number[]) {
-    return [
-      userLocation,
-      ...Object.values(results).map(({ place }) => place)
-    ];
+    const { userLocation, result} = history.state;
+    this.optionSelected = result[0];
+    this.places = [userLocation, ...Object.values(this.optionSelected)]
   }
 
 }

@@ -1,0 +1,45 @@
+img {
+  width: 300px;
+  height: 150px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 16pt;
+}
+
+hr {
+  margin-right: 90px;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.details-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 15px;
+}
+
+.details-container div {
+  max-width: 300px;
+  margin-right: 40px;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.counts {
+  margin-bottom: 30px;
+}
+
+.result {
+  margin-right: 70px;
+  font-size: 16pt;
+  font-family: "Raleway Medium";
+  font-weight: bold;
+}

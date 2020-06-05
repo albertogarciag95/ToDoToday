@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 
 import { MapService } from '../service/map.service';
@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
 
   @Input() places: any;
   @Input() userLocation: any;
+  @Output() sendRoute = new EventEmitter<number>();
 
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map;
@@ -104,6 +105,7 @@ export class MapComponent implements OnInit {
           routeGeoJSON = nothing;
         } else {
           const routeSource: mapboxgl.GeoJSONSource = this.map.getSource('route') as mapboxgl.GeoJSONSource;
+          this.sendRoute.emit(Number((data.routes[0].distance / 1000).toFixed(2)));
           routeSource.setData(routeGeoJSON);
         }
 

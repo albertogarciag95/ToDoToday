@@ -1,64 +1,37 @@
-<div class="row results-container">
-  <div class="col-lg-3 col-md-2"></div>
-  <div class="col-lg-6 col-m-8">
-    <h2>En {{details.firstPlace.place.category.toLowerCase()}} :</h2>
-    <div class="col-lg-6 col-md-6 col-lg-12">
-      <img class="options-img" src="../../../assets/images/default.png">
-    </div>
-    <div class="place-card col-lg-8">
-      <h2>{{details.firstPlace.place.title}}</h2>
-      <p>{{details.firstPlace.place.description}}</p>
-      <p>¿Dónde?: {{details.firstPlace.place.location}}</p>
-      <p>Precio por persona: {{details.firstPlace.place.price_per_person}} euros</p>
-      <p>Fecha inicio: {{details.firstPlace.place.dateStart}}</p>
-      <p>Fecha fin: {{details.firstPlace.place.dateEnd}}</p>
-      <hr>
-    </div>
-    <div *ngIf="details.lunchPlace">
-      <h2>En cuanto a comer {{details.lunchPlace.place.category.toLowerCase()}} :</h2>
-      <div class="col-lg-4">
-        <img class="place-img" src="../../../assets/images/default.png">
-      </div>
-      <div class="place-card col-lg-8">
-        <h2>{{details.lunchPlace.title}}</h2>
-        <p>{{details.lunchPlace.description}}</p>
-        <p>¿Dónde?: {{details.lunchPlace.location}}</p>
-        <p>Precio por persona: {{details.lunchPlace.price_per_person}} euros</p>
-        <p>Fecha inicio: {{details.lunchPlace.dateStart}}</p>
-        <p>Fecha fin: {{details.lunchPlace.dateEnd}}</p>
-        <hr>
-      </div>
-    </div>
-    <div *ngIf="details.secondPlace">
-      <h2>En {{details.secondPlace.place.category.toLowerCase()}} :</h2>
-      <div class="col-lg-4">
-        <img class="place-img" src="../../../assets/images/default.png">
-      </div>
-      <div class="place-card col-lg-8">
-        <h2>{{details.secondPlace.title}}</h2>
-        <p>{{details.secondPlace.description}}</p>
-        <p>¿Dónde?: {{details.secondPlace.location}}</p>
-        <p>Precio por persona: {{details.secondPlace.price_per_person}} euros</p>
-        <p>Fecha inicio: {{details.secondPlace.dateStart}}</p>
-        <p>Fecha fin: {{details.secondPlace.dateEnd}}</p>
-        <hr>
-      </div>
-    </div>
-    <div *ngIf="details.dinnerPlace">
-      <h2>Si quieres cenar {{details.dinnerPlace.place.category.toLowerCase()}} :</h2>
-      <div class="col-lg-4">
-        <img class="place-img" src="../../../assets/images/default.png">
-      </div>
-      <div class="place-card col-lg-8">
-        <h2>{{details.dinnerPlace.place.title}}</h2>
-        <p>{{details.dinnerPlace.place.description}}</p>
-        <p>¿Dónde?: {{details.dinnerPlace.place.location}}</p>
-        <p>Precio por persona: {{details.dinnerPlace.place.price_per_person}} euros</p>
-        <p>Fecha inicio: {{details.dinnerPlace.place.dateStart}}</p>
-        <p>Fecha fin: {{details.dinnerPlace.place.dateEnd}}</p>
-        <hr>
-      </div>
-    </div>
+<div class="counts">
+  <span class="title">Distancia a recorrer: </span><span class="result">{{totalDistance}} km </span>
+  <span class="title">Precio por persona: </span><span class="result">{{totalPrice}} €</span>
+</div>
+
+<h1 class="title">Lugares</h1>
+<hr>
+<div class="row details-container">
+  <div *ngIf="details.lunchPlace">
+    <img class="place-img" [src]="details.firstPlace.img">
+    <h2>1. {{details.firstPlace.title}}</h2>
+    <p>{{details.firstPlace.description}}</p>
+    <p><strong>¿Dónde?:</strong> {{details.firstPlace.location}}</p>
+    <p><strong>Precio por persona: </strong>{{details.firstPlace.price_per_person}} euros</p>
   </div>
-  <div class="col-lg-3 col-md-2"></div>
+  <div *ngIf="details.lunchPlace">
+    <img class="place-img" [src]="details.lunchPlace.img">
+    <h2>2. {{details.lunchPlace.title}}</h2>
+    <p>{{details.lunchPlace.description}}</p>
+    <p><strong>¿Dónde?:</strong> {{details.lunchPlace.location}}</p>
+    <p><strong>Precio por persona: </strong>{{details.lunchPlace.price_per_person}} euros</p>
+  </div>
+  <div *ngIf="details.secondPlace">
+    <img class="place-img" [src]="details.secondPlace.img">
+    <h2>3. {{details.secondPlace.title}}</h2>
+    <p>{{details.secondPlace.description}}</p>
+    <p><strong>¿Dónde?:</strong> {{details.secondPlace.location}}</p>
+    <p><strong>Precio por persona: </strong>{{details.secondPlace.price_per_person}} euros</p>
+  </div>
+  <div *ngIf="details.dinnerPlace">
+    <img class="place-img" [src]="details.dinnerPlace.img">
+    <h2>4. {{details.dinnerPlace.title}}</h2>
+    <p>{{details.dinnerPlace.description}}</p>
+    <p><strong>¿Dónde?:</strong> {{details.dinnerPlace.location}}</p>
+    <p><strong>Precio por persona: </strong>{{details.dinnerPlace.price_per_person}} euros</p>
+  </div>
 </div>

@@ -7,6 +7,8 @@ import { ResultsComponent } from './components/results.component';
 import { MapComponent } from './components/map/component/map.component';
 import { OptionsComponent } from './components/options/options.component';
 import { DetailsComponent } from './components/details/details.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
   { path: '', component: ResultsComponent }
@@ -21,7 +23,9 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    MatTabsModule,
+    MatButtonModule
   ],
   exports: [ RouterModule ]
 })

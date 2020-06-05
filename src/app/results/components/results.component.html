@@ -1,15 +1,22 @@
-<div class="row">
-  <div class="col-lg-1 col-md-1 col-xs-1"></div>
-  <div class="col-lg-10 col-md-10 col-xs-10">
-    <div style="text-align: center;">
-      <h1 class="big-title">Esto es lo que te proponemos</h1>
-        <app-options
-          [result]="results"
-          (detailsChanged)="detailsSelected = $event">
-        </app-options>
-        <app-details [details]="detailsSelected"></app-details>
-        <app-map [places]="places"></app-map>
-      </div>
-    </div>
-  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+<div class="results-container">
+  <h1 class="big-title">Esto es lo que te proponemos</h1>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Opción 1">
+      <ng-template matTabContent>
+        <div class="row tab-container">
+          <div class="col-lg-6 col-md-6 col-xs-12">
+            <app-details [details]="optionSelected" [totalDistance]="totalDistance"></app-details>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-12 map-container">
+            <app-map
+              [places]="places"
+              (sendRoute)="totalDistance = $event">
+            </app-map>
+            <button class="start-itinerary" mat-raised-button>¡Comenzar itinerario!</button>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Opción 2">Hola</mat-tab>
+  </mat-tab-group>
 </div>
