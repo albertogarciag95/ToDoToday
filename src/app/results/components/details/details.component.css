@@ -3,6 +3,10 @@ img {
   height: 150px;
   display: block;
   margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 3px 3px 1px #ccc;
+  -webkit-box-shadow: 3px 3px 1px #ccc;
+  -moz-box-shadow: 3px 3px 1px #ccc;
 }
 
 .title {
@@ -35,10 +39,16 @@ h2 {
 
 .counts {
   margin-bottom: 30px;
+  display: inline-flex;
+}
+
+.mat-icon {
+  color: #7862DA;
+  text-shadow: 0.5px 0.5px 0.5px #000000;
 }
 
 .result {
-  margin-right: 70px;
+  margin-right: 40px;
   font-size: 16pt;
   font-family: "Raleway Medium";
   font-weight: bold;

@@ -58,7 +58,11 @@ export class CreateItineraryComponent implements OnInit {
       response => {
         this.itineraryResult = response;
         this.changeDetector.detectChanges();
-        this.router.navigate(['/results'], { state: { userLocation: this.userLocation, results: this.itineraryResult }});
+        this.router.navigate(['/results'], { state: {
+          userLocation: this.userLocation,
+          results: this.itineraryResult,
+          searchParams: body
+        }});
       });
   }
 

@@ -18,12 +18,20 @@ export class MapComponent {
   @Input() userLocation: any;
   @Output() sendRoute = new EventEmitter<number>();
   private _places: any;
+  _id: string;
 
   @Input() set places(places: any) {
 
-      this._places = places;
-      this.createMap();
+      if(JSON.stringify(places) !== JSON.stringify(this._places)) {
+        this._places = places;
+        this.createMap();
+      }
+  }
 
+  @Input() set id(id: string) {
+
+    this._id = id;
+    this.changeDetector.detectChanges();
   }
 
   mapbox = mapboxgl as typeof mapboxgl;
@@ -36,7 +44,7 @@ export class MapComponent {
 
   createMap() {
     this.map = new mapboxgl.Map({
-      container: 'map',
+      container: this._id,
       style: this.style,
       center: [ this._places[0].longitude, this._places[0].latitude ],
       zoom: 15
@@ -76,20 +84,21 @@ export class MapComponent {
   }
 
   printRoute(places: Place[]) {
+    const { lng, lat } = this.map.getCenter();
+    const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
+    const dropoffs: any = turf.featureCollection([]);
+    const nothing: any = turf.featureCollection([]);
+    const coordinates = [];
+
+    places.forEach((place: { longitude: any; latitude: any; }) => {
+      const coordinate = [place.longitude, place.latitude];
+      const pt = turf.point(coordinate);
+
+      dropoffs.features.push(pt);
+      coordinates.push(coordinate);
+    });
+
     this.map.on('load', () => {
-      const { lng, lat } = this.map.getCenter();
-      const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
-      const dropoffs: any = turf.featureCollection([]);
-      const nothing: any = turf.featureCollection([]);
-      const coordinates = [];
-
-      places.forEach((place: { longitude: any; latitude: any; }) => {
-        const coordinate = [place.longitude, place.latitude];
-        const pt = turf.point(coordinate);
-
-        dropoffs.features.push(pt);
-        coordinates.push(coordinate);
-      });
 
       this.addUserPoint(userPoint);
 
@@ -203,5 +212,17 @@ export class MapComponent {
       zoom: 18
     });
   }
+
+  // ngOnDestroy(): void {
+  //   this.map.removeLayer('routearrows');
+  //   this.map.removeLayer('routeline-active');
+  //   this.map.removeLayer('warehouse');
+  //   this.map.removeSource('route');
+  //   this.map = null;
+  // }
+
+  // ngOnInit(): void {
+  //   this.createMap();
+  // }
 
 }

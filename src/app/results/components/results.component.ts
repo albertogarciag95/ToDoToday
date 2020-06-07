@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Place } from 'src/app/shared/models/place';
 
 @Component({
   selector: 'app-results',
@@ -9,23 +10,51 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 export class ResultsComponent implements OnInit {
 
   places: any;
-  result: any;
+  results: any;
   optionSelected: any;
   totalDistance: number;
   userLocation: number[];
+  searchParams: any;
 
   constructor() { }
 
   ngOnInit(): void {
     console.log(history.state);
-    const { userLocation, result} = history.state;
+    const { userLocation, results, searchParams } = history.state;
+    this.searchParams = searchParams;
     this.userLocation = userLocation;
-    this.result = result;
-    this.places = [userLocation, ...Object.values(result[0])]
+    this.results = results;
+    this.places = [userLocation, ...Object.values(results[0])];
+    this.searchParams = this.normalizeSearchParams(searchParams);
+  }
+
+  getTotalPrice(option) {
+    return Object.values(option).reduce((acc: number, current: Place) => {
+      return acc + current.price_per_person;
+    }, 0);
+  }
+
+  normalizeSearchParams(searchParams) {
+    let params = Object.values(searchParams);
+    params.length--;
+    let summarySearch = '';
+
+    return Object.values(params)
+      .reduce((acc: string, searchParam: any, index) => {
+        const { selected, price } = searchParam;
+        if(selected) {
+          if(price) {
+            const { initRange, finalRange } = price;
+            return `${acc} ${selected} (${initRange}-${finalRange}€) ${index !== params.length - 1 ? '+' : ''}`;
+          }
+          return `${acc} ${selected} ${index !== params.length - 1 ? '+' : ''}`;
+        }
+        return `${acc} ${new Date(searchParam).getDate()}/${new Date(searchParam).getMonth()}/${new Date(searchParam).getFullYear()} ${index !== params.length - 1 ? '+' : ''}`;
+      }, '');
   }
 
   onOptionChanged({ index }) {
-    this.places = [this.userLocation, ...Object.values(this.result[index])];
+    this.places = [this.userLocation, ...Object.values(this.results[index])];
   }
 
 }

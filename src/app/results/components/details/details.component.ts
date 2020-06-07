@@ -16,7 +16,7 @@ export class DetailsComponent implements OnInit {
   lunchPlace: Place;
 
   @Input() totalDistance: number;
-  totalPrice: any;
+  @Input() totalPrice: any;
 
   constructor() { }
 
@@ -26,10 +26,6 @@ export class DetailsComponent implements OnInit {
     this.secondPlace = this.setImage(secondPlace);
     this.dinnerPlace = this.setImage(dinnerPlace);
     this.lunchPlace = this.setImage(lunchPlace);
-
-    this.totalPrice = Object.values(this.details).reduce((acc: number, current: Place) => {
-      return acc + current.price_per_person;
-    }, 0);
   }
 
   setImage(place): Place {
