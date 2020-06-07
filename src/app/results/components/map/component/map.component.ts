@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 
 import { MapService } from '../service/map.service';
@@ -13,17 +13,24 @@ import { Place } from 'src/app/shared/models/place';
   styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent {
 
-  @Input() places: any;
   @Input() userLocation: any;
   @Output() sendRoute = new EventEmitter<number>();
+  private _places: any;
+
+  @Input() set places(places: any) {
+
+      this._places = places;
+      this.createMap();
+
+  }
 
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map;
   style = `mapbox://styles/mapbox/streets-v11`;
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService, private changeDetector: ChangeDetectorRef) {
     this.mapbox.accessToken = environment.mapBoxToken;
   }
 
@@ -31,11 +38,11 @@ export class MapComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      center: [ this.places[0].longitude, this.places[0].latitude ],
+      center: [ this._places[0].longitude, this._places[0].latitude ],
       zoom: 15
     });
 
-    this.printRoute(this.places);
+    this.printRoute(this._places);
 
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(new mapboxgl.GeolocateControl({
@@ -43,8 +50,8 @@ export class MapComponent implements OnInit {
           enableHighAccuracy: true
       },
       trackUserLocation: true
-  }));
-    this.addMarkers(this.places);
+    }));
+    this.addMarkers(this._places);
   }
 
 
@@ -69,21 +76,21 @@ export class MapComponent implements OnInit {
   }
 
   printRoute(places: Place[]) {
-    const { lng, lat } = this.map.getCenter();
-    const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
-    const dropoffs: any = turf.featureCollection([]);
-    const nothing: any = turf.featureCollection([]);
-    const coordinates = [];
-
-    places.forEach((place: { longitude: any; latitude: any; }) => {
-      const coordinate = [place.longitude, place.latitude];
-      const pt = turf.point(coordinate);
-
-      dropoffs.features.push(pt);
-      coordinates.push(coordinate);
-    });
-
     this.map.on('load', () => {
+      const { lng, lat } = this.map.getCenter();
+      const userPoint = turf.featureCollection([ turf.point([ lng, lat ])]);
+      const dropoffs: any = turf.featureCollection([]);
+      const nothing: any = turf.featureCollection([]);
+      const coordinates = [];
+
+      places.forEach((place: { longitude: any; latitude: any; }) => {
+        const coordinate = [place.longitude, place.latitude];
+        const pt = turf.point(coordinate);
+
+        dropoffs.features.push(pt);
+        coordinates.push(coordinate);
+      });
+
       this.addUserPoint(userPoint);
 
       this.map.addSource('route', {
@@ -195,10 +202,6 @@ export class MapComponent implements OnInit {
       center: [ place.longitude, place.latitude ],
       zoom: 18
     });
-  }
-
-  ngOnInit(): void {
-    this.createMap();
   }
 
 }
