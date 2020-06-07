@@ -7,7 +7,7 @@ import * as turf from '@turf/helpers';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MapService } from '../../map/service/map.service';
+import { MapService } from '../../../../results/components/map/service/map.service';
 
 @Component({
   selector: 'app-map-select-dialog',

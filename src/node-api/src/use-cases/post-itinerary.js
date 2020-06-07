@@ -28,7 +28,9 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
     return db.getCategoryByName(categoryName).then(
       async result => {
         if(result.length !== 0) {
-          return await db.queryPlaces({ category: result[0]._id, price, date });
+          const places = await db.queryPlaces({ category: result[0]._id, price, date });
+          places.map(place => Object.assign(place, { category: categoryName }));
+          return places;
         } else {
           throw new AppError("Bad request: category given was not found", 400);
         }
@@ -48,10 +50,10 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
       });
     });
 
-    nearbyPlaces =
-    nearbyPlaces.sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1)
+    nearbyPlaces = nearbyPlaces.sort((placeA, placeB) => placeA.distance > placeB.distance ? 1 : -1)
       .filter(place => place.distance != 0)
-      .filter(({ place }) => !currentPlaces.includes(place.title));
+      .filter(({ place }) => !currentPlaces.includes(place.title))
+      .map(place => { delete place.distance; return place.place; });
 
     nearbyPlaces.length = howMany;
 
@@ -59,22 +61,22 @@ export default function makePostItineraryUseCase({ db, coordinates }) {
   }
 
   function createItinerary(firstPlace, { lunchPlaces, secondCategoryPlaces, dinnerPlaces}) {
-    let startingPoint = firstPlace.place;
+    let startingPoint = firstPlace;
     currentPlaces.push(startingPoint.title);
     const nearbyLunchPlaces = getNearbyPlaces(lunchPlaces, startingPoint || "");
 
-    startingPoint = nearbyLunchPlaces[0].place;
+    startingPoint = nearbyLunchPlaces[0];
     currentPlaces.push(startingPoint.title);
     const nearbySecondCategoryPlaces = getNearbyPlaces(secondCategoryPlaces, startingPoint || "");
 
     if(nearbySecondCategoryPlaces.length !== 0) {
-      startingPoint = nearbySecondCategoryPlaces[0].place;
+      startingPoint = nearbySecondCategoryPlaces[0];
       currentPlaces.push(startingPoint.title);
     }
     const nearbyDinnerPlaces = getNearbyPlaces(dinnerPlaces, startingPoint || "");
 
     if(nearbyDinnerPlaces.length !== 0) {
-      currentPlaces.push(nearbyDinnerPlaces[0].place.title);
+      currentPlaces.push(nearbyDinnerPlaces[0].title);
     }
 
     return {

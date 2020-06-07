@@ -1,0 +1,21 @@
+<div class="results-container">
+  <h1 class="big-title">Esto es lo que te proponemos</h1>
+  <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onOptionChanged($event)">
+    <mat-tab *ngFor="let option of result; let i = index" [label]="'Opción ' + (i+1)">
+      <ng-template matTabContent>
+        <div class="row tab-container">
+          <div class="col-lg-6 col-md-6 col-xs-12">
+            <app-details [details]="option" [totalDistance]="totalDistance"></app-details>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-12 map-container">
+            <app-map
+              [places]="places"
+              (sendRoute)="totalDistance = $event">
+            </app-map>
+            <button class="start-itinerary" mat-raised-button>¡Comenzar itinerario!</button>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

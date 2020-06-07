@@ -27,7 +27,7 @@ export class ErrorDialog implements OnInit {
     } else {
       this.title = '¡Vaya!';
       this.description = 'Lo sentimos, algo no ha ido bien. Vuelve a intentarlo más tarde.';
-      this.image = '../../assets/images/sad.jpg';
+      this.image = '../../assets/images/sad.png';
     }
   }
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapSelectDialog } from './map-select-dialog';
-import { MapService } from '../../map/service/map.service';
+import { MapService } from '../../../../results/components/map/service/map.service';
 import { MatDialogRef, MatDialogModule, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 

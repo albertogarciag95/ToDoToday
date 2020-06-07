@@ -17,10 +17,6 @@ export class OptionsComponent implements OnInit {
     this.detailsChanged.emit(value);
   }
 
-  onSeeMap(value) {
-    this.mapOptionChanged.emit(value);
-  }
-
   ngOnInit(): void {
   }
 
