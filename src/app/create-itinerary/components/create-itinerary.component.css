@@ -5,6 +5,11 @@ h1 {
   width: 100%;
 }
 
+.background {
+  background-color: #e9e7ff;
+  background-image: linear-gradient(to bottom, #e9e7ff, #fff);
+}
+
 h3 {
   font-family: "Raleway Medium";
   color: #000;
