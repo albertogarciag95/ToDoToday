@@ -7,9 +7,6 @@
   margin-bottom: 30px;
   padding: 20px;
   background-color: rgb(255, 242, 205);
-  box-shadow: 4px 4px 1px #ccc;
-  -webkit-box-shadow: 4px 4px 1px #ccc;
-  -moz-box-shadow: 4px 4px 1px #ccc;
   display: inline-block;
 }
 
