@@ -36,6 +36,7 @@ export class MapComponent {
 
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map;
+  markers = [];
   style = `mapbox://styles/mapbox/streets-v11`;
 
   constructor(private mapService: MapService, private changeDetector: ChangeDetectorRef) {
@@ -64,22 +65,13 @@ export class MapComponent {
 
 
   addMarkers(places: Place[]) {
-    places.slice(1).forEach((place: { longitude: number; latitude: number; }) => {
+    places.slice(1).forEach((place: { longitude: number; latitude: number; }, index) => {
       const myMarker = new mapboxgl.Marker({ color: '#7862DA' })
         .setLngLat([place.longitude, place.latitude])
         .addTo(this.map);
 
-      myMarker.getElement().addEventListener('mouseenter', function(){
-        myMarker.getElement().style.cursor = 'pointer';
-        myMarker.setPopup(this.makePopup(place));
-      }.bind(this));
-
-      myMarker.getElement().addEventListener('mouseleave', function(){
-        this.map.getCanvas().style.cursor = '';
-        myMarker.getPopup().remove();
-      }.bind(this));
-
       myMarker.getElement().addEventListener('click', this.flyToPoint.bind(this, place));
+      this.markers.push({ place, marker: myMarker });
     });
   }
 
@@ -121,6 +113,7 @@ export class MapComponent {
           routeGeoJSON = nothing;
         } else {
           const routeSource: mapboxgl.GeoJSONSource = this.map.getSource('route') as mapboxgl.GeoJSONSource;
+          this.getDistanceBetweenPlaces(data.routes[0], coordinates);
           this.sendRoute.emit(Number((data.routes[0].distance / 1000).toFixed(2)));
           routeSource.setData(routeGeoJSON);
         }
@@ -128,6 +121,24 @@ export class MapComponent {
       }, (error: any) => {
         console.error('ERROR: ', error);
       });
+  }
+
+  getDistanceBetweenPlaces({ legs }, coordinates: number[]) {
+    legs.forEach((routeLeg, index) => {
+      let distance = routeLeg.distance;
+      let placeMarker = this.markers.find(marker => marker.place.longitude === coordinates[index + 1][0]);
+
+      const { place, marker } = placeMarker;
+      marker.getElement().addEventListener('mouseenter', function(){
+        marker.getElement().style.cursor = 'pointer';
+        marker.setPopup(this.makePopup(place, index + 1, distance));
+      }.bind(this));
+
+      marker.getElement().addEventListener('mouseleave', function(){
+        this.map.getCanvas().style.cursor = '';
+        marker.getPopup().remove();
+      }.bind(this));
+    })
   }
 
   addUserPoint(userPoint: turf.FeatureCollection<turf.Point, { [name: string]: any; }>) {
@@ -199,10 +210,12 @@ export class MapComponent {
     });
   }
 
-  makePopup(place: Place) {
-    return new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 25})
+  makePopup(place: Place, index, distance) {
+    if(distance < 1000) {}
+    return new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 25 })
       .setLngLat([place.longitude, place.latitude])
-      .setHTML(`<strong>${place.title}</strong>`)
+      .setHTML(`<p><strong>${index}. ${place.title}</strong></p>
+        <p>Camina ${distance > 1000 ? (distance / 1000).toFixed(2) + ` km` : distance.toFixed(0) + ` m`} </p>`)
       .addTo(this.map);
   }
 
@@ -212,17 +225,5 @@ export class MapComponent {
       zoom: 18
     });
   }
-
-  // ngOnDestroy(): void {
-  //   this.map.removeLayer('routearrows');
-  //   this.map.removeLayer('routeline-active');
-  //   this.map.removeLayer('warehouse');
-  //   this.map.removeSource('route');
-  //   this.map = null;
-  // }
-
-  // ngOnInit(): void {
-  //   this.createMap();
-  // }
 
 }
