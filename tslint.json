@@ -8,7 +8,6 @@
       ]
     },
     "array-type": false,
-    "arrow-return-shorthand": true,
     "curly": true,
     "deprecation": {
       "severity": "warning"
@@ -75,6 +74,7 @@
       true,
       "as-needed"
     ],
+    "only-arrow-functions": false,
     "quotemark": [
       true,
       "single"
@@ -87,7 +87,6 @@
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
-        "asyncArrow": "always",
         "constructor": "never",
         "method": "never",
         "named": "never"

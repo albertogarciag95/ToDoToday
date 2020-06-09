@@ -32,7 +32,7 @@ export class DetailsComponent implements OnInit {
     let resultant = Object.assign(place,
       { img: '../../../assets/images/' + place.category.replace(/\s/g, '').toLowerCase() + '.jpg' });
 
-    if(place.title.toLowerCase().includes("museo")) {
+    if (place.title.toLowerCase().includes('museo')) {
       resultant = Object.assign(place, { img: '../../../assets/images/museo.jpg' });
     }
     return resultant;

@@ -53,9 +53,9 @@ describe('MapComponent', () => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
     component.id = 'map0';
-    component._id = 'map0';
+    component.mapId = 'map0';
     component.map = new mapboxgl.Map({
-      container: component._id,
+      container: component.mapId,
       style: `mapbox://styles/mapbox/streets-v11`,
       center: [ -3.707884, 40.421528 ],
       zoom: 15,
@@ -66,7 +66,7 @@ describe('MapComponent', () => {
     component.markers = [{ place: places[1], marker: new mapboxgl.Marker({ color: '#7862DA' })
         .setLngLat([-3.69346, 40.411128])
         .addTo(component.map)
-    }]
+    }];
 
     fixture.detectChanges();
   }));
@@ -83,7 +83,7 @@ describe('MapComponent', () => {
 
   it('makePopup', (done: DoneFn) => {
     component.map.on('load', () => {
-      component.makePopup(component._places[1], 0, 12);
+      component.makePopup(component.mapPlaces[1], 0, 12);
       expect(component).toBeTruthy();
       done();
     });
@@ -92,15 +92,7 @@ describe('MapComponent', () => {
   it('flyToPoint', (done: DoneFn) => {
     component.map.on('load', () => {
       fixture.detectChanges();
-      component.flyToPoint(component._places[1]);
-      expect(component).toBeTruthy();
-      done();
-    });
-  });
-
-  it('getOptimizedRoute', (done: DoneFn) => {
-    component.map.on('load', () => {
-      component.getOptimizedRoute(fakeCoordinates, turf.featureCollection([]));
+      component.flyToPoint(component.mapPlaces[1]);
       expect(component).toBeTruthy();
       done();
     });
