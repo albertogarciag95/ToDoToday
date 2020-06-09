@@ -17,7 +17,7 @@ export class MapComponent {
 
   @Input() userLocation: any;
   @Output() sendRoute = new EventEmitter<number>();
-  private _places: any;
+  _places: any;
   _id: string;
 
   @Input() set places(places: any) {

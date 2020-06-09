@@ -6,10 +6,20 @@ import { HttpService } from '../../shared/services/http.service';
 import { Category } from '../../shared/models/category';
 import { of } from 'rxjs';
 import { Place } from 'src/app/shared/models/place';
-import { FormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ElementRef } from '@angular/core';
-import fakeResponse from './mocks/fakeResponse';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ResultsComponent } from 'src/app/results/components/results.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 describe('CreateItineraryComponent', () => {
@@ -54,9 +64,11 @@ describe('CreateItineraryComponent', () => {
     httpServiceSpy.post.and.returnValue( of(places) );
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'results', component: ResultsComponent }])
+      ],
       declarations: [ CreateItineraryComponent ],
       providers: [
-        FormBuilder,
         { provide: CreateItineraryService, useValue: spy },
         { provide: HttpService, useValue: httpServiceSpy }
       ]
@@ -69,7 +81,6 @@ describe('CreateItineraryComponent', () => {
     component.secondCategorySelected = '';
     component.lunchCategorySelected = '';
     component.dinnerCategorySelected = '';
-    component.map = new ElementRef({ scrollIntoView() {} });
   }));
 
 
@@ -89,11 +100,6 @@ describe('CreateItineraryComponent', () => {
     const selector = fixture.debugElement.query(By.css('#secondCategorySelector'));
     selector.triggerEventHandler('selectedChange', {});
     expect(component.fieldStates[3]).toEqual('active');
-  }));
-
-  it('should enable map', async(() => {
-    component.enableMap(fakeResponse);
-    expect(component.mapOptionSelected).toBe(fakeResponse);
   }));
 
   it('should createItinerary', async(() => {

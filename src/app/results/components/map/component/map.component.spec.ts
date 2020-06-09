@@ -28,20 +28,6 @@ describe('MapComponent', () => {
 
   const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
 
-  const places: any[] = [
-    {latitude: 40.416988, longitude: -3.70351},
-    {
-      title: 'test',
-      description: 'test',
-      category: { name: 'test', isFoodType: false },
-      price_per_person: 0,
-      latitude: 40.411128,
-      longitude: -3.69346,
-      location: 'test',
-      dateEnd: 'test',
-      dateStart: 'test'
-  }];
-
   beforeEach(async(() => {
     fakeResponse = { data: { routes: []}};
     const spy = jasmine.createSpyObj('MapService', ['getOptimizedRoute']);
@@ -60,16 +46,22 @@ describe('MapComponent', () => {
 
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
-    component.places = places;
-    myMarker = new mapboxgl.Marker({ color: '#7862DA' })
-        .setLngLat([places[0].longitude, places[0].latitude])
-        .addTo(map);
-
-    myMarker.getElement().dispatchEvent(new Event('mouseenter'));
-
+    component.map = map;
+    component._places = [
+      { latitude: 40.416988, longitude: -3.70351 },
+      {
+        title: 'test',
+        description: 'test',
+        category: { name: 'test', isFoodType: false },
+        price_per_person: 0,
+        latitude: 40.411128,
+        longitude: -3.69346,
+        location: 'test',
+        dateEnd: 'test',
+        dateStart: 'test'
+    }];
     fixture.detectChanges();
   }));
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -86,14 +78,15 @@ describe('MapComponent', () => {
 
   it('makePopup', () => {
     component.map.on('load', () => {
-      component.makePopup(component.places[1]);
+      component.makePopup(component._places[1], 0, 12);
       expect(component).toBeTruthy();
     });
   });
 
   it('flyToPoint', () => {
     component.map.on('load', () => {
-      component.flyToPoint(component.places[1]);
+      fixture.detectChanges();
+      component.flyToPoint(component._places[1]);
       expect(component).toBeTruthy();
     });
   });

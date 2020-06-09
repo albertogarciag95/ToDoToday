@@ -1,9 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CreateItineraryService } from '../service/create-itinerary.service';
 
 import { Category } from '../../shared/models/category';
-import { Place } from 'src/app/shared/models/place';
-import { ErrorDialog } from 'src/app/shared/dialogs/error-dialog/error-dialog';
 import { Router } from '@angular/router';
 
 @Component({

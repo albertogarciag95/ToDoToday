@@ -37,7 +37,6 @@ export class ResultsComponent implements OnInit {
   normalizeSearchParams(searchParams) {
     let params = Object.values(searchParams);
     params.length--;
-    let summarySearch = '';
 
     return Object.values(params)
       .reduce((acc: string, searchParam: any, index) => {
