@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultsComponent } from './results.component';
+import { fakeState } from '../../shared/mocks/fake-state';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -16,6 +17,7 @@ describe('ResultsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
+    history.pushState(fakeState, 'test');
     fixture.detectChanges();
   });
 

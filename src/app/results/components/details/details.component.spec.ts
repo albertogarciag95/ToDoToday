@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailsComponent } from './details.component';
-import { Place } from 'src/app/shared/models/place';
 
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
@@ -9,7 +8,7 @@ describe('DetailsComponent', () => {
   const place: any = {
     title: 'test',
     description: 'test',
-    category: 'test',
+    category: 'pizza',
     price_per_person: 0,
     latitude: 0,
     longitude: 0,
@@ -28,7 +27,7 @@ describe('DetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DetailsComponent);
     component = fixture.componentInstance;
-    component.details = { firstPlace: { place } };
+    component.details = { firstPlace: place, secondPlace: place, dinnerPlace: place, lunchPlace: place };
     fixture.detectChanges();
   });
 

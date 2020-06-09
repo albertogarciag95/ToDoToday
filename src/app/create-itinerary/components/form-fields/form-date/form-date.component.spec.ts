@@ -48,7 +48,7 @@ describe('FormDateComponent', () => {
 
     const toggle = fixture.debugElement.query(By.css('.field-today'));
     toggle.triggerEventHandler('change', { checked: true });
-    expect(component.dateChange.emit).toHaveBeenCalledWith(new Date());
+    expect(component.dateSummary).toEqual('Hoy');
   });
 
   it('date is ok and button next pressed', () => {

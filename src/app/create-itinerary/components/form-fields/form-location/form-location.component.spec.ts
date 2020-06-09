@@ -55,6 +55,10 @@ describe('FormLocationComponent', () => {
     debugElement = fixtureDialog.debugElement;
     component = fixture.componentInstance;
     spyOn(component, 'getMyLocation').and.callThrough();
+    spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function() {
+      const position = { coords: { latitude: 32, longitude: -96 } };
+      arguments[0](position);
+    });
 
     fixture.detectChanges();
   });

@@ -35,15 +35,14 @@ export class ResultsComponent implements OnInit {
   }
 
   normalizeSearchParams(searchParams) {
-    let params = Object.values(searchParams);
+    const params = Object.values(searchParams);
     params.length--;
-    let summarySearch = '';
 
     return Object.values(params)
       .reduce((acc: string, searchParam: any, index) => {
         const { selected, price } = searchParam;
-        if(selected) {
-          if(price) {
+        if (selected) {
+          if (price) {
             const { initRange, finalRange } = price;
             return `${acc} ${selected} (${initRange}-${finalRange}€) ${index !== params.length - 1 ? '+' : ''}`;
           }

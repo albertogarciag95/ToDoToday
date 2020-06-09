@@ -17,20 +17,18 @@ export class MapComponent {
 
   @Input() userLocation: any;
   @Output() sendRoute = new EventEmitter<number>();
-  private _places: any;
-  _id: string;
+  mapPlaces: any;
+  mapId: string;
 
   @Input() set places(places: any) {
-
-      if(JSON.stringify(places) !== JSON.stringify(this._places)) {
-        this._places = places;
-        this.createMap();
-      }
+    if (JSON.stringify(places) !== JSON.stringify(this.mapPlaces)) {
+      this.mapPlaces = places;
+      this.createMap();
+    }
   }
 
   @Input() set id(id: string) {
-
-    this._id = id;
+    this.mapId = id;
     this.changeDetector.detectChanges();
   }
 
@@ -45,13 +43,13 @@ export class MapComponent {
 
   createMap() {
     this.map = new mapboxgl.Map({
-      container: this._id,
+      container: this.mapId,
       style: this.style,
-      center: [ this._places[0].longitude, this._places[0].latitude ],
+      center: [ this.mapPlaces[0].longitude, this.mapPlaces[0].latitude ],
       zoom: 15
     });
 
-    this.printRoute(this._places);
+    this.printRoute(this.mapPlaces);
 
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(new mapboxgl.GeolocateControl({
@@ -60,7 +58,7 @@ export class MapComponent {
       },
       trackUserLocation: true
     }));
-    this.addMarkers(this._places);
+    this.addMarkers(this.mapPlaces);
   }
 
 
@@ -125,8 +123,8 @@ export class MapComponent {
 
   getDistanceBetweenPlaces({ legs }, coordinates: number[]) {
     legs.forEach((routeLeg, index) => {
-      let distance = routeLeg.distance;
-      let placeMarker = this.markers.find(marker => marker.place.longitude === coordinates[index + 1][0]);
+      const distance = routeLeg.distance;
+      const placeMarker = this.markers.find(mrkr => mrkr.place.longitude === coordinates[index + 1][0]);
 
       const { place, marker } = placeMarker;
       marker.getElement().addEventListener('mouseenter', function(){
@@ -138,7 +136,7 @@ export class MapComponent {
         this.map.getCanvas().style.cursor = '';
         marker.getPopup().remove();
       }.bind(this));
-    })
+    });
   }
 
   addUserPoint(userPoint: turf.FeatureCollection<turf.Point, { [name: string]: any; }>) {
@@ -211,7 +209,6 @@ export class MapComponent {
   }
 
   makePopup(place: Place, index, distance) {
-    if(distance < 1000) {}
     return new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 25 })
       .setLngLat([place.longitude, place.latitude])
       .setHTML(`<p><strong>${index}. ${place.title}</strong></p>
