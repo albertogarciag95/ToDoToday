@@ -17,6 +17,10 @@ export class AppComponent {
   hola() {
     this.router.navigate(['/results'], { state: fakeState });
   }
+
+  goToRegister() {
+    this.router.navigateByUrl('/new-user');
+  }
 }
 
 

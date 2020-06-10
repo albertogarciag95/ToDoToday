@@ -1,0 +1,47 @@
+<div class="main-container row">
+  <div class="background col-lg-3 col-md-1"></div>
+  <div class="form-container col-lg-6 col-md-10 col-xs-12">
+    <h1>¡Nuevo usuario en ToDoToday!</h1><hr>
+    <form autocomplete="off" (ngSubmit)="addNewUser()">
+      <div class="form-section">
+        <mat-form-field class="short" appearance="standard">
+          <mat-label>Nombre: </mat-label>
+          <input matInput placeholder="Nombre">
+        </mat-form-field>
+        <mat-form-field class="surname" appearance="standard">
+          <mat-label>Apellidos: </mat-label>
+          <input matInput placeholder="Apellidos">
+        </mat-form-field>
+      </div>
+      <div class="form-section">
+        <mat-form-field class="datepicker">
+          <mat-label>Fecha de nacimiento (dd/mm/aaaa)</mat-label>
+          <input
+            matInput
+            class="datePickerInput"
+            [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="short" appearance="standard">
+          <mat-label>Email: </mat-label>
+          <input matInput placeholder="Email">
+        </mat-form-field>
+      </div>
+      <div class="form-section">
+        <mat-form-field appearance="standard">
+          <mat-label>Contraseña: </mat-label>
+          <input matInput placeholder="Nombre">
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Repite contraseña: </mat-label>
+          <input matInput placeholder="Apellidos">
+        </mat-form-field>
+      </div>
+      <div class="form-section">
+
+      </div>
+    </form>
+  </div>
+  <div class="background col-lg-3 col-md-1"></div>
+</div>
