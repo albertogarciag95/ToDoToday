@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -24,7 +25,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [RouterModule],
   providers: [

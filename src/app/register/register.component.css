@@ -9,6 +9,16 @@
   padding-top: 100px;
 }
 
+img {
+  width: 40px;
+  height: 40px;
+  margin: 0 15px 0 15px;
+}
+
+h2 {
+  text-align: center;
+}
+
 .form-container {
   background-color: white;
   padding: 30px 50px 30px 50px;
@@ -50,4 +60,21 @@ mat-form-field {
   display: inline-flex;
   justify-content: space-between;
   min-width: 400px;
+}
+
+.button-submit {
+  min-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.button-submit button {
+  min-width: 300px;
+  height: 40px;
+  font-size: 14pt;
+  color: #7862DA;
+  background-color: rgb(255, 202, 57);
+  border: 2px solid #7862DA;
 }

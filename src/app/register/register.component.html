@@ -1,7 +1,8 @@
 <div class="main-container row">
   <div class="background col-lg-3 col-md-1"></div>
   <div class="form-container col-lg-6 col-md-10 col-xs-12">
-    <h1>¡Nuevo usuario en ToDoToday!</h1><hr>
+    <h1><img src="../../assets/images/route.png">¡Nuevo usuario en ToDoToday!<img src="../../assets/images/route.png"></h1><hr>
+    <h2>Crea tu cuenta en unos pocos pasos</h2>
     <form autocomplete="off" (ngSubmit)="addNewUser()">
       <div class="form-section">
         <mat-form-field class="short" appearance="standard">
@@ -38,8 +39,8 @@
           <input matInput placeholder="Apellidos">
         </mat-form-field>
       </div>
-      <div class="form-section">
-
+      <div class="button-submit">
+        <button type="submit" mat-raised-button color="primary">Registro</button>
       </div>
     </form>
   </div>
