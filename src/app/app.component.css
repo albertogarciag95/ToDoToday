@@ -18,6 +18,7 @@
   font-size: 20px;
   color: #7862DA;
   text-shadow: 1px 1px 1px #000000;
+  text-decoration: none;
 }
 
 .toolbar span {
@@ -29,11 +30,17 @@
 }
 
 .register-button {
+  cursor: pointer;
   padding: 10px;
   background-color: rgb(255, 202, 57);
   color: white;
   border: 2px solid rgb(255, 202, 57);
   border-radius: 2px;
+}
+
+.register-button:hover {
+  border: solid 2px #7862DA;
+  color: rgb(84, 54, 218)
 }
 
 .login-button {
