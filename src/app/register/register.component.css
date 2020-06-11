@@ -106,6 +106,7 @@ mat-error {
   margin-left: 30px;
   margin-right: 0;
   margin-top: 10px;
+  border: 2px solid #7862DA;
 }
 
 .userImg span {
