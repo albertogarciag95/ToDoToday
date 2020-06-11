@@ -2,41 +2,81 @@
   <div class="background col-lg-3 col-md-1"></div>
   <div class="form-container col-lg-6 col-md-10 col-xs-12">
     <h1><img src="../../assets/images/route.png">¡Nuevo usuario en ToDoToday!<img src="../../assets/images/route.png"></h1><hr>
-    <h2>Crea tu cuenta en unos pocos pasos</h2>
+    <h2>Crea tu cuenta en unos pocos pasos: </h2>
     <form autocomplete="off" (ngSubmit)="addNewUser()">
-      <div class="form-section">
-        <mat-form-field class="short" appearance="standard">
-          <mat-label>Nombre: </mat-label>
-          <input matInput placeholder="Nombre">
-        </mat-form-field>
-        <mat-form-field class="surname" appearance="standard">
-          <mat-label>Apellidos: </mat-label>
-          <input matInput placeholder="Apellidos">
-        </mat-form-field>
+      <div class="main-block">
+        <div class="userImg">
+          <img src="../../assets/images/default.png" (click)="fileInput.click()" />
+          <input
+            style="display: none"
+            type="file"
+            #fileInput>
+        </div>
+        <div class="form-section">
+          <mat-form-field appearance="standard">
+            <mat-label>Nombre completo: </mat-label>
+            <input required [formControl]="nameFormControl" matInput placeholder="Nombre">
+            <mat-error *ngIf="nameFormControl.hasError('required')">
+              ¡Este campo es obligatorio!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Email: </mat-label>
+            <input required matInput placeholder="Email" [formControl]="emailFormControl">
+            <mat-error *ngIf="emailFormControl.hasError('email')">
+              Por favor, introduce un email con formato válido
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              ¡Este campo es obligatorio!
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
       <div class="form-section">
+        <mat-form-field class="username short" appearance="standard">
+          <mat-label>Usuario: </mat-label>
+          <input required [formControl]="userNameFormControl" matInput placeholder="Usuario">
+          <mat-hint>Debe incluir letras y números</mat-hint>
+          <mat-error *ngIf="userNameFormControl.hasError('required')">
+            ¡Este campo es obligatorio!
+          </mat-error>
+        </mat-form-field>
         <mat-form-field class="datepicker">
           <mat-label>Fecha de nacimiento (dd/mm/aaaa)</mat-label>
           <input
+            #pickerInput
             matInput
             class="datePickerInput"
-            [matDatepicker]="picker">
+            [formControl]="dateFormControl"
+            [matDatepicker]="picker"
+            [matDatepickerFilter]="dateFilter"
+            (dateInput)="addEvent($event)"
+            (dateChange)="addEvent($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="short" appearance="standard">
-          <mat-label>Email: </mat-label>
-          <input matInput placeholder="Email">
+          <mat-error *ngIf="dateFormControl.invalid">{{ validateDate(pickerInput.value) }}</mat-error>
         </mat-form-field>
       </div>
       <div class="form-section">
         <mat-form-field appearance="standard">
           <mat-label>Contraseña: </mat-label>
-          <input matInput placeholder="Nombre">
+          <input required matInput type="password" autocomplete="new-password" [formControl]="passFormControl">
+          <mat-error *ngIf="passFormControl.hasError('required')">
+            ¡Este campo es obligatorio!
+          </mat-error>
+          <mat-error *ngIf="passFormControl.hasError('pattern')">
+            Debe incluir almenos una letra mayúscula, otra minúscula, y un número. Mínimo 8 caracteres.
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
           <mat-label>Repite contraseña: </mat-label>
-          <input matInput placeholder="Apellidos">
+          <input required matInput type="password" autocomplete="new-password" [formControl]="pass2FormControl">
+          <mat-error *ngIf="pass2FormControl.hasError('required')">
+            ¡Este campo es obligatorio!
+          </mat-error>
+          <mat-error *ngIf="pass2FormControl.hasError('pattern')">
+            Debe incluir almenos una letra mayúscula, otra minúscula, y un número. Mínimo 8 caracteres.
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="button-submit">

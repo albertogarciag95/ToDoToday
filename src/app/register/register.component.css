@@ -2,10 +2,6 @@
   background-color: #7862DA;
   background-image: linear-gradient(to left, #7862DA, rgb(145, 161, 219));
   height: 100%;
-  padding-top: 164px;
-}
-
-.main-container {
   padding-top: 100px;
 }
 
@@ -30,7 +26,9 @@ h2 {
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12);
   max-height: 700px;
+  min-width: 700px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -42,9 +40,13 @@ h1 {
 }
 
 mat-form-field {
-  margin: 20px 30px 0 30px;
+  margin: 0 30px 0 30px;
   width: 100%;
   font-size: 14pt;
+}
+
+mat-error {
+  font-size: 10pt;
 }
 
 .short {
@@ -52,13 +54,29 @@ mat-form-field {
 }
 
 .datepicker {
-  margin-top: 36px;
+  margin-top: 17px;
+}
+
+.main-block {
+  display: inline-flex;
+  width: 100%;
+}
+
+.main-block .form-section {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.main-block .form-section mat-form-field {
+  width: auto;
+  margin-top: 0;
+  margin-left: 16%;
 }
 
 .form-section {
   width: 100%;
   display: inline-flex;
-  justify-content: space-between;
   min-width: 400px;
 }
 
@@ -66,15 +84,30 @@ mat-form-field {
   min-width: 400px;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 70px;
+  margin-top: 50px;
   text-align: center;
 }
 
 .button-submit button {
   min-width: 300px;
-  height: 40px;
-  font-size: 14pt;
+  height: 50px;
+  font-size: 15pt;
   color: #7862DA;
   background-color: rgb(255, 202, 57);
   border: 2px solid #7862DA;
+}
+
+.userImg img {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 180px;
+  height: 180px;
+  display: block;
+  margin-left: 30px;
+  margin-right: 0;
+  margin-top: 10px;
+}
+
+.userImg span {
+  text-align: center;
 }
