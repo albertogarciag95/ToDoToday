@@ -9,7 +9,7 @@
       <div class="main-block">
         <div class="userImg">
           <img [src]="userFileSrc || '../../assets/images/default.png'" (click)="fileInput.click()" />
-          <input style="display: none" type="file" name="image" (change)="onFileChanged($event)" #fileInput>
+          <input class="fileInput" style="display: none" type="file" name="image" (change)="onFileChanged($event)" #fileInput>
         </div>
         <div class="form-section">
           <mat-form-field appearance="standard">

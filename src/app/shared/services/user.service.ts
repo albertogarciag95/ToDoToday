@@ -3,20 +3,18 @@ import { Observable  } from 'rxjs';
 import { AppEndpoints } from '../../app-endpoints';
 
 import { HttpService } from './http.service';
-import { User } from '../models/user';
-
 
 @Injectable({ providedIn: 'any' })
 export class UserService {
 
   constructor(private httpService: HttpService) { }
 
-  addNewUser(user: FormData): Observable<User> {
-    let headers = new Headers();
+  addNewUser(user: FormData): Observable<any> {
+    const headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
 
-    const options:any = { headers };
+    const options: any = { headers };
     return this.httpService.post(AppEndpoints.USERS, user, options);
   }
 }
