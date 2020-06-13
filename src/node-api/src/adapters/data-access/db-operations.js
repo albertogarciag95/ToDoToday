@@ -2,7 +2,7 @@ import getDbModels from './db-models';
 
 export default function makeDbOperations() {
 
-  const { categoriesModel, placesModel } = getDbModels();
+  const { categoriesModel, placesModel, userModel } = getDbModels();
 
   return Object.freeze({
     getAllCategories,
@@ -11,7 +11,9 @@ export default function makeDbOperations() {
     queryPlaces,
     findPlaceByTitle,
     postPlace,
-    removePlace
+    removePlace,
+    findUser,
+    postUser
   })
 
   async function getAllCategories() {
@@ -60,6 +62,18 @@ export default function makeDbOperations() {
 
   async function removePlace(place) {
     return await placesModel.deleteOne(place);
+  }
+
+  async function findUser(user) {
+    const email = user.getEmail();
+    const userName = user.getUserName();
+
+    return await userModel.find({ $or: [ { email }, { userName} ] });
+  }
+
+  async function postUser(user) {
+    const newUser = new userModel(user);
+    return newUser.save();
   }
 }
 

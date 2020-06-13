@@ -20,7 +20,7 @@ export class HttpService {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   get(endpoint: string): Observable<any> {
-    return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
+    return this.http.get(HttpService.API_END_POINT + endpoint)
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
@@ -28,21 +28,20 @@ export class HttpService {
   }
 
   getForeign(endpoint: string): Observable<any> {
-    return this.http.get(endpoint, this.createOptions())
+    return this.http.get(endpoint)
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
       );
   }
 
-  post(endpoint: string, body?: object) {
-    return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
+  post(endpoint: string, body?: object, options?: object) {
+    return this.http.post(HttpService.API_END_POINT + endpoint, body, options || this.createOptions())
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
       );
   }
-
 
   private _handleError(error: HttpErrorResponse) {
     console.error('ERROR: ', error);
@@ -51,20 +50,12 @@ export class HttpService {
 
   private createOptions(): any {
     const options: any = {
-      headers: this.headers,
-
-      params: this.params,
-      responseType: this.responseType,
+      headers: new HttpHeaders( { 'Content-Type': 'application/json' }),
+      params: new HttpParams(),
+      responseType: 'json',
       observe: 'response'
     };
-    this.resetOptions();
     return options;
-  }
-
-  private resetOptions(): void {
-    this.headers = new HttpHeaders( { 'Content-Type': 'application/json' });
-    this.params = new HttpParams();
-    this.responseType = 'json';
   }
 
 }

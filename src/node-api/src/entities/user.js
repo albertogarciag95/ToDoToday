@@ -2,37 +2,33 @@ import { AppError } from '../errors/AppError';
 
 export default function makeUser ({
     id,
-    
+    name,
+    userName,
+    birthDate,
+    email,
+    password
   } = {}) {
-    if (!title || title.length > 100) {
-      throw new AppError(`Place must have a title or is invalid`, 400);
+    if (!name) {
+      throw new AppError(`User must have name`, 400);
     }
-    if (description === null || description === undefined) {
-      throw new AppError(`Place ${title} must have a description.`, 400);
+    if (!userName) {
+      throw new AppError(`User ${name} must have a userName.`, 400);
     }
-    if (!category) {
-      throw new AppError(`Place ${title} category is invalid or null.`, 400);
+    if (!birthDate || birthDate < new Date()) {
+      throw new AppError(`User ${name} must have a birthdate or is invalid`, 400);
     }
-    if (!latitude || isNaN(latitude)) {
-      throw new AppError(`Place ${title} must have latitude`, 400);
+    if (!email || !email.match(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)) {
+      throw new AppError(`User ${name} must have email`, 400);
     }
-    if(!location) {
-      throw new AppError(`Place ${title} must have location`, 400);
-    }
-    if (!longitude || isNaN(longitude)) {
-      throw new AppError(`Place ${title} must have longitude`, 400);
+    if(!password) {
+      throw new AppError(`User ${name} must have password`, 400);
     }
 
     return Object.freeze({
-      getTitle: () => title,
-      getDescription: () => description,
-      getCategory: () => category,
-      getLatitude: () => latitude,
-      getLongitude: () => longitude,
-      getLocation: () => location,
-      getPrice: () => price_per_person,
-      getDateStart: () => dateStart || 'no_date',
-      getDateEnd: () => dateEnd || 'no_date',
-      isFree: () => price_per_person === 0
+      getName: () => name,
+      getUserName: () => userName,
+      getBirthDate: () => birthDate,
+      getEmail: () => email,
+      getPassword: () => password
     })
 }

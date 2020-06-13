@@ -9,7 +9,7 @@
       <div class="main-block">
         <div class="userImg">
           <img [src]="userFileSrc || '../../assets/images/default.png'" (click)="fileInput.click()" />
-          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+          <input style="display: none" type="file" name="image" (change)="onFileChanged($event)" #fileInput>
         </div>
         <div class="form-section">
           <mat-form-field appearance="standard">
@@ -22,7 +22,7 @@
           <mat-form-field appearance="standard">
             <mat-label>Email: </mat-label>
             <input required matInput placeholder="Email" [formControl]="emailFormControl">
-            <mat-error *ngIf="emailFormControl.hasError('email')">
+            <mat-error *ngIf="emailFormControl.hasError('pattern')">
               Por favor, introduce un email con formato válido
             </mat-error>
             <mat-error *ngIf="emailFormControl.hasError('required')">

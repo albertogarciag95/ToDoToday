@@ -11,7 +11,12 @@ export class UserService {
 
   constructor(private httpService: HttpService) { }
 
-  addNewUser(user: User): Observable<User> {
-    return this.httpService.post(AppEndpoints.USERS, user);
+  addNewUser(user: FormData): Observable<User> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    const options:any = { headers };
+    return this.httpService.post(AppEndpoints.USERS, user, options);
   }
 }

@@ -1,9 +1,9 @@
 export interface User {
   name: string;
   userName: string;
-  birthDate: Date;
+  birthDate?: Date;
   email: string;
   password: string;
-  image: File,
+  userImage?: File,
   itineraries?: any[]
 }

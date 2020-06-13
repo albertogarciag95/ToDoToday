@@ -1,6 +1,5 @@
 export function makeExpressCallback (controller) {
   return (req, res, next) => {
-
     const httpRequest = {
       body: req.body,
       file: req.file || null,

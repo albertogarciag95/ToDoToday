@@ -1,28 +1,23 @@
 import { AppError } from '../errors/AppError';
 
-import makeUser from '../entities';
+import makeUser from '../entities/user';
 
-export default function makePostPlaceUseCase({ db }) {
+export default function makePostUserUseCase({ db }) {
 
-  return async function postPlaceUseCase(userInfo) {
+  return async function postUserUseCase(userInfo) {
 
     const user = makeUser(userInfo);
+    const exists = await db.findUser(user);
+    if (exists.length !== 0) {
+      throw new AppError('User already exists', 400);
+    }
 
-    // const exists = await db.findPlaceByTitle(place.getTitle());
-    // if (exists.length !== 0) {
-    //   return exists;
-    // }
-
-    // return db.postPlace({
-    //   title: place.getTitle(),
-    //   description: place.getDescription(),
-    //   category: place.getCategory(),
-    //   latitude: place.getLatitude(),
-    //   longitude: place.getLongitude(),
-    //   location: place.getLocation(),
-    //   price_per_person: place.getPrice(),
-    //   dateStart: place.getDateStart(),
-    //   dateEnd: place.getDateEnd()
-    // });
+    return db.postUser({
+      name: user.getName(),
+      userName: user.getUserName(),
+      birthDate: user.getBirthDate(),
+      email: user.getEmail(),
+      password: user.getPassword()
+    });
   }
 }

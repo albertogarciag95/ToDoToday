@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-register',
@@ -17,13 +16,15 @@ export class RegisterComponent implements OnInit {
   nameFormControl = new FormControl('', [ Validators.required ]);
   userNameFormControl = new FormControl('', [ Validators.required ]);
   dateFormControl = new FormControl('date', [ Validators.required ]);
-  emailFormControl = new FormControl('', [ Validators.required, Validators.email]);
-  passFormControl = new FormControl('',
-    [
-      Validators.required,
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
-      this.checkPasswords.bind(this)
-    ]);
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)
+  ]);
+  passFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
+    this.checkPasswords.bind(this)
+  ]);
   pass2FormControl = new FormControl('',
   [
     Validators.required,
@@ -48,14 +49,13 @@ export class RegisterComponent implements OnInit {
 
   addNewUser() {
     if(this.registerForm.valid) {
-      const body: User = {
-        name: this.registerForm.controls['nameFormControl'].value,
-        userName: this.registerForm.controls['userNameFormControl'].value,
-        birthDate: this.registerForm.controls['dateFormControl'].value,
-        email: this.registerForm.controls['emailFormControl'].value,
-        password: this.registerForm.controls['passFormControl'].value,
-        image: this.userFileImage
-      }
+      const body = new FormData();
+      body.append('name', this.registerForm.controls['nameFormControl'].value);
+      body.append('userName', this.registerForm.controls['userNameFormControl'].value);
+      body.append('birthDate', this.registerForm.controls['dateFormControl'].value);
+      body.append('email', this.registerForm.controls['emailFormControl'].value);
+      body.append('password', this.registerForm.controls['passFormControl'].value);
+      body.append('userImage', this.userFileImage);
 
       this.userService.addNewUser(body).subscribe(
         response => {

@@ -7,12 +7,13 @@ export default function makePostUserController ({ postUserUseCase }) {
       return {
         headers: {
           'Content-Type': 'application/json',
-          'Last-Modified': new Date(itineraryPlaces.modifiedOn).toUTCString()
+          'Last-Modified': new Date(newUser.modifiedOn).toUTCString()
         },
         statusCode: 201,
         body: newUser
       }
     } catch (e) {
+      console.log("ERROR: ", e);
       return {
         headers: {
           'Content-Type': 'application/json'

@@ -38,6 +38,8 @@ speed-measure-plugin*.json
 # Istambul Node testing
 .nyc_output
 
+src/node-api/src/uploads
+
 # misc
 /.sass-cache
 /connect.lock
