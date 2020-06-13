@@ -20,7 +20,7 @@ export class HttpService {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   get(endpoint: string): Observable<any> {
-    return this.http.get(HttpService.API_END_POINT + endpoint)
+    return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
@@ -28,7 +28,7 @@ export class HttpService {
   }
 
   getForeign(endpoint: string): Observable<any> {
-    return this.http.get(endpoint)
+    return this.http.get(endpoint, this.createOptions())
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))

@@ -48,20 +48,20 @@ export class RegisterComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   addNewUser() {
-    if(this.registerForm.valid) {
+    if (this.registerForm.valid) {
       const body = new FormData();
-      body.append('name', this.registerForm.controls['nameFormControl'].value);
-      body.append('userName', this.registerForm.controls['userNameFormControl'].value);
-      body.append('birthDate', this.registerForm.controls['dateFormControl'].value);
-      body.append('email', this.registerForm.controls['emailFormControl'].value);
-      body.append('password', this.registerForm.controls['passFormControl'].value);
+      body.append('name', this.registerForm.controls.nameFormControl.value);
+      body.append('userName', this.registerForm.controls.userNameFormControl.value);
+      body.append('birthDate', this.registerForm.controls.dateFormControl.value);
+      body.append('email', this.registerForm.controls.emailFormControl.value);
+      body.append('password', this.registerForm.controls.passFormControl.value);
       body.append('userImage', this.userFileImage);
 
       this.userService.addNewUser(body).subscribe(
         response => {
-          console.log("YAAAAY", response);
+          console.log('YAAAAY', response);
         }
-      )
+      );
     }
   }
 
@@ -72,9 +72,9 @@ export class RegisterComponent implements OnInit {
   }
 
   checkPasswords(control: FormControl) {
-    if(this.registerForm) {
-      let pass2 = control.value;
-      let pass = this.passFormControl.value;
+    if (this.registerForm) {
+      const pass2 = control.value;
+      const pass = this.passFormControl.value;
 
       return (pass !== pass2 && pass && pass2) ? { notSame: true } : null;
     }
@@ -86,12 +86,12 @@ export class RegisterComponent implements OnInit {
 
   onFileChanged(event) {
     this.userFileImage = event.target.files[0];
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     reader.readAsDataURL(this.userFileImage);
-    reader.onload = (_event) => {
+    reader.onload = () => {
       this.userFileSrc = reader.result;
-    }
+    };
   }
 
   ngOnInit(): void {

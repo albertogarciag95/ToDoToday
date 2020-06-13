@@ -10,7 +10,7 @@ export default function makePostUserController ({ postUserUseCase }) {
           'Last-Modified': new Date(newUser.modifiedOn).toUTCString()
         },
         statusCode: 201,
-        body: newUser
+        body: "Created"
       }
     } catch (e) {
       console.log("ERROR: ", e);
