@@ -3,10 +3,13 @@ const PORT = 2345;
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import multer from 'multer';
+const upload = multer({ dest: 'uploads/' });
 
 import {
   listCategoriesController,
-  postItineraryController
+  postItineraryController,
+  postUserController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
@@ -21,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cors());
 
 app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
-// app.post(`${apiRoot}/places/real`, makeExpressCallback(addRealPlacesController));
 app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
+app.post(`${apiRoot}/user`, upload.single('image'), makeExpressCallback(postUserController));
 
 app.listen(PORT, () => {
   console.log(`Server Node.js + Express is listening on port ${PORT}`);

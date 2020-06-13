@@ -1,7 +1,7 @@
-export default function makePostItineraryController ({ postItineraryUseCase }) {
+export default function makePostUserController ({ postUserUseCase }) {
   return async function postItineraryController (httpRequest) {
     try {
-      const itineraryPlaces = await postItineraryUseCase(
+      const newUser = await postUserUseCase(
         httpRequest.body
       );
       return {
@@ -10,7 +10,7 @@ export default function makePostItineraryController ({ postItineraryUseCase }) {
           'Last-Modified': new Date(itineraryPlaces.modifiedOn).toUTCString()
         },
         statusCode: 201,
-        body: itineraryPlaces
+        body: newUser
       }
     } catch (e) {
       return {

@@ -1,16 +1,15 @@
 <div class="main-container row">
   <div class="background col-lg-3 col-md-1"></div>
   <div class="form-container col-lg-6 col-md-10 col-xs-12">
-    <h1><img src="../../assets/images/route.png">¡Nuevo usuario en ToDoToday!<img src="../../assets/images/route.png"></h1><hr>
+    <h1><img src="../../assets/images/route.png">¡Nuevo usuario en ToDoToday!<img src="../../assets/images/route.png">
+    </h1>
+    <hr>
     <h2>Crea tu cuenta en unos pocos pasos: </h2>
-    <form autocomplete="off" (ngSubmit)="addNewUser()">
+    <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="addNewUser()">
       <div class="main-block">
         <div class="userImg">
-          <img src="../../assets/images/default.png" (click)="fileInput.click()" />
-          <input
-            style="display: none"
-            type="file"
-            #fileInput>
+          <img [src]="userFileSrc || '../../assets/images/default.png'" (click)="fileInput.click()" />
+          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
         </div>
         <div class="form-section">
           <mat-form-field appearance="standard">
@@ -36,22 +35,14 @@
         <mat-form-field class="username short" appearance="standard">
           <mat-label>Usuario: </mat-label>
           <input required [formControl]="userNameFormControl" matInput placeholder="Usuario">
-          <mat-hint>Debe incluir letras y números</mat-hint>
           <mat-error *ngIf="userNameFormControl.hasError('required')">
             ¡Este campo es obligatorio!
           </mat-error>
         </mat-form-field>
         <mat-form-field class="datepicker">
           <mat-label>Fecha de nacimiento (dd/mm/aaaa)</mat-label>
-          <input
-            #pickerInput
-            matInput
-            class="datePickerInput"
-            [formControl]="dateFormControl"
-            [matDatepicker]="picker"
-            [matDatepickerFilter]="dateFilter"
-            (dateInput)="addEvent($event)"
-            (dateChange)="addEvent($event)">
+          <input #pickerInput matInput class="datePickerInput" [formControl]="dateFormControl" [matDatepicker]="picker"
+            [matDatepickerFilter]="dateFilter" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="dateFormControl.invalid">{{ validateDate(pickerInput.value) }}</mat-error>
@@ -67,6 +58,9 @@
           <mat-error *ngIf="passFormControl.hasError('pattern')">
             Debe incluir almenos una letra mayúscula, otra minúscula, y un número. Mínimo 8 caracteres.
           </mat-error>
+          <mat-error *ngIf="passFormControl.hasError('notSame')">
+            ¡Las contraseñas no coinciden!
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="standard">
           <mat-label>Repite contraseña: </mat-label>
@@ -76,6 +70,9 @@
           </mat-error>
           <mat-error *ngIf="pass2FormControl.hasError('pattern')">
             Debe incluir almenos una letra mayúscula, otra minúscula, y un número. Mínimo 8 caracteres.
+          </mat-error>
+          <mat-error *ngIf="pass2FormControl.hasError('notSame')">
+            ¡Las contraseñas no coinciden!
           </mat-error>
         </mat-form-field>
       </div>
