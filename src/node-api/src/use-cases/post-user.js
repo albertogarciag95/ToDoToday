@@ -7,7 +7,7 @@ export default function makePostUserUseCase({ db }) {
   return async function postUserUseCase(userInfo) {
 
     const user = makeUser(userInfo);
-    const exists = await db.findUser(user);
+    const exists = await db.findUser(user.getEmail(), user.getUserName());
     if (exists.length !== 0) {
       throw new AppError('User already exists', 400);
     }

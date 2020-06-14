@@ -13,7 +13,8 @@ export default function makeDbOperations() {
     postPlace,
     removePlace,
     findUser,
-    postUser
+    postUser,
+    removeUser
   })
 
   async function getAllCategories() {
@@ -64,16 +65,17 @@ export default function makeDbOperations() {
     return await placesModel.deleteOne(place);
   }
 
-  async function findUser(user) {
-    const email = user.getEmail();
-    const userName = user.getUserName();
-
+  async function findUser(email, userName) {
     return await userModel.find({ $or: [ { email }, { userName} ] });
   }
 
   async function postUser(user) {
     const newUser = new userModel(user);
     return newUser.save();
+  }
+
+  async function removeUser(user) {
+    return await userModel.deleteOne(user);
   }
 }
 
