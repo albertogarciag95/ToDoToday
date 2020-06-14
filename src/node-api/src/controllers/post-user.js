@@ -1,5 +1,5 @@
 export default function makePostUserController ({ postUserUseCase }) {
-  return async function postItineraryController (httpRequest) {
+  return async function postUserController (httpRequest) {
     try {
       const newUser = await postUserUseCase(
         httpRequest.body
@@ -13,7 +13,6 @@ export default function makePostUserController ({ postUserUseCase }) {
         body: "Created"
       }
     } catch (e) {
-      console.log("ERROR: ", e);
       return {
         headers: {
           'Content-Type': 'application/json'
