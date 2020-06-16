@@ -17,4 +17,8 @@ export class UserService {
     const options: any = { headers };
     return this.httpService.post(AppEndpoints.USERS, user, options);
   }
+
+  login(user: any): Observable<any> {
+    return this.httpService.post(AppEndpoints.LOGIN, user);
+  }
 }

@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field appearance="standard">
           <mat-label>Contraseña: </mat-label>
-          <input required matInput placeholder="Contraseña" [formControl]="passFormControl">
+          <input required matInput type="password" autocomplete="new-password" placeholder="Contraseña" [formControl]="passFormControl">
           <mat-error *ngIf="passFormControl.hasError('required')">
             ¡Este campo es obligatorio!
           </mat-error>

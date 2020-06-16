@@ -9,7 +9,8 @@ import mkdirp from 'mkdirp';
 import {
   listCategoriesController,
   postItineraryController,
-  postUserController
+  postUserController,
+  loginController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
@@ -37,6 +38,7 @@ const upload = multer({ storage: storage });
 app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
 app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
+app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
 
 app.listen(PORT, () => {
   console.log(`Server Node.js + Express is listening on port ${PORT}`);
