@@ -1,4 +1,4 @@
-import AppError from '../errors/AppError';
+import { AppError } from '../errors/AppError';
 
 export default function makeLoginUseCase({ db }) {
 
@@ -11,7 +11,7 @@ export default function makeLoginUseCase({ db }) {
 
     const exists = await db.findUser(userName, userName);
     if(exists.length === 0) {
-      throw new AppError('User does not exist', 404);
+      throw new AppError('User or password are wrong', 404);
     }
 
     return db.login(exists[0], password)
