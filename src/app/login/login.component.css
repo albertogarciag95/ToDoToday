@@ -1,0 +1,76 @@
+.main-container {
+  background-color: #7862DA;
+  background-image: linear-gradient(to left, #7862DA, rgb(145, 161, 219));
+  height: 100%;
+  padding-top: 200px;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  margin: 0 15px 0 15px;
+}
+
+h1 {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  text-align: center;
+  font-size: 22pt;
+}
+
+.button-submit {
+  min-width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.button-submit button {
+  min-width: 200px;
+  height: 50px;
+  font-size: 15pt;
+  color: #7862DA;
+  background-color: rgb(255, 202, 57);
+  border: 2px solid #7862DA;
+}
+
+.form-section {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-section .link {
+  font-size: 13pt;
+  color: #7862DA;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.form-section .link:hover {
+  text-decoration: underline;
+}
+
+mat-form-field {
+  margin: 0 30px 0 30px;
+  width: auto;
+  font-size: 14pt;
+}
+
+.form-container {
+  background-color: white;
+  padding: 30px 50px 30px 50px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
