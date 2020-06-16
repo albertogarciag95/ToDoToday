@@ -16,15 +16,15 @@ export function makeExpressCallback (controller) {
     }
     controller(httpRequest)
       .then(httpResponse => {
-        if(httpResponse.statusCode === 400 || httpResponse.statusCode === 500 || httpResponse.statusCode === 404) {
-          next(httpResponse);
-        }
         if(httpResponse.headers) {
           res.set(httpResponse.headers);
         }
         res.type('json');
         res.status(httpResponse.statusCode).send(httpResponse.body);
       })
-      .catch(e => res.status(500).send({ error: 'An unkown error occurred.' }));
+      .catch(e => {
+        console.log("ERROR", e);
+        res.status(500).send('An unkown error occurred.')
+      });
   }
 }

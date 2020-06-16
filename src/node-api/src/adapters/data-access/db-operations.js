@@ -14,7 +14,8 @@ export default function makeDbOperations() {
     removePlace,
     findUser,
     postUser,
-    removeUser
+    removeUser,
+    login
   })
 
   async function getAllCategories() {
@@ -67,7 +68,7 @@ export default function makeDbOperations() {
 
   async function findUser(email, userName) {
     return await userModel.find({ $or: [ { email }, { userName} ] });
-  }
+  }d
 
   async function postUser(user) {
     const newUser = new userModel(user);
@@ -76,6 +77,16 @@ export default function makeDbOperations() {
 
   async function removeUser(user) {
     return await userModel.deleteOne(user);
+  }
+
+  function login(exists, candidatePassword) {
+    const user = new userModel(exists);
+    return new Promise((resolve, reject) => {
+      user.comparePassword(candidatePassword, (error, isMatch) => {
+        if(error) reject(error);
+        resolve(isMatch);
+      });
+    });
   }
 }
 
