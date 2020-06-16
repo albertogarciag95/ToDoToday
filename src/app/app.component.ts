@@ -21,6 +21,10 @@ export class AppComponent {
   goToRegister() {
     this.router.navigateByUrl('/new-user');
   }
+
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }
 
 

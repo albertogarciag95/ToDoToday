@@ -1,0 +1,30 @@
+<div class="main-container row">
+  <div class="background col-lg-4 col-md-2 col-1"></div>
+  <div class="form-container col-lg-4 col-md-8 col-10">
+    <h1><img src="../../assets/images/route.png">Inicia sesión<img src="../../assets/images/route.png"></h1>
+    <hr>
+    <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
+      <div class="form-section">
+        <mat-form-field appearance="standard">
+          <mat-label>Usuario o email: </mat-label>
+          <input required [formControl]="userFormControl" matInput placeholder="Usuario o email">
+          <mat-error *ngIf="userFormControl.hasError('required')">
+            ¡Este campo es obligatorio!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Contraseña: </mat-label>
+          <input required matInput placeholder="Contraseña" [formControl]="passFormControl">
+          <mat-error *ngIf="passFormControl.hasError('required')">
+            ¡Este campo es obligatorio!
+          </mat-error>
+        </mat-form-field>
+        <a class="link" (click)="goToRegister()">¡Aún no me he registrado!</a>
+      </div>
+      <div class="button-submit">
+        <button type="submit" mat-raised-button color="primary">Registro</button>
+      </div>
+    </form>
+  </div>
+  <div class="background col-lg-4 col-md-2 col-1"></div>
+</div>
