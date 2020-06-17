@@ -13,7 +13,7 @@ export default function makeLoginController ({ loginUseCase }) {
       return {
         headers,
         statusCode: 200,
-        body: { "Logged": true }
+        body: { logged: true }
       }
     } catch (e) {
       return {

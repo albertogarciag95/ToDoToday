@@ -19,6 +19,6 @@ export class UserService {
   }
 
   login(user: any): Observable<any> {
-    return this.httpService.post(AppEndpoints.LOGIN, user);
+    return this.httpService.login(AppEndpoints.LOGIN, user);
   }
 }

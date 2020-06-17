@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -40,6 +40,14 @@ export class HttpService {
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
+      );
+  }
+
+  login(endpoint: string, body?: object) {
+    return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
+      .pipe(
+        map((response: any) => response.body),
+        catchError((error: any) => of(error))
       );
   }
 
