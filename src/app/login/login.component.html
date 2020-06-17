@@ -4,6 +4,7 @@
     <h1><img src="../../assets/images/route.png">Inicia sesión<img src="../../assets/images/route.png"></h1>
     <hr>
     <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
+      <p class="login-error" [style.visibility]="showLoginError ? 'visible' : 'hidden'">Usuario o contraseña incorrectos</p>
       <div class="form-section">
         <mat-form-field appearance="standard">
           <mat-label>Usuario o email: </mat-label>
