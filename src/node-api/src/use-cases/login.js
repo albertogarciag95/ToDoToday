@@ -1,6 +1,7 @@
 import { AppError } from '../errors/AppError';
+import makeUser from '../entities/user';
 
-export default function makeLoginUseCase({ db }) {
+export default function makeLoginUseCase({ db, auth }) {
 
   return async function loginUseCase(loginInfo) {
 
@@ -15,7 +16,21 @@ export default function makeLoginUseCase({ db }) {
     }
 
     return db.login(exists[0], password)
-      .then(isLogin => isLogin)
+      .then(async isLogin => {
+        const userEntity = makeUser(exists[0]);
+        const user = {
+          name: userEntity.getName(),
+          userName: userEntity.getUserName(),
+          birthDate: userEntity.getBirthDate(),
+          email: userEntity.getEmail(),
+          password: userEntity.getPassword()
+        }
+        const accessToken = auth.generateAccessToken(user);
+        const refreshToken = auth.getRefreshToken(user);
+        await db.saveToken(refreshToken);
+
+        return { isLogin, accessToken, refreshToken };
+      })
       .catch(error => { throw new AppError(error, 500); })
 
   }

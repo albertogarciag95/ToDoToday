@@ -47,7 +47,13 @@ export class HttpService {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
       .pipe(
         map((response: any) => response.body),
-        catchError((error: any) => of(error))
+        catchError((error: any) => {
+          if(error.status === 500) {
+            this._handleError(error);
+            return of(null);
+          }
+          return of(error);
+        })
       );
   }
 
@@ -61,7 +67,8 @@ export class HttpService {
       headers: new HttpHeaders( { 'Content-Type': 'application/json' }),
       params: new HttpParams(),
       responseType: 'json',
-      observe: 'response'
+      observe: 'response',
+      withCredentials: true
     };
     return options;
   }
