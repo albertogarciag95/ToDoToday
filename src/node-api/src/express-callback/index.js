@@ -23,7 +23,7 @@ export function makeExpressCallback (controller, refreshTokens) {
         const { accessToken, refreshToken } = httpResponse.body;
         if(refreshToken) {
           res.cookie('refresh_token', refreshToken, { httpOnly: true, secure: false });
-          res.cookie('access_token', accessToken, { httpOnly: true, secure: false });
+          res.cookie('access_token', accessToken, { httpOnly: true });
           delete httpResponse.body.refreshToken;
           delete httpResponse.body.accessToken;
         }

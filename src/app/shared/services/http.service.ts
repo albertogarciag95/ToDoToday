@@ -28,6 +28,8 @@ export class HttpService {
   }
 
   getForeign(endpoint: string): Observable<any> {
+    let options = this.createOptions();
+    delete options.withCredentials;
     return this.http.get(endpoint, this.createOptions())
       .pipe(
         map((response: any) => response.body),
@@ -67,8 +69,8 @@ export class HttpService {
       headers: new HttpHeaders( { 'Content-Type': 'application/json' }),
       params: new HttpParams(),
       responseType: 'json',
-      observe: 'response',
-      withCredentials: true
+      withCredentials: true,
+      observe: 'response'
     };
     return options;
   }
