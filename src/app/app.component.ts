@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { fakeState } from './shared/mocks/fake-state';
-import { UserService } from './shared/services/http/user.service';
-import { Subject, Subscription } from 'rxjs';
-import { HttpService } from './shared/services/http/http.service';
+import { Subscription } from 'rxjs';
 import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({

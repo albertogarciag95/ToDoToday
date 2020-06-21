@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './services/http/http.service';
 import { AuthService } from './services/auth/auth.service';
 
-import { ErrorDialog } from './dialogs/error-dialog/error-dialog';
+import { InfoDialog } from './dialogs/info-dialog/info-dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -15,6 +15,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ],
   providers: [ HttpService, AuthService ],
-  declarations: [ErrorDialog]
+  declarations: [InfoDialog]
 })
 export class SharedModule { }

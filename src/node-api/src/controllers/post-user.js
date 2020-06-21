@@ -1,18 +1,17 @@
 export default function makePostUserController ({ postUserUseCase }) {
   return async function postUserController (httpRequest) {
+    httpRequest.body.file = httpRequest.file.filename;
     try {
-      const newUser = await postUserUseCase(
-        httpRequest.body
-      );
+      await postUserUseCase(httpRequest.body);
       return {
         headers: {
-          'Content-Type': 'application/json',
-          'Last-Modified': new Date(newUser.modifiedOn).toUTCString()
+          'Content-Type': 'application/json'
         },
         statusCode: 201,
-        body: "Created"
+        body: {}
       }
     } catch (e) {
+      console.log(e);
       return {
         headers: {
           'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-export function makeExpressCallback (controller, refreshTokens) {
+export function makeExpressCallback (controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,

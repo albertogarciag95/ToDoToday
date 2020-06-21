@@ -4,7 +4,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ErrorDialog } from '../../dialogs/error-dialog/error-dialog';
+import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -43,7 +43,7 @@ export class HttpService {
 
   private _handleError(error: HttpErrorResponse) {
     console.error('ERROR: ', error);
-    this.dialog.open(ErrorDialog, { width: '650px', data: error });
+    this.dialog.open(InfoDialog, { width: '650px', data: error });
   }
 
   private createOptions(): any {

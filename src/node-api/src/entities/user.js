@@ -6,7 +6,8 @@ export default function makeUser ({
     userName,
     birthDate,
     email,
-    password
+    password,
+    file
   } = {}) {
     if (!name) {
       throw new AppError(`User must have name`, 400);
@@ -29,6 +30,7 @@ export default function makeUser ({
       getUserName: () => userName,
       getBirthDate: () => birthDate,
       getEmail: () => email,
-      getPassword: () => password
+      getPassword: () => password,
+      getFileName: () => file
     })
 }

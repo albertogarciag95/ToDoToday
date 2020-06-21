@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialog } from '../../dialogs/error-dialog/error-dialog';
+import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { AppEndpoints } from 'src/app/app-endpoints';
 
 @Injectable({
@@ -39,7 +39,7 @@ export class AuthService {
 
   private _handleError(error: HttpErrorResponse) {
     console.error('ERROR: ', error);
-    this.dialog.open(ErrorDialog, { width: '650px', data: error });
+    this.dialog.open(InfoDialog, { width: '650px', data: error });
   }
 
   private createOptions(): any {
