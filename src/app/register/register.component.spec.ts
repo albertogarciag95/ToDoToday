@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
-import { UserService } from '../shared/services/user.service';
+import { UserService } from '../shared/services/http/user.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 

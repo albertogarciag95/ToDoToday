@@ -29,7 +29,7 @@ export default function makeLoginUseCase({ db, auth }) {
         const refreshToken = auth.getRefreshToken(user);
         await db.saveToken(refreshToken);
 
-        return { isLogin, accessToken, refreshToken };
+        return { isLogin, user: isLogin ? user.name : null, accessToken, refreshToken };
       })
       .catch(error => { throw new AppError(error, 500); })
 

@@ -4,7 +4,7 @@ import { Observable  } from 'rxjs';
 import { AppEndpoints } from '../../app-endpoints';
 
 import { Category } from '../../shared/models/category';
-import { HttpService } from '../../shared/services/http.service';
+import { HttpService } from '../../shared/services/http/http.service';
 import { Place } from 'src/app/shared/models/place';
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { UserService } from '../shared/services/user.service';
+import { UserService } from '../shared/services/http/user.service';
 
 @Component({
   selector: 'app-register',

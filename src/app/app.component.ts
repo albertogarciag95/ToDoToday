@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { fakeState } from './shared/mocks/fake-state';
+import { UserService } from './shared/services/http/user.service';
+import { Subject, Subscription } from 'rxjs';
+import { HttpService } from './shared/services/http/http.service';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +13,13 @@ import { fakeState } from './shared/mocks/fake-state';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'todo-today';
+  userLogged: string;
 
-  constructor(private router: Router) {}
+  private suscription: Subscription;
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   hola() {
     this.router.navigate(['/results'], { state: fakeState });
@@ -24,6 +31,16 @@ export class AppComponent {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
+  }
+
+  ngOnInit() {
+    this.suscription = this.authService.currentUser.subscribe(
+      userLogged => this.userLogged = userLogged ? userLogged.split(" ")[0] : null
+    )
+  }
+
+  ngOnDestroy() {
+    this.suscription.unsubscribe();
   }
 }
 

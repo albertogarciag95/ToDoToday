@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateItineraryComponent } from './create-itinerary.component';
 import { CreateItineraryService } from '../service/create-itinerary.service';
-import { HttpService } from '../../shared/services/http.service';
+import { HttpService } from '../../shared/services/http/http.service';
 import { Category } from '../../shared/models/category';
 import { of } from 'rxjs';
 import { Place } from 'src/app/shared/models/place';

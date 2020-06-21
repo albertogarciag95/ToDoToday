@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpService } from './http.service';
-import { Category } from '../models/category';
-import { Place } from '../models/place';
+import { Category } from '../../models/category';
+import { Place } from '../../models/place';
 
 import * as mapboxgl from 'mapbox-gl';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';

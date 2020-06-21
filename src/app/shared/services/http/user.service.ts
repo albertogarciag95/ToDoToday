@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable  } from 'rxjs';
-import { AppEndpoints } from '../../app-endpoints';
+import { AppEndpoints } from '../../../app-endpoints';
 
 import { HttpService } from './http.service';
 
@@ -18,7 +18,4 @@ export class UserService {
     return this.httpService.post(AppEndpoints.USERS, user, options);
   }
 
-  login(user: any): Observable<any> {
-    return this.httpService.login(AppEndpoints.LOGIN, user);
-  }
 }

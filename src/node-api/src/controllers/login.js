@@ -7,7 +7,7 @@ export default function makeLoginController ({ loginUseCase }) {
     }
     try {
       const login = await loginUseCase(httpRequest.body);
-      const { isLogin, accessToken, refreshToken } = login;
+      const { isLogin, user, accessToken, refreshToken } = login;
 
       if(!isLogin) {
         throw new AppError('User or password are wrong', 404);
@@ -15,7 +15,7 @@ export default function makeLoginController ({ loginUseCase }) {
       return {
         headers,
         statusCode: 200,
-        body: { logged: true, accessToken, refreshToken }
+        body: { logged: true, user, accessToken, refreshToken }
       }
     } catch (e) {
       console.log(e);
