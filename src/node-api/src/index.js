@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import multer from 'multer';
 import mkdirp from 'mkdirp';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 import {
   listCategoriesController,
@@ -16,12 +18,21 @@ import {
 import { makeExpressCallback } from './express-callback';
 import { addBatches } from './batches';
 
+import auth from './adapters/authentication';
+
 const app = express();
 const apiRoot = '/api/v0';
 
+dotenv.config();
+
 addBatches();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}));
+
+app.use(cookieParser());
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -33,10 +44,24 @@ const storage = multer.diskStorage({
   }
 });
 
+const refreshTokens = [];
+
+const authenticateUser = (req, res, next) => {
+  const token = req.cookies.access_token || '';
+  try {
+    if (!token) {
+      return res.status(401).json('You need to Login');
+    }
+    auth.verifyAuthMiddleware(req, res, next, token);
+  } catch (err) {
+    return res.status(500).json(err.toString());
+  }
+}
+
 const upload = multer({ storage: storage });
 
-app.get(`${apiRoot}/categories`, makeExpressCallback(listCategoriesController));
-app.post(`${apiRoot}/itinerary`, makeExpressCallback(postItineraryController));
+app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCategoriesController, refreshTokens));
+app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController, refreshTokens));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
 

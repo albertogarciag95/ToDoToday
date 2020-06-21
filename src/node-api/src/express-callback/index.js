@@ -1,5 +1,5 @@
-export function makeExpressCallback (controller) {
-  return (req, res, next) => {
+export function makeExpressCallback (controller, refreshTokens) {
+  return (req, res) => {
     const httpRequest = {
       body: req.body,
       file: req.file || null,
@@ -14,10 +14,18 @@ export function makeExpressCallback (controller) {
         'User-Agent': req.get('User-Agent')
       }
     }
+
     controller(httpRequest)
       .then(httpResponse => {
         if(httpResponse.headers) {
           res.set(httpResponse.headers);
+        }
+        const { accessToken, refreshToken } = httpResponse.body;
+        if(refreshToken) {
+          res.cookie('refresh_token', refreshToken, { httpOnly: true, secure: false });
+          res.cookie('access_token', accessToken, { httpOnly: true });
+          delete httpResponse.body.refreshToken;
+          delete httpResponse.body.accessToken;
         }
         res.type('json');
         res.status(httpResponse.statusCode).send(httpResponse.body);

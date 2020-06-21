@@ -2,7 +2,7 @@ import getDbModels from './db-models';
 
 export default function makeDbOperations() {
 
-  const { categoriesModel, placesModel, userModel } = getDbModels();
+  const { categoriesModel, placesModel, userModel, tokenModel } = getDbModels();
 
   return Object.freeze({
     getAllCategories,
@@ -15,7 +15,8 @@ export default function makeDbOperations() {
     findUser,
     postUser,
     removeUser,
-    login
+    login,
+    saveToken
   })
 
   async function getAllCategories() {
@@ -87,6 +88,11 @@ export default function makeDbOperations() {
         resolve(isMatch);
       });
     });
+  }
+
+  async function saveToken(token) {
+    const newToken = new tokenModel({ token });
+    return await newToken.save(token);
   }
 }
 

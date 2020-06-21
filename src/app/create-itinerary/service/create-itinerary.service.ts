@@ -14,6 +14,7 @@ export class CreateItineraryService {
   constructor(private httpService: HttpService) { }
 
   getCategories(): Observable<Category[]> {
+    let withCredentials = true;
     return this.httpService.get(AppEndpoints.CATEGORIES);
   }
 

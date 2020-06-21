@@ -30,10 +30,12 @@ export class LoginComponent implements OnInit {
 
       this.userService.login(body)
         .subscribe(response => {
-          let isWrongLogin = !response.ok && !response.logged;
-          this.userFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
-          this.passFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
-          this.showLoginError = isWrongLogin
+          if(response) {
+            let isWrongLogin = !response.ok && !response.logged;
+            this.userFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
+            this.passFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
+            this.showLoginError = isWrongLogin;
+          }
         });
     }
   }

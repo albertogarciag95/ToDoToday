@@ -8,6 +8,7 @@ import makeLoginUseCase from './login';
 
 import db from '../adapters/data-access';
 import coordinates from '../adapters/coordinates';
+import auth from '../adapters/authentication';
 
 const listCategoriesUseCase = makeListCategoriesUseCase({ db });
 const postItineraryUseCase = makePostItineraryUseCase({ db, coordinates });
@@ -15,7 +16,7 @@ const postPlaceUseCase = makePostPlaceUseCase({ db });
 const listPlacesUseCase = makeListPlacesUseCase({ db });
 const removePlaceUseCase = makeRemovePlaceUseCase({ db });
 const postUserUseCase = makePostUserUseCase({ db });
-const loginUseCase = makeLoginUseCase({ db });
+const loginUseCase = makeLoginUseCase({ db, auth });
 
 const useCases = Object.freeze({
   listCategoriesUseCase,

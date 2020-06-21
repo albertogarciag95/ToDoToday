@@ -29,18 +29,17 @@ export default function getDbModels() {
     itineraries: [String]
   });
 
+  const TokenSchema = new mongoose.Schema({
+    token: String
+  });
+
   UserSchema.pre('save', function(next) {
     let user = this;
-    
-    // generate a salt
+
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         if (err) return next(err);
-
-        // hash the password using our new salt
         bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) return next(err);
-
-            // override the cleartext password with the hashed one
             user.password = hash;
             next();
         });
@@ -57,6 +56,7 @@ export default function getDbModels() {
   return Object.freeze({
     categoriesModel: mongoose.model('Category', CategoriesSchema),
     placesModel: mongoose.model('Place', PlaceSchema),
-    userModel: mongoose.model('User', UserSchema)
+    userModel: mongoose.model('User', UserSchema),
+    tokenModel: mongoose.model('Token', TokenSchema)
   });
 }
