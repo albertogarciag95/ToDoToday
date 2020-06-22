@@ -14,7 +14,7 @@ export class AuthService {
 
   static API_END_POINT = environment.API;
 
-  private userSource = new BehaviorSubject<string>("");
+  private userSource = new BehaviorSubject<any>("");
   currentUser = this.userSource.asObservable();
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
