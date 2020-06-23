@@ -1,23 +1,33 @@
-export default function makeAuthOperations({ jwt, db }) {
+export default function makeAuthOperations({ jwt }) {
 
   return Object.freeze({
     generateAccessToken,
     getRefreshToken,
-    verifyAuthMiddleware
+    verifyAuthMiddleware,
+    verifyRefreshToken
   });
 
   function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' }); //10-15m
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' });
   }
 
   function verifyAuthMiddleware(req, res, next, token) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if(err) {
-        return res.sendStatus(403);
+        return res.status(401).json('Token expired');
       }
       req.user = user;
       next();
     })
+  }
+
+  function verifyRefreshToken({ token }) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if(err) return reject(err);
+        resolve(user);
+      });
+    });
   }
 
   function getRefreshToken(user) {

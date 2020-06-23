@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
           if(response) {
             this.handleValidations(response);
             this.authService.updateUserLogged(response.user);
-            this.router.navigateByUrl('/home');
+            if(response.logged) {
+              this.router.navigateByUrl('/home');
+            }
           }
         });
     }

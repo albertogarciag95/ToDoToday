@@ -13,7 +13,8 @@ import {
   listCategoriesController,
   postItineraryController,
   postUserController,
-  loginController
+  loginController,
+  tokenController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
@@ -78,6 +79,7 @@ app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCateg
 app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
+app.post(`${apiRoot}/token`, authenticateUser, makeExpressCallback(tokenController));
 
 app.listen(PORT, () => {
   console.log(`Server Node.js + Express is listening on port ${PORT}`);

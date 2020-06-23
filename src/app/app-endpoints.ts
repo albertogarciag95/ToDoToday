@@ -3,5 +3,6 @@ export class AppEndpoints {
   static ITINERARY = '/itinerary';
   static USERS = '/user';
   static LOGIN = '/login';
+  static TOKEN = '/token';
   static REAL_PLACES_ENDPOINT = '/places/real';
 }
