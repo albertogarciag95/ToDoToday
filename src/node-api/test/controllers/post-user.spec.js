@@ -15,7 +15,7 @@ describe('Post user controller test', () => {
     email: 'test@test.com',
     birthDate: new Date(new Date().setDate(new Date().getDate() - 3)),
     password: 'TestTest1'
-  }};
+  }, file: { fileName: 'test' }};
 
 
   it('Post user controller goes fine', () => {
@@ -24,7 +24,7 @@ describe('Post user controller test', () => {
   });
 
   it('Post user controller goes wrong', () => {
-    const httpRequest = {};
+    const httpRequest = { body: {}, file: { fileName: 'test' }};
     postUserController(httpRequest).catch(response => {
       expect(useCaseSpy).to.have.been.called;
       expect(response.statusCode === 400).to.be.true;
