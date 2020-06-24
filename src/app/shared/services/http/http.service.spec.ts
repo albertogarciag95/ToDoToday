@@ -4,21 +4,35 @@ import { HttpService } from './http.service';
 import { Category } from '../../models/category';
 import { Place } from '../../models/place';
 
-import * as mapboxgl from 'mapbox-gl';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '../auth/auth.service';
 
 describe('HttpService', () => {
   let service: HttpService;
   let httpMock: HttpTestingController;
 
-  const fakeCoordinates: any[] = [[-3.70351, 40.416988], [-3.69346, 40.411128]];
-
   beforeEach(() => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['updateUserLogged']);
+    authServiceSpy.updateUserLogged.and.returnValue(null);
+
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, OverlayModule, MatDialogModule, BrowserAnimationsModule ],
-      providers: [ HttpService, MatDialog ]
+      imports: [
+        HttpClientTestingModule,
+        OverlayModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule,
+        RouterTestingModule 
+      ],
+      providers: [
+        HttpService,
+        MatDialog,
+        { provide: AuthService, useValue: authServiceSpy }
+      ]
     });
 
     service = TestBed.inject(HttpService);

@@ -10,6 +10,10 @@ import { DebugElement } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MapSelectDialog } from '../../dialogs/map-select-dialog/map-select-dialog';
+import { HttpService } from 'src/app/shared/services/http/http.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 const fakeData = {
   selected: [-3, 30],
@@ -34,13 +38,20 @@ describe('FormLocationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ OverlayModule, MatDialogModule, BrowserAnimationsModule, HttpClientTestingModule ],
+      imports: [
+        OverlayModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [ FormLocationComponent ],
       providers: [
         { provide: MatDialogRef, useValue: MdDialogMock },
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        MatDialogModule,
-        HttpClientModule
+        HttpService,
+        AuthService
       ]
     })
     .compileComponents();
@@ -61,10 +72,6 @@ describe('FormLocationComponent', () => {
     });
 
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('should open map on select other point', () => {
