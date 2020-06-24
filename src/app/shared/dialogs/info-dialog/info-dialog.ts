@@ -30,6 +30,10 @@ export class InfoDialog implements OnInit {
       this.title = '¡Error de conexión!';
       this.description = 'Algo ha ido mal. Por favor revisa tu conexión e inténtalo más tarde.';
       this.image = '../../assets/images/wifi.png';
+    } else if (status === 403) {
+      this.title = 'Solo será un momento';
+      this.description = 'Regístrate o inicia sesión si ya eres usuario de ToDoToday';
+      this.image = '../../assets/images/route.png';
     } else if (status === 404 && error.includes('Itinerary not found')) {
       this.title = 'Lo sentimos :(';
       this.description = 'No hemos podido confeccionar un itinerario con esos parámetros. Por favor vuelve a intentarlo.';

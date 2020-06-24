@@ -8,13 +8,13 @@ export default function makeAuthOperations({ jwt }) {
   });
 
   function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' });
   }
 
   function verifyAuthMiddleware(req, res, next, token) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if(err) {
-        return res.status(401).json('Token expired');
+        return res.status(403).json('Token expired');
       }
       req.user = user;
       next();

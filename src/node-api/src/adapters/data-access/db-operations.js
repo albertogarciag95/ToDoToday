@@ -17,7 +17,8 @@ export default function makeDbOperations() {
     removeUser,
     login,
     saveToken,
-    findToken
+    findToken,
+    removeToken
   })
 
   async function getAllCategories() {
@@ -98,6 +99,10 @@ export default function makeDbOperations() {
 
   async function findToken(token) {
     return await tokenModel.find({ token });
+  }
+
+  async function removeToken(token) {
+    return await tokenModel.deleteOne({ token });
   }
 }
 

@@ -45,6 +45,20 @@ export class AuthService {
     );
   }
 
+  logout() {
+    return this.http.delete(AuthService.API_END_POINT + AppEndpoints.TOKEN, this.createOptions())
+      .pipe(
+        map(() => this.userSource.next("")),
+        catchError((error: any) => {
+          if(error.status === 500) {
+            this._handleError(error);
+            return of(null);
+          }
+          return of(error);
+        })
+      );
+  }
+
   updateUserLogged(userLogged) {
     this.userSource.next({...userLogged});
   }

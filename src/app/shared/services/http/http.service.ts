@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { environment } from '../../../../environments/environment';
 import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -13,7 +15,7 @@ export class HttpService {
 
   static API_END_POINT = environment.API;
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {}
+  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, public router: Router) {}
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
@@ -43,7 +45,16 @@ export class HttpService {
 
   private _handleError(error: HttpErrorResponse) {
     console.error('ERROR: ', error);
-    this.dialog.open(InfoDialog, { width: '650px', data: error });
+    if(error.status === 401 || error.status === 403) {
+      this.router.navigateByUrl('/login');
+    }
+    if(error.status === 403 && error.error === 'Token expired') {
+      this._snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
+        duration: 2000,
+      });
+    } else {
+      this.dialog.open(InfoDialog, { width: '650px', data: error });
+    }
   }
 
   private createOptions(): any {

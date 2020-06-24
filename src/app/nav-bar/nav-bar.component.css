@@ -21,6 +21,11 @@
   text-decoration: none;
 }
 
+.logout {
+  color: #7862DA;
+  cursor: pointer;
+}
+
 .toolbar span {
   color: #7862DA;
 }

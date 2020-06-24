@@ -14,7 +14,8 @@ import {
   postItineraryController,
   postUserController,
   loginController,
-  tokenController
+  tokenController,
+  logoutController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
@@ -65,7 +66,7 @@ const authenticateUser = (req, res, next) => {
   const token = req.cookies.access_token || '';
   try {
     if (!token) {
-      return res.status(401).json('You need to Login');
+      return res.status(403).json('You need to Login');
     }
     auth.verifyAuthMiddleware(req, res, next, token);
   } catch (err) {
@@ -80,6 +81,7 @@ app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItine
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
 app.post(`${apiRoot}/token`, authenticateUser, makeExpressCallback(tokenController));
+app.delete(`${apiRoot}/token`, makeExpressCallback(logoutController));
 
 app.listen(PORT, () => {
   console.log(`Server Node.js + Express is listening on port ${PORT}`);

@@ -31,6 +31,12 @@ export class NavBarComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigateByUrl('/home');
+    });
+  }
+
   ngOnInit(): void {
     this.suscription = this.authService.currentUser.subscribe(
       currentUser => {
