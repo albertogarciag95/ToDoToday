@@ -4,6 +4,8 @@ import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -15,7 +17,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, BrowserAnimationsModule ],
       declarations: [ LoginComponent ],
       providers: [
         { provide: AuthService, useValue: authServiceSpy }
@@ -33,4 +35,23 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should login', (done: DoneFn) => {
+    component.userFormControl.setValue('test');
+    component.passFormControl.setValue('Testtest1');
+
+    component.login();
+    expect(authServiceSpy.login).toHaveBeenCalled();
+    done();
+  });
+
+  it('handleValidations', () => {
+    component.handleValidations({ logged: false });
+    expect(component.showLoginError).toBe(true);
+  });
+
+  it('goToRegister', () => {
+    const selector = fixture.debugElement.query(By.css('.link'));
+    selector.triggerEventHandler('click', {});
+  })
 });

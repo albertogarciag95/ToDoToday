@@ -13,7 +13,7 @@ describe('InfoDialog', () => {
       declarations: [ InfoDialog ],
       providers: [
         { provide: MatDialogRef, useValue: dialogRefSpyObj },
-        { provide: MAT_DIALOG_DATA, useValue: { status: 400, error: 'Test' }}
+        { provide: MAT_DIALOG_DATA, useValue: { status: 400, error: 'Test', userAdded: true }}
       ]
     })
     .compileComponents();
@@ -27,5 +27,30 @@ describe('InfoDialog', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('showErrorDialog status 0', () => {
+    component.showErrorDialog(0, null);
+    expect(component.title).toBe('¡Error de conexión!');
+  });
+
+  it('showErrorDialog status 403', () => {
+    component.showErrorDialog(403, null);
+    expect(component.title).toBe('Solo será un momento');
+  });
+
+  it('showErrorDialog status 404', () => {
+    component.showErrorDialog(404, 'Itinerary not found');
+    expect(component.title).toBe('Lo sentimos :(');
+  });
+
+  it('showErrorDialog status 500', () => {
+    component.showErrorDialog(500, null);
+    expect(component.title).toBe('¡Vaya!');
+  });
+
+  it('dialogRef close', () => {
+    component.close();
+    expect(dialogRefSpyObj.close).toHaveBeenCalled();
   });
 });

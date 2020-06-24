@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -16,7 +17,7 @@ describe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, MatDialogModule, OverlayModule ],
+      imports: [ RouterTestingModule, MatDialogModule, OverlayModule, NoopAnimationsModule, BrowserAnimationsModule ],
       declarations: [ RegisterComponent ],
       providers: [
         { provide: RegisterService, useValue: spy }
