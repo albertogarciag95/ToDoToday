@@ -6,6 +6,8 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { AppEndpoints } from 'src/app/app-endpoints';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
   private userSource = new BehaviorSubject<any>("");
   currentUser = this.userSource.asObservable();
 
-  constructor(private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, private router: Router) { }
 
   login(body: object) {
     return this.http.post(AuthService.API_END_POINT + AppEndpoints.LOGIN, body, this.createOptions())
@@ -36,12 +38,9 @@ export class AuthService {
       .pipe(
         map((response: any) => response.body),
         catchError((error: any) => {
-          if(error.status === 500) {
-            this._handleError(error);
-            return of(null);
-          }
+          this._handleError(error);
           return of(error);
-      })
+        })
     );
   }
 
@@ -64,8 +63,17 @@ export class AuthService {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    console.error('ERROR: ', error);
-    this.dialog.open(InfoDialog, { width: '650px', data: error });
+    if(error.status === 401 || error.status === 403) {
+      this.router.navigateByUrl('/login');
+    }
+    if(error.status === 403 && error.error === 'Token expired') {
+      this.updateUserLogged(undefined);
+      this._snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
+        duration: 2000,
+      });
+    } else {
+      this.dialog.open(InfoDialog, { width: '650px', data: error });
+    }
   }
 
   private createOptions(): any {

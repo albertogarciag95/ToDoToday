@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class HttpService {
 
   static API_END_POINT = environment.API;
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, public router: Router) {}
+  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, public router: Router, public authService: AuthService) {}
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
@@ -44,11 +45,11 @@ export class HttpService {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    console.error('ERROR: ', error);
     if(error.status === 401 || error.status === 403) {
       this.router.navigateByUrl('/login');
     }
     if(error.status === 403 && error.error === 'Token expired') {
+      this.authService.updateUserLogged(undefined);
       this._snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
         duration: 2000,
       });

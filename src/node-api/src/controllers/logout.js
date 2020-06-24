@@ -9,7 +9,7 @@ export default function makeLogoutController ({ logoutUseCase }) {
       return {
         headers,
         statusCode: 204,
-        body: { accessToken: '' }
+        body: { accessToken: "" }
       }
     } catch (e) {
       console.log(e);
