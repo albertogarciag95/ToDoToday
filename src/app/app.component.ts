@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import { fakeState } from './shared/mocks/fake-state';
+import { AuthService } from './shared/services/auth/auth.service';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +9,19 @@ import { fakeState } from './shared/mocks/fake-state';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'todo-today';
+  userLogged: string;
+  userFile: SafeResourceUrl;
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
 
-  hola() {
-    this.router.navigate(['/results'], { state: fakeState });
-  }
-
-  goToRegister() {
-    this.router.navigateByUrl('/new-user');
-  }
-
-  goToLogin() {
-    this.router.navigateByUrl('/login');
+  ngOnInit() {
+    if(this.authService.isUserLogged()) {
+      this.authService.generateToken().subscribe(response => {
+        this.authService.updateUserLogged(response.userLogged);
+      });
+    };
   }
 }
 

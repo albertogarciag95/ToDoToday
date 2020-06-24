@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   showLoginError: boolean = false;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   login() {
     if (!this.userFormControl.hasError('required') && !this.passFormControl.hasError('required')) {
@@ -28,16 +28,24 @@ export class LoginComponent implements OnInit {
         password: this.passFormControl.value
       };
 
-      this.userService.login(body)
+      this.authService.login(body)
         .subscribe(response => {
           if(response) {
-            let isWrongLogin = !response.ok && !response.logged;
-            this.userFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
-            this.passFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
-            this.showLoginError = isWrongLogin;
+            this.handleValidations(response);
+            this.authService.updateUserLogged(response.user);
+            if(response.logged) {
+              this.router.navigateByUrl('/home');
+            }
           }
         });
     }
+  }
+
+  handleValidations(response) {
+    let isWrongLogin = !response.ok && !response.logged;
+    this.userFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
+    this.passFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
+    this.showLoginError = isWrongLogin;
   }
 
   goToRegister() {
@@ -45,6 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
 }

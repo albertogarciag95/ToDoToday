@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { environment } from '../../../environments/environment';
-import { ErrorDialog } from '../dialogs/error-dialog/error-dialog';
+import { environment } from '../../../../environments/environment';
+import { InfoDialog } from '../../dialogs/info-dialog/info-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 
-@Injectable({ providedIn: 'any' })
+@Injectable()
 export class HttpService {
 
   static API_END_POINT = environment.API;
 
-  private headers: HttpHeaders;
-  private params: HttpParams;
-  private responseType: string;
-
-  constructor(private http: HttpClient, public dialog: MatDialog) {}
+  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, public router: Router, public authService: AuthService) {}
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())
@@ -30,7 +29,7 @@ export class HttpService {
   getForeign(endpoint: string): Observable<any> {
     let options = this.createOptions();
     delete options.withCredentials;
-    return this.http.get(endpoint, this.createOptions())
+    return this.http.get(endpoint, options)
       .pipe(
         map((response: any) => response.body),
         catchError(this._handleError.bind(this))
@@ -45,23 +44,18 @@ export class HttpService {
       );
   }
 
-  login(endpoint: string, body?: object) {
-    return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions())
-      .pipe(
-        map((response: any) => response.body),
-        catchError((error: any) => {
-          if(error.status === 500) {
-            this._handleError(error);
-            return of(null);
-          }
-          return of(error);
-        })
-      );
-  }
-
   private _handleError(error: HttpErrorResponse) {
-    console.error('ERROR: ', error);
-    this.dialog.open(ErrorDialog, { width: '650px', data: error });
+    if(error.status === 401 || error.status === 403) {
+      this.router.navigateByUrl('/login');
+    }
+    if(error.status === 403 && error.error === 'Token expired') {
+      this.authService.updateUserLogged(undefined);
+      this._snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
+        duration: 2000,
+      });
+    } else {
+      this.dialog.open(InfoDialog, { width: '650px', data: error });
+    }
   }
 
   private createOptions(): any {

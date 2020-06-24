@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable  } from 'rxjs';
-import { AppEndpoints } from '../../app-endpoints';
+import { AppEndpoints } from '../app-endpoints';
 
-import { HttpService } from './http.service';
+import { HttpService } from '../shared/services/http/http.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({ providedIn: 'any' })
-export class UserService {
+export class RegisterService {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, public dialog: MatDialog) { }
 
   addNewUser(user: FormData): Observable<any> {
     const headers = new Headers();
@@ -18,7 +19,5 @@ export class UserService {
     return this.httpService.post(AppEndpoints.USERS, user, options);
   }
 
-  login(user: any): Observable<any> {
-    return this.httpService.login(AppEndpoints.LOGIN, user);
-  }
+
 }

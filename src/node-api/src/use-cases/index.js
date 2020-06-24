@@ -5,6 +5,8 @@ import makeListPlacesUseCase from './list-places';
 import makeRemovePlaceUseCase from './remove-place';
 import makePostUserUseCase from './post-user';
 import makeLoginUseCase from './login';
+import makeTokenUseCase from './token';
+import makeLogoutUseCase from './logout';
 
 import db from '../adapters/data-access';
 import coordinates from '../adapters/coordinates';
@@ -17,6 +19,8 @@ const listPlacesUseCase = makeListPlacesUseCase({ db });
 const removePlaceUseCase = makeRemovePlaceUseCase({ db });
 const postUserUseCase = makePostUserUseCase({ db });
 const loginUseCase = makeLoginUseCase({ db, auth });
+const tokenUseCase = makeTokenUseCase({ db, auth });
+const logoutUseCase = makeLogoutUseCase({ db });
 
 const useCases = Object.freeze({
   listCategoriesUseCase,
@@ -25,8 +29,20 @@ const useCases = Object.freeze({
   listPlacesUseCase,
   removePlaceUseCase,
   postUserUseCase,
-  loginUseCase
+  loginUseCase,
+  tokenUseCase,
+  logoutUseCase
 });
 
 export default useCases;
-export { listCategoriesUseCase, postItineraryUseCase, postPlaceUseCase, listPlacesUseCase, removePlaceUseCase, postUserUseCase, loginUseCase };
+export {
+  listCategoriesUseCase,
+  postItineraryUseCase,
+  postPlaceUseCase,
+  listPlacesUseCase,
+  removePlaceUseCase,
+  postUserUseCase,
+  loginUseCase,
+  tokenUseCase,
+  logoutUseCase
+};

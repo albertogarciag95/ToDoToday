@@ -1,0 +1,14 @@
+<mat-toolbar class="toolbar">
+
+  <span><a class="title" [routerLink]="['/home']">ToDoToday</a></span>
+  <span class="example-fill-remaining-space"></span>
+
+  <div class="toolbar-links">
+    <span class="about-button"><a class="title" (click)="hola()">hola</a></span>
+      <span *ngIf="!userLogged" class="login-button" (click)="goToLogin()">Iniciar sesión</span>
+      <span *ngIf="!userLogged" class="register-button" (click)="goToRegister()">Regístrate</span>
+      <a *ngIf="userLogged" class="logout" (click)="logout()">Cerrar sesión</a>
+      <img *ngIf="userLogged" class="userImg" [src]="this.userFile">
+  </div>
+
+</mat-toolbar>

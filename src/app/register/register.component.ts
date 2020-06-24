@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { UserService } from '../shared/services/user.service';
+import { RegisterService } from './register.service';
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialog } from '../shared/dialogs/info-dialog/info-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -45,7 +48,8 @@ export class RegisterComponent implements OnInit {
     return new Date() > date;
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private RegisterService: RegisterService, public dialog: MatDialog, private router: Router) { }
+
 
   addNewUser() {
     if (this.registerForm.valid) {
@@ -57,9 +61,12 @@ export class RegisterComponent implements OnInit {
       body.append('password', this.registerForm.controls.passFormControl.value);
       body.append('userImage', this.userFileImage);
 
-      this.userService.addNewUser(body).subscribe(
-        response => {
-          console.log('YAAAAY', response);
+      this.RegisterService.addNewUser(body).subscribe(
+        () => {
+          const dialogRef = this.dialog.open(InfoDialog, { width: '650px', data: { userAdded: true } });
+          dialogRef.afterClosed().subscribe(() => {
+            this.router.navigateByUrl('/login');
+          });
         }
       );
     }

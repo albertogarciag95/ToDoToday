@@ -23,13 +23,13 @@ export default function makeLoginUseCase({ db, auth }) {
           userName: userEntity.getUserName(),
           birthDate: userEntity.getBirthDate(),
           email: userEntity.getEmail(),
-          password: userEntity.getPassword()
-        }
+          file: userEntity.getFileName()
+        };
         const accessToken = auth.generateAccessToken(user);
         const refreshToken = auth.getRefreshToken(user);
         await db.saveToken(refreshToken);
 
-        return { isLogin, accessToken, refreshToken };
+        return { isLogin, user: isLogin ? user : null, accessToken, refreshToken };
       })
       .catch(error => { throw new AppError(error, 500); })
 

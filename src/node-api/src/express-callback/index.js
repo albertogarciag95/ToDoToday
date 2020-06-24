@@ -1,9 +1,10 @@
-export function makeExpressCallback (controller, refreshTokens) {
+export function makeExpressCallback (controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
       file: req.file || null,
       query: req.query,
+      cookies: req.cookies,
       params: req.params,
       ip: req.ip,
       method: req.method,
@@ -23,8 +24,10 @@ export function makeExpressCallback (controller, refreshTokens) {
         const { accessToken, refreshToken } = httpResponse.body;
         if(refreshToken) {
           res.cookie('refresh_token', refreshToken, { httpOnly: true, secure: false });
-          res.cookie('access_token', accessToken, { httpOnly: true });
           delete httpResponse.body.refreshToken;
+        }
+        if(accessToken !== undefined) {
+          res.cookie('access_token', accessToken, { httpOnly: true, secure: false });
           delete httpResponse.body.accessToken;
         }
         res.type('json');

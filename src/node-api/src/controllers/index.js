@@ -6,7 +6,9 @@ import {
   removePlaceUseCase,
   listPlacesUseCase,
   postUserUseCase,
-  loginUseCase
+  loginUseCase,
+  tokenUseCase,
+  logoutUseCase
 } from '../use-cases';
 
 import makeListCategoriesController from './list-categories';
@@ -15,6 +17,8 @@ import makeAddRealPlacesController from './add-real-places';
 import makeRemovePastPlacesController from './remove-past-places';
 import makePostUserController from './post-user';
 import makeLoginController from './login';
+import makeTokenController from './token';
+import makeLogoutController from './logout';
 
 const listCategoriesController = makeListCategoriesController({ listCategoriesUseCase });
 const addRealPlacesController = makeAddRealPlacesController({ postPlaceUseCase });
@@ -22,6 +26,8 @@ const postItineraryController = makePostItineraryController({ postItineraryUseCa
 const postUserController = makePostUserController({ postUserUseCase })
 const removePastPlacesController = makeRemovePastPlacesController({ removePlaceUseCase, listPlacesUseCase });
 const loginController = makeLoginController({ loginUseCase });
+const tokenController = makeTokenController({ tokenUseCase });
+const logoutController = makeLogoutController({ logoutUseCase });
 
 const controllers = Object.freeze({
   listCategoriesController,
@@ -29,7 +35,9 @@ const controllers = Object.freeze({
   addRealPlacesController,
   removePastPlacesController,
   postUserController,
-  loginController
+  loginController,
+  tokenController,
+  logoutController
 });
 
 export default controllers;
@@ -39,5 +47,7 @@ export {
   addRealPlacesController,
   removePastPlacesController,
   postUserController,
-  loginController
+  loginController,
+  tokenController,
+  logoutController
 };

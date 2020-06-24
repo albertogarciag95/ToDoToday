@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
-import { UserService } from '../shared/services/user.service';
+import { RegisterService } from './register.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
-  const spy = jasmine.createSpyObj('UserService', ['addNewUser']);
+  const spy = jasmine.createSpyObj('RegisterService', ['addNewUser']);
   spy.addNewUser.and.returnValue( of('') );
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
       providers: [
-        { provide: UserService, useValue: spy }
+        { provide: RegisterService, useValue: spy }
       ]
     })
     .compileComponents();

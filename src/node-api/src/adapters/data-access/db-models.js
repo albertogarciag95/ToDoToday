@@ -26,6 +26,7 @@ export default function getDbModels() {
     birthDate: Date,
     email: String,
     password: String,
+    file: String,
     itineraries: [String]
   });
 

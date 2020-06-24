@@ -7,18 +7,22 @@ import multer from 'multer';
 import mkdirp from 'mkdirp';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import fs from 'fs';
 
 import {
   listCategoriesController,
   postItineraryController,
   postUserController,
-  loginController
+  loginController,
+  tokenController,
+  logoutController
 } from './controllers'
 
 import { makeExpressCallback } from './express-callback';
 import { addBatches } from './batches';
 
 import auth from './adapters/authentication';
+import { AppError } from './errors/AppError';
 
 const app = express();
 const apiRoot = '/api/v0';
@@ -40,17 +44,29 @@ const storage = multer.diskStorage({
     callback(null, 'uploads/');
   },
   filename: (req, file, callback) => {
-    callback(null, req.body.userName + '_' + String(Date.now()) + '_' + file.originalname)
+    fs.readdir('uploads', function (err, files) {
+      if (err) return callback(err);
+      try {
+        files.forEach(fileUploaded => {
+          if(fileUploaded.includes(req.body.userName)) {
+            throw new AppError('Image cannot be uploaded; user already exists', 400);
+          }
+        });
+        const fileName = req.body.userName + '_' + String(Date.now()) + '_' + file.originalname;
+        callback(null, fileName);
+      } catch(err) {
+        console.log(err);
+        callback(err);
+      }
+    });
   }
 });
-
-const refreshTokens = [];
 
 const authenticateUser = (req, res, next) => {
   const token = req.cookies.access_token || '';
   try {
     if (!token) {
-      return res.status(401).json('You need to Login');
+      return res.status(403).json('You need to Login');
     }
     auth.verifyAuthMiddleware(req, res, next, token);
   } catch (err) {
@@ -60,10 +76,12 @@ const authenticateUser = (req, res, next) => {
 
 const upload = multer({ storage: storage });
 
-app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCategoriesController, refreshTokens));
-app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController, refreshTokens));
+app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCategoriesController));
+app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
+app.post(`${apiRoot}/token`, authenticateUser, makeExpressCallback(tokenController));
+app.delete(`${apiRoot}/token`, makeExpressCallback(logoutController));
 
 app.listen(PORT, () => {
   console.log(`Server Node.js + Express is listening on port ${PORT}`);

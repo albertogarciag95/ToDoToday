@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpService } from 'src/app/shared/services/http/http.service';
 import { Observable } from 'rxjs';
 
 import * as mapboxgl from 'mapbox-gl';
