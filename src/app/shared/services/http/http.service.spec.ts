@@ -26,7 +26,7 @@ describe('HttpService', () => {
         MatDialogModule,
         BrowserAnimationsModule,
         MatSnackBarModule,
-        RouterTestingModule 
+        RouterTestingModule
       ],
       providers: [
         HttpService,

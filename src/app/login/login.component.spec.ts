@@ -53,5 +53,5 @@ describe('LoginComponent', () => {
   it('goToRegister', () => {
     const selector = fixture.debugElement.query(By.css('.link'));
     selector.triggerEventHandler('click', {});
-  })
+  });
 });

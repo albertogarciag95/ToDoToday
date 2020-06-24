@@ -17,11 +17,11 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    if(this.authService.isUserLogged()) {
+    if (this.authService.isUserLogged()) {
       this.authService.generateToken().subscribe(response => {
         this.authService.updateUserLogged(response.userLogged);
       });
-    };
+    }
   }
 }
 
