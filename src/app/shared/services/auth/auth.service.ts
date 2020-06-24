@@ -17,6 +17,8 @@ export class AuthService {
   private userSource = new BehaviorSubject<any>("");
   currentUser = this.userSource.asObservable();
 
+  userLogged: any;
+
   constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, private router: Router) { }
 
   login(body: object) {
@@ -47,7 +49,7 @@ export class AuthService {
   logout() {
     return this.http.delete(AuthService.API_END_POINT + AppEndpoints.TOKEN, this.createOptions())
       .pipe(
-        map(() => this.userSource.next("")),
+        map(() => this.updateUserLogged("")),
         catchError((error: any) => {
           if(error.status === 500) {
             this._handleError(error);
@@ -59,7 +61,12 @@ export class AuthService {
   }
 
   updateUserLogged(userLogged) {
+    sessionStorage['userLogged'] = userLogged ? JSON.stringify(userLogged) : null;
     this.userSource.next({...userLogged});
+  }
+
+  isUserLogged() {
+    return JSON.parse(sessionStorage['userLogged']);
   }
 
   private _handleError(error: HttpErrorResponse) {
