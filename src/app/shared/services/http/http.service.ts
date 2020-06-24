@@ -16,7 +16,13 @@ export class HttpService {
 
   static API_END_POINT = environment.API;
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, public router: Router, public authService: AuthService) {}
+  constructor(
+      private http: HttpClient,
+      public dialog: MatDialog,
+      private _snackBar: MatSnackBar,
+      public router: Router,
+      public authService: AuthService
+  ) {}
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions())

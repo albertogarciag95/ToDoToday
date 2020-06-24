@@ -4,6 +4,9 @@ import { RegisterComponent } from './register.component';
 import { RegisterService } from './register.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -13,6 +16,7 @@ describe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule, MatDialogModule, OverlayModule ],
       declarations: [ RegisterComponent ],
       providers: [
         { provide: RegisterService, useValue: spy }
