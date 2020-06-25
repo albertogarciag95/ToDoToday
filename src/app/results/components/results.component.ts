@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Place } from 'src/app/shared/models/place';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -16,11 +17,15 @@ export class ResultsComponent implements OnInit {
   userLocation: number[];
   searchParams: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     console.log(history.state);
     const { userLocation, results, searchParams } = history.state;
+    if(!userLocation || !results || !searchParams) {
+      this.router.navigateByUrl('/home');
+    }
+
     this.searchParams = searchParams;
     this.userLocation = userLocation;
     this.results = results;

@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { AuthService } from './services/auth/auth.service';
     MatButtonModule,
     MatSnackBarModule
   ],
-  providers: [ HttpService, AuthService ],
+  providers: [ HttpService, AuthService, AuthGuardService ],
   declarations: [InfoDialog]
 })
 export class SharedModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService as AuthGuard } from './shared/services/auth/auth-guard.service';
 
 const routes: Routes = [
   { path: 'home', loadChildren: () =>
@@ -7,7 +8,8 @@ const routes: Routes = [
   { path: 'create-itinerary', loadChildren: () =>
     import('./create-itinerary/create-itinerary.module').then(mod => mod.CreateItineraryModule) },
   { path: 'results', loadChildren: () =>
-    import('./results/results.module').then(mod => mod.ResultsModule) },
+    import('./results/results.module').then(mod => mod.ResultsModule),
+    canActivate: [AuthGuard] },
   { path: 'new-user', loadChildren: () =>
     import('./register/register.module').then(mod => mod.RegisterModule) },
   { path: 'login', loadChildren: () =>
