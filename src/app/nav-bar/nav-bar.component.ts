@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../shared/services/auth/auth.service';
@@ -11,7 +11,7 @@ import { fakeState } from '../shared/mocks/fake-state';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
 
   private suscription: Subscription;
   userLogged: string;
@@ -41,13 +41,13 @@ export class NavBarComponent implements OnInit {
     this.suscription = this.authService.currentUser.subscribe(
       currentUser => {
         const { name, file } = currentUser;
-        this.userLogged = name ? name.split(" ")[0] : null;
+        this.userLogged = name ? name.split(' ')[0] : null;
         this.userFile = file ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + file) : null;
       }
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.suscription.unsubscribe();
   }
 

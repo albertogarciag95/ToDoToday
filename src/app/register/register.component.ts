@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
     return new Date() > date;
   }
 
-  constructor(private RegisterService: RegisterService, public dialog: MatDialog, private router: Router) { }
+  constructor(private registerService: RegisterService, public dialog: MatDialog, private router: Router) { }
 
 
   addNewUser() {
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
       body.append('password', this.registerForm.controls.passFormControl.value);
       body.append('userImage', this.userFileImage);
 
-      this.RegisterService.addNewUser(body).subscribe(
+      this.registerService.addNewUser(body).subscribe(
         () => {
           const dialogRef = this.dialog.open(InfoDialog, { width: '650px', data: { userAdded: true } });
           dialogRef.afterClosed().subscribe(() => {

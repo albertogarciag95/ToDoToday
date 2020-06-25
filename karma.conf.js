@@ -20,7 +20,7 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       thresholds: {
         statements: 70,
-        lines: 70,
+        lines: 60,
         branches: 70,
         functions: 70
       }

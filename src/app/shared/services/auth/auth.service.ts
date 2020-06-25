@@ -14,19 +14,19 @@ export class AuthService {
 
   static API_END_POINT = environment.API;
 
-  private userSource = new BehaviorSubject<any>("");
+  private userSource = new BehaviorSubject<any>('');
   currentUser = this.userSource.asObservable();
 
   userLogged: any;
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private http: HttpClient, public dialog: MatDialog, private snackBar: MatSnackBar, private router: Router) { }
 
   login(body: object) {
     return this.http.post(AuthService.API_END_POINT + AppEndpoints.LOGIN, body, this.createOptions())
       .pipe(
         map((response: any) => response.body),
         catchError((error: any) => {
-          if(error.status === 500) {
+          if (error.status === 500) {
             this._handleError(error);
             return of(null);
           }
@@ -49,9 +49,9 @@ export class AuthService {
   logout() {
     return this.http.delete(AuthService.API_END_POINT + AppEndpoints.TOKEN, this.createOptions())
       .pipe(
-        map(() => this.updateUserLogged("")),
+        map(() => this.updateUserLogged('')),
         catchError((error: any) => {
-          if(error.status === 500) {
+          if (error.status === 500) {
             this._handleError(error);
             return of(null);
           }
@@ -61,21 +61,21 @@ export class AuthService {
   }
 
   updateUserLogged(userLogged) {
-    sessionStorage['userLogged'] = userLogged ? JSON.stringify(userLogged) : null;
+    sessionStorage.setItem('userLogged', userLogged ? JSON.stringify(userLogged) : null);
     this.userSource.next({...userLogged});
   }
 
   isUserLogged() {
-    return JSON.parse(sessionStorage['userLogged']);
+    return JSON.parse(sessionStorage.getItem('userLogged'));
   }
 
   private _handleError(error: HttpErrorResponse) {
-    if(error.status === 401 || error.status === 403) {
+    if (error.status === 401 || error.status === 403) {
       this.router.navigateByUrl('/login');
     }
-    if(error.status === 403 && error.error === 'Token expired') {
+    if (error.status === 403 && error.error === 'Token expired') {
       this.updateUserLogged(undefined);
-      this._snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
+      this.snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
         duration: 2000,
       });
     } else {

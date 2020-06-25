@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth/auth.service';
@@ -8,7 +8,8 @@ import { AuthService } from '../shared/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+
+export class LoginComponent {
   userFormControl = new FormControl('', [ Validators.required ]);
   passFormControl = new FormControl('', [ Validators.required ]);
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     passFormControl: this.passFormControl
   });
 
-  showLoginError: boolean = false;
+  showLoginError = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -30,10 +31,10 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(body)
         .subscribe(response => {
-          if(response) {
+          if (response) {
             this.handleValidations(response);
             this.authService.updateUserLogged(response.user);
-            if(response.logged) {
+            if (response.logged) {
               this.router.navigateByUrl('/home');
             }
           }
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleValidations(response) {
-    let isWrongLogin = !response.ok && !response.logged;
+    const isWrongLogin = !response.ok && !response.logged;
     this.userFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
     this.passFormControl.setErrors(isWrongLogin ? { incorrect: isWrongLogin } : null);
     this.showLoginError = isWrongLogin;
@@ -50,10 +51,6 @@ export class LoginComponent implements OnInit {
 
   goToRegister() {
     this.router.navigateByUrl('/new-user');
-  }
-
-  ngOnInit(): void {
-    
   }
 
 }

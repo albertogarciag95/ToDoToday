@@ -17,10 +17,10 @@ export class InfoDialog implements OnInit {
 
   ngOnInit(): void {
     const { status, error, userAdded } = this.data;
-    if(userAdded) {
+    if (userAdded) {
       this.showUserAddedDialog();
     }
-    if(status && error) {
+    if (status && error) {
       this.showErrorDialog(status, error);
     }
   }
