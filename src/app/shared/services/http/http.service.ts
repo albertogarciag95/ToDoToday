@@ -50,6 +50,14 @@ export class HttpService {
       );
   }
 
+  put(endpoint: string, body: object) {
+    return this.http.put(HttpService.API_END_POINT + endpoint, body, this.createOptions())
+      .pipe(
+        map((response: any) => response.body),
+        catchError(this._handleError.bind(this))
+      );
+  }
+
   private _handleError(error: HttpErrorResponse) {
     if (error.status === 401 || error.status === 403) {
       this.router.navigateByUrl('/login');

@@ -30,6 +30,13 @@ export default function getDbModels() {
     itineraries: [String]
   });
 
+  const ItinerarySchema = new mongoose.Schema({
+    places: [String],
+    startDate: Date,
+    totalPrice: Number,
+    totalDistance: Number
+  });
+
   const TokenSchema = new mongoose.Schema({
     token: String
   });
@@ -58,6 +65,7 @@ export default function getDbModels() {
     categoriesModel: mongoose.model('Category', CategoriesSchema),
     placesModel: mongoose.model('Place', PlaceSchema),
     userModel: mongoose.model('User', UserSchema),
-    tokenModel: mongoose.model('Token', TokenSchema)
+    tokenModel: mongoose.model('Token', TokenSchema),
+    itineraryModel: mongoose.model('Itinerary', ItinerarySchema)
   });
 }

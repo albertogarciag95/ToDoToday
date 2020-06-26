@@ -12,6 +12,7 @@ import fs from 'fs';
 import {
   listCategoriesController,
   postItineraryController,
+  startItineraryController,
   postUserController,
   loginController,
   tokenController,
@@ -78,6 +79,7 @@ const upload = multer({ storage: storage });
 
 app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCategoriesController));
 app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController));
+app.put(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(startItineraryController));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
 app.post(`${apiRoot}/token`, authenticateUser, makeExpressCallback(tokenController));
