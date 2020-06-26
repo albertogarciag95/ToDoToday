@@ -18,10 +18,10 @@
             <div class="col-lg-6 col-md-6 col-xs-12 map-container">
               <app-map
                 [id]="'map' + i"
-                [places]="places"
+                [places]="mapPlaces"
                 (sendRoute)="totalDistance = $event">
               </app-map>
-              <button class="start-itinerary" mat-raised-button>¡Comenzar itinerario!</button>
+              <button class="start-itinerary" (click)="startItinerary()" mat-raised-button>¡Comenzar este itinerario!</button>
             </div>
           </div>
         </ng-template>

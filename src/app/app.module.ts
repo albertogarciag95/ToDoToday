@@ -10,6 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from './shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthService } from './shared/services/auth/auth.service';
+import { ResultsService } from './results/service/results.service';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { AuthService } from './shared/services/auth/auth.service';
     MatToolbarModule
   ],
   providers: [ AuthService ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent, ResultsService ]
 })
 
 export class AppModule { }

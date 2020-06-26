@@ -16,7 +16,10 @@ export class InfoDialog implements OnInit {
   constructor(public dialogRef: MatDialogRef<InfoDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    const { status, error, userAdded } = this.data;
+    const { status, error, userAdded, date } = this.data;
+    if(date) {
+      this.showNewItineraryDialog(date);
+    }
     if (userAdded) {
       this.showUserAddedDialog();
     }
@@ -43,6 +46,12 @@ export class InfoDialog implements OnInit {
       this.description = 'Lo sentimos, algo no ha ido bien. Vuelve a intentarlo más tarde.';
       this.image = '../../assets/images/sad.png';
     }
+  }
+
+  showNewItineraryDialog(date) {
+    this.title = '¡Genial!'
+    this.description = 'Esperemos que disfrutes del itinerario que te hemos propuesto. Podrás añadir una valoración a partir del ' + date;
+    this.image = '../../assets/images/route.png';
   }
 
   showUserAddedDialog() {

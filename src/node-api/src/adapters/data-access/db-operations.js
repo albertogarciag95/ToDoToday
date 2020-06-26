@@ -2,7 +2,7 @@ import getDbModels from './db-models';
 
 export default function makeDbOperations() {
 
-  const { categoriesModel, placesModel, userModel, tokenModel } = getDbModels();
+  const { categoriesModel, placesModel, userModel, tokenModel, itineraryModel } = getDbModels();
 
   return Object.freeze({
     getAllCategories,
@@ -18,7 +18,8 @@ export default function makeDbOperations() {
     login,
     saveToken,
     findToken,
-    removeToken
+    removeToken,
+    postItinerary
   })
 
   async function getAllCategories() {
@@ -103,6 +104,11 @@ export default function makeDbOperations() {
 
   async function removeToken(token) {
     return await tokenModel.deleteOne({ token });
+  }
+
+  async function postItinerary(itinerary) {
+    const newItinerary = new itineraryModel(itinerary);
+    return newItinerary.save(itinerary);
   }
 }
 
