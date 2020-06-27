@@ -29,7 +29,8 @@ export default function makeStartItineraryUseCase({ db }) {
       places: itinerary.getPlaces(),
       totalDistance: itinerary.getTotalDistance(),
       totalPrice: itinerary.getTotalPrice(),
-      startPoint: itinerary.getStartPoint()
+      startPoint: itinerary.getStartPoint(),
+      startDate: itinerary.getStartDate()
     });
   }
 }

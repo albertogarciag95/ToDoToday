@@ -49,7 +49,9 @@ export class AuthService {
   logout() {
     return this.http.delete(AuthService.API_END_POINT + AppEndpoints.TOKEN, this.createOptions())
       .pipe(
-        map(() => this.updateUserLogged('')),
+        map(() => {
+          this.updateUserLogged('');
+        }),
         catchError((error: any) => {
           if (error.status === 500) {
             this._handleError(error);
@@ -70,10 +72,10 @@ export class AuthService {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    if (error.status === 401 || error.status === 403) {
+    if (error.status === 401) {
       this.router.navigateByUrl('/login');
     }
-    if (error.status === 403 && error.error === 'Token expired') {
+    if (error.error === 'Token expired') {
       this.updateUserLogged(undefined);
       this.snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
         duration: 2000,

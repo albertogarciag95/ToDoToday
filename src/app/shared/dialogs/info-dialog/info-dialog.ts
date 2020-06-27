@@ -33,7 +33,7 @@ export class InfoDialog implements OnInit {
       this.title = '¡Error de conexión!';
       this.description = 'Algo ha ido mal. Por favor revisa tu conexión e inténtalo más tarde.';
       this.image = '../../assets/images/wifi.png';
-    } else if (status === 403) {
+    } else if (status === 401) {
       this.title = 'Solo será un momento';
       this.description = 'Regístrate o inicia sesión si ya eres usuario de ToDoToday';
       this.image = '../../assets/images/route.png';

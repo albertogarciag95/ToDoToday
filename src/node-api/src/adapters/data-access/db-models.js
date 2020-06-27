@@ -32,6 +32,7 @@ export default function getDbModels() {
 
   const ItinerarySchema = new mongoose.Schema({
     places: [String],
+    startPoint: String,
     startDate: Date,
     totalPrice: Number,
     totalDistance: Number
