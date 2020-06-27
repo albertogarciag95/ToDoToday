@@ -59,7 +59,7 @@ describe('ResultsComponent', () => {
   });
 
   it('getTotalPrice', () => {
-    const test = [{ price_per_person: 3 }, { price_per_person: 5 }]
+    const test = [{ price_per_person: 3 }, { price_per_person: 5 }];
     expect(component.getTotalPrice(test)).toBe(8);
   });
 

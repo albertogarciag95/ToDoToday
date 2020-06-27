@@ -8,11 +8,6 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display ToDoToday in sidebar', () => {
-    page.navigateTo();
-    expect(page.getSidebarText()).toEqual('ToDoToday');
-  });
-
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
