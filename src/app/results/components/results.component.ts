@@ -27,7 +27,7 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     const { userLocation, results, searchParams } = history.state;
-    if(!userLocation || !results || !searchParams) {
+    if (!userLocation || !results || !searchParams) {
       this.router.navigateByUrl('/home');
     } else {
       this.currentOption = 0;

@@ -17,7 +17,7 @@ export class InfoDialog implements OnInit {
 
   ngOnInit(): void {
     const { status, error, userAdded, date } = this.data;
-    if(date) {
+    if (date) {
       this.showNewItineraryDialog(date);
     }
     if (userAdded) {
@@ -49,7 +49,7 @@ export class InfoDialog implements OnInit {
   }
 
   showNewItineraryDialog(date) {
-    this.title = '¡Genial!'
+    this.title = '¡Genial!';
     this.description = 'Esperemos que disfrutes del itinerario que te hemos propuesto. Podrás añadir una valoración a partir del ' + date;
     this.image = '../../assets/images/route.png';
   }
