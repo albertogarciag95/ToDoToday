@@ -34,8 +34,8 @@ describe('InfoDialog', () => {
     expect(component.title).toBe('¡Error de conexión!');
   });
 
-  it('showErrorDialog status 403', () => {
-    component.showErrorDialog(403, null);
+  it('showErrorDialog status 401', () => {
+    component.showErrorDialog(401, null);
     expect(component.title).toBe('Solo será un momento');
   });
 

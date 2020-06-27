@@ -19,7 +19,8 @@ export default function makeDbOperations() {
     saveToken,
     findToken,
     removeToken,
-    postItinerary
+    postItinerary,
+    saveUserItinerary
   })
 
   async function getAllCategories() {
@@ -109,6 +110,12 @@ export default function makeDbOperations() {
   async function postItinerary(itinerary) {
     const newItinerary = new itineraryModel(itinerary);
     return newItinerary.save(itinerary);
+  }
+
+  async function saveUserItinerary(itineraryId, user) {
+    const userEntity = new userModel(user);
+    userEntity.itineraries.push(itineraryId);
+    return userEntity.save();
   }
 }
 

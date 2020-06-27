@@ -59,10 +59,10 @@ export class HttpService {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    if (error.status === 401 || error.status === 403) {
+    if (error.status === 401) {
       this.router.navigateByUrl('/login');
     }
-    if (error.status === 403 && error.error === 'Token expired') {
+    if (error.error === 'Token expired') {
       this.authService.updateUserLogged(undefined);
       this.snackBar.open('¡Tu sesión ha expirado!', 'Ok', {
         duration: 2000,

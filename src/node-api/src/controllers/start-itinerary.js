@@ -1,7 +1,11 @@
-export default function makeAddItineraryController ({ startItineraryUseCase }) {
+export default function makeAddItineraryController ({ startItineraryUseCase, saveUserItineraryUseCase }) {
   return async function startItineraryController (httpRequest) {
     try {
-      await startItineraryUseCase(httpRequest.body);
+      const response = await startItineraryUseCase(httpRequest.body);
+      const { id } = response;
+
+      await saveUserItineraryUseCase(id, httpRequest.user);
+
       return {
         headers: {
           'Content-Type': 'application/json'

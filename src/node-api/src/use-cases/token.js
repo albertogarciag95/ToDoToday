@@ -10,7 +10,7 @@ export default function makeTokenUseCase({ db, auth }) {
 
     const exists = await db.findToken(refreshToken);
     if(exists.length === 0) {
-      throw new AppError('Access Forbbiden', 403);
+      throw new AppError('Unauthorized', 401);
     }
 
     return auth.verifyRefreshToken(exists[0])
@@ -27,7 +27,7 @@ export default function makeTokenUseCase({ db, auth }) {
         return { accessToken, userLogged };
 
       }).catch(() => {
-        throw new AppError('Access Forbbiden', 403);
+        throw new AppError('Unauthorized', 401);
       });
   }
 }

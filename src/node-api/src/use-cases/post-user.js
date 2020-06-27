@@ -18,7 +18,8 @@ export default function makePostUserUseCase({ db }) {
       birthDate: user.getBirthDate(),
       email: user.getEmail(),
       password: user.getPassword(),
-      file: user.getFileName()
+      file: user.getFileName(),
+      itineraries: user.getItineraries()
     });
   }
 }

@@ -4,7 +4,7 @@
       <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
       <span>{{searchParams}}</span>
     </div>
-    <mat-tab-group mat-align-tabs="center" (focusChange)="onOptionChanged($event)">
+    <mat-tab-group class="tabGroup" mat-align-tabs="center" (focusChange)="onOptionChanged($event)">
       <mat-tab *ngFor="let option of results; let i = index" [label]="'Opción '+(i+1)">
         <ng-template matTabContent>
           <div class="row tab-container">
