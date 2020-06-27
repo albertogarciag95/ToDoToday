@@ -3,6 +3,7 @@ import {
   listCategoriesUseCase,
   postItineraryUseCase,
   startItineraryUseCase,
+  saveUserItineraryUseCase,
   postPlaceUseCase,
   removePlaceUseCase,
   listPlacesUseCase,
@@ -25,7 +26,7 @@ import makeLogoutController from './logout';
 const listCategoriesController = makeListCategoriesController({ listCategoriesUseCase });
 const addRealPlacesController = makeAddRealPlacesController({ postPlaceUseCase });
 const postItineraryController = makePostItineraryController({ postItineraryUseCase });
-const startItineraryController = makeAddItineraryController({ startItineraryUseCase });
+const startItineraryController = makeAddItineraryController({ startItineraryUseCase, saveUserItineraryUseCase });
 const postUserController = makePostUserController({ postUserUseCase })
 const removePastPlacesController = makeRemovePastPlacesController({ removePlaceUseCase, listPlacesUseCase });
 const loginController = makeLoginController({ loginUseCase });

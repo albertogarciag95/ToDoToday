@@ -2,6 +2,7 @@ export function makeExpressCallback (controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
+      user: req.user,
       file: req.file || null,
       query: req.query,
       cookies: req.cookies,
