@@ -40,6 +40,7 @@ export class CreateItineraryComponent implements OnInit {
 
   fieldStates: string[] = ['active', 'disabled', 'disabled', 'disabled', 'disabled', 'disabled'];
   userLocation: any;
+  startPoint: string;
 
   itineraryResult: any;
 
@@ -57,6 +58,7 @@ export class CreateItineraryComponent implements OnInit {
         this.itineraryResult = response;
         this.changeDetector.detectChanges();
         this.router.navigate(['/results'], { state: {
+          startPoint: this.startPoint,
           userLocation: this.userLocation,
           results: this.itineraryResult,
           searchParams: body
@@ -83,6 +85,12 @@ export class CreateItineraryComponent implements OnInit {
   onSecondCategoryChanges(selectedItem) {
     this.firstOptionCategories = this.noFoodCategories.filter(category => category.name !== selectedItem.selected);
     this.fieldStates[3] = 'active';
+  }
+
+  onUserLocationChanged(locationChanged) {
+    const { location, latitude, longitude } = locationChanged;
+    this.startPoint = location;
+    this.userLocation = { latitude, longitude };
   }
 
   handlePrice(category) {

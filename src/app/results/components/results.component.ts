@@ -21,17 +21,19 @@ export class ResultsComponent implements OnInit {
   userLocation: number[];
   searchParams: any;
   itineraryDate: string;
+  startPoint: string;
   currentOption: number;
 
   constructor(private router: Router, public dialog: MatDialog, private service: ResultsService) { }
 
   ngOnInit(): void {
-    const { userLocation, results, searchParams } = history.state;
+    const { userLocation, results, searchParams, startPoint } = history.state;
     if (!userLocation || !results || !searchParams) {
       this.router.navigateByUrl('/home');
     } else {
       this.currentOption = 0;
       this.userLocation = userLocation;
+      this.startPoint = startPoint;
       this.results = results;
       this.mapPlaces = [userLocation, ...Object.values(results[this.currentOption])];
       this.itineraryDate = searchParams.date;
@@ -69,7 +71,7 @@ export class ResultsComponent implements OnInit {
   startItinerary() {
     const body = {
       places: Object.values(this.results[this.currentOption]),
-      startPoint: 'test',
+      startPoint: this.startPoint,
       startDate: this.itineraryDate,
       totalPrice: this.totalPrice,
       totalDistance: this.totalDistance

@@ -97,10 +97,7 @@ export class MapSelectDialog implements OnInit {
   }
 
   flyToPoint(place: any, zoom: number) {
-    this.map.flyTo({
-      center: place,
-      zoom
-    });
+    this.map.flyTo({ center: place, zoom });
   }
 
   addUserPoint(userPoint) {

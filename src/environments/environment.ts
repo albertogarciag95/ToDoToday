@@ -7,7 +7,8 @@ export const environment = {
   API: 'http://localhost:2345/api/v0',
   mapBoxToken: 'pk.eyJ1IjoiYWxiZXJ0b2dhcmNpYWciLCJhIjoiY2s5azlzajZ2MDV2czNqcWFyMjkwcDRwMyJ9._DaMFU4Mcn3CPBK_MKpszQ',
   CITY: 'Madrid',
-  COUNTRY: ['Spain', 'España']
+  COUNTRY: ['Spain', 'España'],
+  MAP_ACCESS_TOKEN: 'pk.eyJ1IjoiYWxiZXJ0b2dhcmNpYWciLCJhIjoiY2s5azlzajZ2MDV2czNqcWFyMjkwcDRwMyJ9._DaMFU4Mcn3CPBK_MKpszQ'
 };
 
 /*

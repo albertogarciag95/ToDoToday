@@ -65,7 +65,7 @@
           <app-form-location
             [title]="locationTitle"
             [state]="fieldStates[5]"
-            (userLocationChange)="userLocation = $event">
+            (userLocationChange)="onUserLocationChanged($event)">
           </app-form-location>
         </div>
         <div class="button-create">
