@@ -1,0 +1,122 @@
+.main-container {
+  background-color: #7862DA;
+  background-image: linear-gradient(to left, #7862DA, rgb(145, 161, 219));
+  height: 100%;
+  padding-top: 100px;
+}
+
+.form-container {
+  background-color: white;
+  padding: 30px 50px 30px 50px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+  max-height: 700px;
+  min-width: 700px;
+}
+
+.title h1 {
+  font-family: "Raleway Medium";
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 40pt;
+  margin-left: 25px;
+}
+
+.itineraryList h1 {
+  font-size: 22pt;
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+.title {
+  display: inline-flex;
+}
+
+.data-title {
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+.data-info {
+  margin-left: 5px;
+}
+
+.title mat-icon {
+  color: #7862DA;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 30pt;
+  cursor: pointer;
+}
+
+.userData {
+  margin-top: 40px;
+  margin-left: 30px;
+  min-width: 680px;
+  max-width: 400px;
+}
+
+img {
+  border-radius: 50%;
+  width: 240px;
+  height: 240px;
+  margin-right: 20px;
+  border: 2px solid #7862DA;
+  object-fit: cover;
+}
+
+.data {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 15pt;
+}
+
+.userName {
+  font-size: 22pt;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.data {
+  margin-top: 50px;
+}
+
+.itineraryList {
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  font-size: 13pt;
+}
+
+table td {
+  font-size: 12pt;
+}
+
+table td.places {
+  padding: 10px 0 10px 0 !important;
+}
+
+table tr.content:hover {
+  background-color: rgb(237, 235, 243);
+  cursor: pointer;
+}
+
+.table-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 300px;
+}
+
+.rating-cell {
+  width: 200px;
+}

@@ -1,1 +1,73 @@
-<p>profile works!</p>
+<div class="main-container row">
+  <div class="background col-lg-2 col-md-1"></div>
+  <div class="form-container col-lg-8 col-md-10 col-xs-12">
+    <div class="row">
+      <img [src]="userImage" class="userImg">
+      <div class="userData">
+        <div class="title">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+          <h1>{{name}}</h1>
+        </div>
+        <p class="userName">{{userName}}</p>
+        <div class="data">
+          <div>
+            <span class="data-title">Fecha de nacimiento: </span>
+            <span class="data-info">{{birthDate}}</span>
+          </div>
+          <div>
+            <span class="data-title">Email: </span>
+            <span class="data-info">{{email}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="itineraryList">
+      <h1>Mis itinerarios</h1>
+      <div class="table-container">
+        <table mat-table [dataSource]="itineraries" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="Fecha de inicio">
+            <th mat-header-cell *matHeaderCellDef> Fecha de inicio </th>
+            <td mat-cell *matCellDef="let element"> {{convertDateToString(element.startDate) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Punto de inicio">
+            <th mat-header-cell *matHeaderCellDef> Punto de inicio </th>
+            <td mat-cell *matCellDef="let element"> {{element.startPoint}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Lugares">
+            <th mat-header-cell *matHeaderCellDef> Lugares </th>
+            <td mat-cell class="places" *matCellDef="let element">
+              <div *ngFor="let place of element.places">
+                <p>{{place.title}}</p>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Distancia">
+            <th mat-header-cell *matHeaderCellDef> Distancia </th>
+            <td mat-cell *matCellDef="let element"> {{ element.totalDistance }} km</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Precio">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let element"> {{element.totalPrice}} €</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Valoración">
+            <th mat-header-cell *matHeaderCellDef> Valoración </th>
+            <td mat-cell class="rating-cell" *matCellDef="let element">
+              <bar-rating [theme]="'stars'" [max]="5"></bar-rating>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="content" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="background col-lg-2 col-md-1"></div>
+</div>

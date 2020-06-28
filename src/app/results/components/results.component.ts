@@ -86,7 +86,7 @@ export class ResultsComponent implements OnInit {
   }
 
   convertDateToString(date) {
-    return `${new Date(this.itineraryDate).getDate()}/${new Date(this.itineraryDate).getMonth()}/${new Date(this.itineraryDate).getFullYear()}`;
+    return `${new Date(date).getDate()}/${new Date(date).getMonth()}/${new Date(date).getFullYear()}`;
   }
 
   onOptionChanged({ index }) {
