@@ -9,6 +9,7 @@ import makePostUserUseCase from './post-user';
 import makeLoginUseCase from './login';
 import makeTokenUseCase from './token';
 import makeLogoutUseCase from './logout';
+import makeGetUserInfoUseCase from './get-user.info';
 
 import db from '../adapters/data-access';
 import coordinates from '../adapters/coordinates';
@@ -25,6 +26,7 @@ const postUserUseCase = makePostUserUseCase({ db });
 const loginUseCase = makeLoginUseCase({ db, auth });
 const tokenUseCase = makeTokenUseCase({ db, auth });
 const logoutUseCase = makeLogoutUseCase({ db });
+const getUserInfoUseCase = makeGetUserInfoUseCase({ db });
 
 const useCases = Object.freeze({
   listCategoriesUseCase,
@@ -37,7 +39,8 @@ const useCases = Object.freeze({
   postUserUseCase,
   loginUseCase,
   tokenUseCase,
-  logoutUseCase
+  logoutUseCase,
+  getUserInfoUseCase
 });
 
 export default useCases;
@@ -52,5 +55,6 @@ export {
   postUserUseCase,
   loginUseCase,
   tokenUseCase,
-  logoutUseCase
+  logoutUseCase,
+  getUserInfoUseCase
 };

@@ -78,7 +78,10 @@ export class ResultsComponent implements OnInit {
       .subscribe(() => {
         const itineraryRatingDate = new Date(this.itineraryDate).setDate(new Date(this.itineraryDate).getDate() + 1);
         const itineraryRatingDateString = this.convertDateToString(itineraryRatingDate);
-        this.dialog.open(InfoDialog, { width: '650px', data: { date: itineraryRatingDateString } });
+        const dialogRef = this.dialog.open(InfoDialog, { width: '650px', data: { date: itineraryRatingDateString } });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigateByUrl('/home');
+        });
       });
   }
 

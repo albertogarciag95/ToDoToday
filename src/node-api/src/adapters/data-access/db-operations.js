@@ -8,8 +8,10 @@ export default function makeDbOperations() {
     getAllCategories,
     getAllPlaces,
     getCategoryByName,
+    getCategoryById,
     queryPlaces,
     findPlaceByTitle,
+    findPlaceById,
     postPlace,
     removePlace,
     findUser,
@@ -20,7 +22,8 @@ export default function makeDbOperations() {
     findToken,
     removeToken,
     postItinerary,
-    saveUserItinerary
+    saveUserItinerary,
+    findItineraryById
   })
 
   async function getAllCategories() {
@@ -33,6 +36,10 @@ export default function makeDbOperations() {
 
   async function getCategoryByName(name) {
     return await categoriesModel.find({ name });
+  }
+
+  async function getCategoryById(id) {
+    return await categoriesModel.find({ _id: id });
   }
 
   async function queryPlaces({ category, price, date }) {
@@ -60,6 +67,10 @@ export default function makeDbOperations() {
   async function findPlaceByTitle(title) {
     const place = await placesModel.find({ title });
     return place;
+  }
+
+  async function findPlaceById(id) {
+    return await placesModel.find({ _id: id });
   }
 
   async function postPlace(place) {
@@ -114,8 +125,12 @@ export default function makeDbOperations() {
 
   async function saveUserItinerary(itineraryId, user) {
     const userEntity = new userModel(user);
-    userEntity.itineraries.push(itineraryId);
-    return userEntity.save();
+    const { userName } = userEntity;
+    return userModel.update({ userName }, { $push: { itineraries: itineraryId }}, { new: true, upsert: true });
+  }
+
+  async function findItineraryById(id){
+    return await itineraryModel.find({ _id: id });
   }
 }
 

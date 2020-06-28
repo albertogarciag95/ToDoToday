@@ -14,6 +14,9 @@ const routes: Routes = [
     import('./register/register.module').then(mod => mod.RegisterModule) },
   { path: 'login', loadChildren: () =>
     import('./login/login.module').then(mod => mod.LoginModule) },
+  { path: 'profile', loadChildren: () =>
+    import('./profile/profile.module').then(mod => mod.ProfileModule),
+    canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'home' }
 ];
 

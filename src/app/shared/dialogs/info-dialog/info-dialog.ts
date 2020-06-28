@@ -23,7 +23,7 @@ export class InfoDialog implements OnInit {
     if (userAdded) {
       this.showUserAddedDialog();
     }
-    if (status && error) {
+    if (status !== null && error) {
       this.showErrorDialog(status, error);
     }
   }
