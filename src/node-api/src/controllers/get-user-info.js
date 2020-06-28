@@ -15,10 +15,10 @@ export default function makeGetUserInfoController ({ getUserInfoUseCase }) {
       return {
         headers,
         statusCode: 200,
-        body: { userInfo }
+        body: userInfo
       }
     } catch (e) {
-      console.log("EEEEEEEEEEERROR", e);
+      console.log("ERROR", e);
       return {
         headers,
         statusCode: e.code,

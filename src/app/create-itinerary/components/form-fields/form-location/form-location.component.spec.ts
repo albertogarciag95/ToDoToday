@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { FormLocationComponent } from './form-location.component';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { HttpService } from 'src/app/shared/services/http/http.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { MapService } from 'src/app/results/components/map/service/map.service';
 
 const fakeData = {
   selected: [-3, 30],
@@ -29,6 +30,11 @@ class MdDialogMock {
 }
 
 describe('FormLocationComponent', () => {
+  const response: any = { features: [ { place_name: 'test'}]};
+
+  const spy = jasmine.createSpyObj('MapService', ['getGeocoding']);
+  spy.getGeocoding.and.returnValue( of(response) );
+
   let component: FormLocationComponent;
   let fixture: ComponentFixture<FormLocationComponent>;
   let fixtureDialog: ComponentFixture<MapSelectDialog>;
@@ -49,6 +55,7 @@ describe('FormLocationComponent', () => {
       declarations: [ FormLocationComponent ],
       providers: [
         { provide: MatDialogRef, useValue: MdDialogMock },
+        { provide: MapService, useValue: spy },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         HttpService,
         AuthService
@@ -106,27 +113,17 @@ describe('FormLocationComponent', () => {
 
   });
 
-  it('toggle my location', () => {
+  it('toggle my location', fakeAsync(() => {
     const toggle = fixture.debugElement.query(By.css('mat-slide-toggle'));
     toggle.triggerEventHandler('change', { checked: true });
+    tick(300);
+    expect(component).toBeTruthy();
+  }));
 
-    expect(component.getMyLocation).toHaveBeenCalled();
-  });
-
-  it('toggle my location (uncheck)', () => {
+  it('toggle my location - false', fakeAsync(() => {
     spyOn(component.userLocationChange, 'emit');
     const toggle = fixture.debugElement.query(By.css('mat-slide-toggle'));
     toggle.triggerEventHandler('change', { checked: false });
-
     expect(component.userLocationChange.emit).toHaveBeenCalledWith(undefined);
-  });
-
-  it('toggle my location (uncheck)', () => {
-    spyOn(component.userLocationChange, 'emit');
-    const position = { coords: { latitude: 30, longitude: -3 }};
-    component.returnMyLocation(position);
-
-    expect(component.userLocationChange.emit).toHaveBeenCalledWith(
-      { latitude: position.coords.latitude, longitude: position.coords.longitude });
-  });
+  }));
 });

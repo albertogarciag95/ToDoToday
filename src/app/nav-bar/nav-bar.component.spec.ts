@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { NavBarComponent } from './nav-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,9 +7,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
+import { LoginComponent } from '../login/login.component';
+import { Router } from '@angular/router';
+
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
-
+  let routerSpy: Router;
   let fixture: ComponentFixture<NavBarComponent>;
 
   const authServiceSpy = jasmine.createSpyObj('AuthService', ['updateUserLogged', 'currentUser']);
@@ -19,12 +22,15 @@ describe('NavBarComponent', () => {
   const domSanitizerSpy = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustResourceUrl']);
 
   beforeEach(async(() => {
+    routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ NavBarComponent ],
+      imports: [ HttpClientTestingModule ],
+      declarations: [ NavBarComponent, LoginComponent ],
       providers: [
         { provide: DomSanitizer, useValue: domSanitizerSpy },
-        { provide: AuthService, useValue: authServiceSpy }
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: Router, useValue: routerSpy }
       ]
     })
     .compileComponents();
@@ -40,4 +46,5 @@ describe('NavBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

@@ -17,7 +17,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   userLogged: string;
   userFile: SafeResourceUrl;
 
-  constructor(private router: Router, private authService: AuthService, private sanitizer: DomSanitizer) {}
+  constructor(public router: Router, private authService: AuthService, private sanitizer: DomSanitizer) {}
 
   hola() {
     this.router.navigate(['/results'], { state: fakeState });

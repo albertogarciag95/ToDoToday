@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MapSelectDialog } from '../../dialogs/map-select-dialog/map-select-dialog';
 import { environment } from '../../../../../environments/environment';
+import { MapService } from 'src/app/results/components/map/service/map.service';
 
 @Component({
   selector: 'app-form-location',
@@ -18,7 +19,7 @@ export class FormLocationComponent implements OnInit {
   isMapOpened = false;
   myLocationChecked = false;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public service: MapService) { }
 
   onSelectOtherPoint() {
     this.getMyLocation(this.openMapDialog.bind(this));
@@ -36,7 +37,12 @@ export class FormLocationComponent implements OnInit {
       this.location = result.location.split(', ')
         .filter(item => item !== environment.CITY && !environment.COUNTRY.includes(item))
         .join(', ');
-      this.userLocationChange.emit({ longitude: result.selected[0], latitude: result.selected[1] });
+
+      this.userLocationChange.emit({
+        longitude: result.selected[0],
+        latitude: result.selected[1],
+        location: this.location
+      });
       this.state = 'completed';
     });
   }
@@ -49,7 +55,8 @@ export class FormLocationComponent implements OnInit {
 
   onToggleMyLocation(toggle) {
     if (toggle.checked) {
-      this.getMyLocation(this.returnMyLocation.bind(this));
+      setTimeout(() => this.getMyLocation(this.returnMyLocation.bind(this)), 300);
+
     } else {
       this.userLocationChange.emit(undefined);
     }
@@ -64,7 +71,20 @@ export class FormLocationComponent implements OnInit {
   }
 
   returnMyLocation(position) {
-    this.userLocationChange.emit({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    this.service.getGeocoding([longitude, latitude]).subscribe(
+      response => {
+        let result = response.features[0].place_name;
+        this.location = result.split(', ')
+          .filter(item => item !== environment.CITY && !environment.COUNTRY.includes(item))
+          .join(', ');
+
+        this.userLocationChange.emit({ latitude, longitude: position.coords.longitude, location: this.location });
+        this.state = 'completed';
+      });
+
   }
 
   ngOnInit(): void {
