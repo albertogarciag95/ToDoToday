@@ -17,4 +17,9 @@ describe('ResultsService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should start itinerary', () => {
+    service.startItinerary(null);
+    expect(service).toBeTruthy();
+  });
 });
