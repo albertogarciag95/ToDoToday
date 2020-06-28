@@ -3,7 +3,7 @@ export interface User {
   userName: string;
   birthDate?: Date;
   email: string;
-  password: string;
+  password?: string;
   userImage?: File,
   itineraries?: any[]
 }

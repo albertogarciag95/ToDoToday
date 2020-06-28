@@ -12,7 +12,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthService } from './shared/services/auth/auth.service';
 import { ResultsService } from './results/service/results.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,

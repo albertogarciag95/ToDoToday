@@ -13,6 +13,7 @@ import {
   listCategoriesController,
   postItineraryController,
   startItineraryController,
+  getUserInfoController,
   postUserController,
   loginController,
   tokenController,
@@ -67,7 +68,7 @@ const authenticateUser = (req, res, next) => {
   const token = req.cookies.access_token || '';
   try {
     if (!token) {
-      return res.status(403).json('You need to Login');
+      return res.status(401).json('You need to Login');
     }
     auth.verifyAuthMiddleware(req, res, next, token);
   } catch (err) {
@@ -81,6 +82,7 @@ app.get(`${apiRoot}/categories`, authenticateUser, makeExpressCallback(listCateg
 app.post(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(postItineraryController));
 app.put(`${apiRoot}/itinerary`, authenticateUser, makeExpressCallback(startItineraryController));
 app.post(`${apiRoot}/user`, upload.single('userImage'), makeExpressCallback(postUserController));
+app.get(`${apiRoot}/user/:userName`, authenticateUser, makeExpressCallback(getUserInfoController));
 app.post(`${apiRoot}/login`, makeExpressCallback(loginController));
 app.post(`${apiRoot}/token`, authenticateUser, makeExpressCallback(tokenController));
 app.delete(`${apiRoot}/token`, makeExpressCallback(logoutController));
