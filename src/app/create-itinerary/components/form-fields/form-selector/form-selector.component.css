@@ -49,8 +49,11 @@ h3, mat-checkbox, .completed .step-completed{
 .step-completed {
   margin-top: 10px;
   display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
+  width: 128%;
+}
+
+.step-completed span {
+  margin-right: 20px;
 }
 
 .step-completed a {
@@ -64,6 +67,7 @@ h3, mat-checkbox, .completed .step-completed{
 
 .completed {
   display: inline-flex;
+  width: 100%;
 }
 
 .disabled {

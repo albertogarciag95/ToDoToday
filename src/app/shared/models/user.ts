@@ -4,6 +4,6 @@ export interface User {
   birthDate?: Date;
   email: string;
   password?: string;
-  userImage?: string,
-  itineraries?: any[]
+  userImage?: string;
+  itineraries?: any[];
 }

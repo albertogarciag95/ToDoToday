@@ -4,7 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { BarRatingModule } from "ngx-bar-rating";
+import { BarRatingModule } from 'ngx-bar-rating';
 
 const routes: Routes = [
   { path: '', component: ProfileComponent }
