@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './shared/services/auth/auth.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
-import fakeState from './shared/mocks/fake-state';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

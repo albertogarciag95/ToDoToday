@@ -2,6 +2,7 @@ h1 {
   font-family: "Raleway Medium";
   color: #7862DA;
   text-shadow: 1px 1px 1px #000000;
+  margin-right: 30px;
   width: 100%;
 }
 
@@ -59,12 +60,10 @@ mat-datepicker-toggle {
 
 .step-completed {
   margin-top: 10px;
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
   font-family: "Raleway Medium";
   color: #000;
   font-size: 1.2em;
+  width: 20%;
 }
 
 .step-completed a {
@@ -73,6 +72,10 @@ mat-datepicker-toggle {
   text-shadow: 1px 1px 1px #000000;
   cursor: pointer;
   margin-left: 20px;
+}
+
+.step-completed .edit {
+  margin-left: 50px;
 }
 
 .completed {

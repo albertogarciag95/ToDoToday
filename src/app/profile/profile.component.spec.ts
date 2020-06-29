@@ -24,8 +24,7 @@ describe('ProfileComponent', () => {
       totalPrice: 1,
       totalDistance: 1
     }]
-  }
-  
+  };
   const profileServiceSpy = jasmine.createSpyObj('ProfileService', ['getUserInfo']);
   profileServiceSpy.getUserInfo.and.returnValue( of(userInfo) );
 

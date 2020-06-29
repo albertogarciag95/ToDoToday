@@ -76,7 +76,7 @@ export class FormLocationComponent implements OnInit {
 
     this.service.getGeocoding([longitude, latitude]).subscribe(
       response => {
-        let result = response.features[0].place_name;
+        const result = response.features[0].place_name;
         this.location = result.split(', ')
           .filter(item => item !== environment.CITY && !environment.COUNTRY.includes(item))
           .join(', ');
