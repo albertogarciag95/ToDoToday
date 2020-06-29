@@ -22,7 +22,6 @@ script:
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
   - npm run server-test
 
-
 # Deploy https://betca-tpv-angular.herokuapp.com #TODO
 #deploy:
   #provider: heroku
